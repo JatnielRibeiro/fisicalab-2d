@@ -178,3 +178,38 @@ footer{border-top:1px solid rgba(32,43,53,.08);background:rgba(255,255,255,.58);
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid rgba(13,148,136,.45)!important;outline-offset:3px!important}
 @media(max-width:760px){.hero{border-width:5px!important;padding:20px!important}.panel{padding:17px!important}.lab-visual,.visual-resource{border-width:3px!important}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+
+
+/* UNIVERSOLAB — identidade visual global clara, científica e acolhedora */
+:root{--bg:#f8fafc;--panel:#ffffff;--panel2:#f1f5f9;--primary:#0d9488;--green:#0f766e;--text:#202b35;--muted:#64748b;--border:#dbe3ea;--font-heading:"Fredoka",sans-serif;--font-body:"Nunito",sans-serif}
+html,body{min-height:100%;font-family:var(--font-body)!important;color:var(--text)!important}
+body{background-color:#fbfaf5!important;background-image:radial-gradient(rgba(71,85,105,.13) 1px,transparent 1.25px),radial-gradient(circle at 78% 0%,rgba(13,148,136,.07),transparent 42%)!important;background-size:24px 24px,100% 100%!important}
+header{background:rgba(255,255,255,.94)!important;border-bottom:1px solid #e2e8f0!important;color:#334155!important;backdrop-filter:blur(12px)}
+.site-header{background:rgba(255,255,255,.94)!important;border-bottom:1px solid #e2e8f0!important}
+.site-header .brand{font-family:var(--font-heading)!important;color:#172033!important}
+.site-header .brand em{color:#0d9488!important}
+.site-header .brand-mark{background:#0d9488!important;box-shadow:0 4px 0 #0f766e!important}
+.site-header .discipline-link{color:#334155!important;text-decoration:none!important;font:900 13px var(--font-body)!important;padding:9px 10px!important;border-radius:20px!important;white-space:nowrap!important}
+.site-header .discipline-link:hover{background:#ccfbf1!important;color:#0f766e!important}
+.site-header .lab-dropdown-toggle{background:#e2e8f0!important;color:#263445!important}
+.site-header .lab-dropdown-menu{background:#fff!important;border-color:#dbe3ea!important}
+.site-header .lab-dropdown-menu a{color:#334155!important}
+.wrap{background:transparent!important}
+aside,.panel,.metric,.question,.cards a{background:#fff!important;border-color:#dbe3ea!important;color:#202b35!important;box-shadow:0 5px 18px rgba(24,39,56,.045)}
+aside a,.menu-item{color:#334155!important}
+aside a:hover,aside a.active,.menu-item.active{background:#ccfbf1!important;color:#0f766e!important}
+h1,h2,h3,.hero h1,.panel h2{font-family:var(--font-heading)!important;color:#172033!important}
+p,.muted,.hero p,.field label,aside b{color:#526174!important}
+.field input,.field select,.panel .field select,.question button{background:#fff!important;color:#202b35!important;border:1px solid #cbd5e1!important;border-radius:9px!important}
+.formula{background:#f1f5f9!important;color:#172033!important;border-left:4px solid #0d9488!important;border-radius:9px!important}
+.MathJax,.MathJax *{color:#172033!important}
+.MathJax{max-width:100%;overflow-x:auto;overflow-y:hidden}
+.btn,.btn-primary,.btn-secondary{font-family:var(--font-body)!important;font-weight:900!important;border-radius:22px!important}
+.btn,.btn-primary{background:#0d9488!important;color:#fff!important}
+.btn-secondary{background:#e2e8f0!important;color:#334155!important;border:1px solid #cbd5e1!important}
+.metric strong{color:#0f766e!important}
+.lab-visual,.visual-resource{background:#10243a!important;border-color:#dbe3ea!important}
+.step-item{background:#fff!important;border-color:#dbe3ea!important;color:#202b35!important}
+.step-item b{color:#0f766e!important}
+footer{background:rgba(255,255,255,.7)!important;color:#64748b!important;border-top:1px solid #e2e8f0!important}
+@media(max-width:850px){.site-header{height:auto!important;min-height:62px!important;flex-wrap:wrap!important;padding:9px 14px!important}.site-header nav{gap:3px!important;flex-wrap:wrap!important}.site-header .discipline-link{font-size:11px!important;padding:7px 8px!important}}
