@@ -120,7 +120,7 @@ function renderExperiment(c){
   }else if(p==='vetores'){
    const rad=d=>d*Math.PI/180,A=params.a||0,B=params.b||0,ax=A*Math.cos(rad(params.angleA||0)),ay=A*Math.sin(rad(params.angleA||0)),bx=B*Math.cos(rad(params.angleB||0)),by=B*Math.sin(rad(params.angleB||0)),rx=ax+bx,ry=ay+by,scale=Math.min(w,h)*.34/Math.max(1,A,B,Math.hypot(rx,ry)),ox=w*.5,oy=h*.58;
    ctx.strokeStyle='#64748b';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(25,oy);ctx.lineTo(w-25,oy);ctx.moveTo(ox,20);ctx.lineTo(ox,h-25);ctx.stroke();
-   arrow(ox,oy,ax*scale,-ay*scale,'#38bdf8','A');arrow(ox,oy,bx*scale,-by*scale,'#fbbf24','B');arrow(ox,oy,rx*scale,-ry*scale,'#34d399','R');
+   arrow(ox,oy,ox+ax*scale,oy-ay*scale,'#38bdf8','A');arrow(ox,oy,ox+bx*scale,oy-by*scale,'#fbbf24','B');arrow(ox,oy,ox+rx*scale,oy-ry*scale,'#34d399','R');
    ctx.fillStyle='#f8fafc';ctx.font='bold 13px Arial';ctx.fillText('SOMA VETORIAL — REGRA DO PARALELOGRAMO',24,24);ctx.fillStyle='#cbd5e1';ctx.font='12px Arial';ctx.fillText('A = ('+fmt(ax)+', '+fmt(ay)+')',24,48);ctx.fillText('B = ('+fmt(bx)+', '+fmt(by)+')',24,67);ctx.fillText('R = ('+fmt(rx)+', '+fmt(ry)+')',24,86);
   }
   ctx.fillStyle='#94a3b8';ctx.fillText('Representação didática — não está em escala',24,h-12);
