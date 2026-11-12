@@ -141,3 +141,40 @@ body .wrap>main{width:100%!important;min-width:0!important}
 .site-header .lab-dropdown-menu a{display:flex!important;flex:0 0 auto!important;align-items:center!important;width:100%!important;padding:10px 11px!important;margin:0!important;border-radius:9px!important;color:#27272a!important;text-decoration:none!important;font:800 13px Nunito,Arial,sans-serif!important;white-space:normal!important;background:transparent!important}
 .site-header .lab-dropdown-menu a:hover,.site-header .lab-dropdown-menu a.active{background:#ccfbf1!important;color:#0f766e!important}
 @media(max-width:580px){.site-header{height:62px!important;min-height:62px!important;padding:0 14px!important;gap:10px!important}.site-header .brand{font-size:20px!important}.site-header .brand-mark{width:36px!important;height:36px!important}.site-header .lab-dropdown-menu{left:auto!important;right:0!important;width:min(270px,calc(100vw - 28px))!important}}
+
+/* FÍSICALAB 2D — ambientação das páginas experimentais: laboratório escolar ilustrado */
+:root{--lab-board:#087f70;--lab-board-dark:#075e54;--lab-chalk:#fffdf4;--lab-yellow:#ffc928;--lab-coral:#f47d91;--lab-paper:#fbfaf5;--lab-ink:#202b35}
+html{background:var(--lab-paper)!important}
+body{position:relative;isolation:isolate;min-height:100vh;background-color:var(--lab-paper)!important;background-image:linear-gradient(rgba(61,91,95,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(61,91,95,.055) 1px,transparent 1px),radial-gradient(ellipse at 12% 12%,rgba(255,201,40,.13),transparent 28%),radial-gradient(ellipse at 92% 28%,rgba(13,148,136,.10),transparent 32%),radial-gradient(ellipse at 50% 100%,rgba(244,125,145,.10),transparent 38%)!important;background-size:28px 28px,28px 28px,100% 100%,100% 100%,100% 100%!important;color:var(--lab-ink)!important}
+body::before{content:"";position:fixed;z-index:-1;pointer-events:none;inset:92px 0 0;opacity:.48;background:radial-gradient(ellipse at 4% 18%,rgba(8,127,112,.10) 0 5px,transparent 6px),radial-gradient(ellipse at 96% 62%,rgba(244,125,145,.15) 0 7px,transparent 8px),linear-gradient(135deg,transparent 0 48%,rgba(8,127,112,.07) 49% 50%,transparent 51%) 0 0/170px 170px}
+.hero{position:relative;overflow:hidden;isolation:isolate;padding:clamp(22px,3.2vw,34px)!important;margin:0 0 20px!important;border:7px solid #e9a4ad!important;border-radius:13px!important;background:linear-gradient(145deg,rgba(255,255,255,.035),transparent 48%),repeating-linear-gradient(0deg,transparent 0 31px,rgba(255,255,255,.045) 32px 33px),linear-gradient(135deg,var(--lab-board),var(--lab-board-dark))!important;box-shadow:0 5px 0 rgba(116,76,62,.16),0 12px 28px rgba(32,43,53,.09),inset 0 0 0 2px rgba(255,255,255,.15)!important}
+.hero::after{content:"";position:absolute;z-index:-1;width:170px;height:170px;right:22px;bottom:-92px;border:2px dashed rgba(255,255,255,.22);border-radius:50%;box-shadow:0 0 0 15px rgba(255,255,255,.035),0 0 0 31px rgba(255,255,255,.025)}
+.hero h1{color:var(--lab-chalk)!important;text-shadow:0 2px 0 rgba(0,0,0,.12);letter-spacing:-.45px!important}
+.hero p{max-width:850px;color:rgba(255,253,244,.91)!important;font-weight:700!important}
+.hero .eyebrow,.hero .badge{color:#ffe28a!important}
+.panel,.learning-card{background:rgba(255,255,255,.97)!important;border:1px solid #deded5!important;border-radius:14px!important;box-shadow:0 5px 0 rgba(32,43,53,.035),0 10px 24px rgba(32,43,53,.055)!important}
+.panel{position:relative;border-top:4px solid #0d9488!important}
+.panel h2,.learning-card h2{color:#202b35!important}
+.learning-card{border-top:4px solid var(--lab-yellow)!important}
+.learning-illustration{background:#f0f5ed!important;border:1px solid #d8e4d8!important}
+.eyebrow{color:#087f70!important}
+.field input,.field select,.panel .field select{background:#fffefa!important;border:1.5px solid #d7d8d0!important;color:#202b35!important;box-shadow:inset 0 1px 2px rgba(32,43,53,.035)}
+.field input:focus,.field select:focus{border-color:#0d9488!important;outline:3px solid rgba(13,148,136,.13)!important}
+.metric{background:#f2f7f2!important;border:1px solid #dce8dc!important;border-radius:11px!important}
+.metric strong{color:#087f70!important}
+.formula{background:#f1f6ef!important;border-left:4px solid #0d9488!important;color:#202b35!important;border-radius:8px!important}
+.step-item{background:#fffdf7!important;border:1px solid #e9e2cf!important;border-left:4px solid #eabf35!important;border-radius:10px!important}
+.step-item b{color:#087f70!important}.step-item p{color:#303b42!important}
+.btn{background:#0d9488!important;border:1px solid #087f70!important;border-radius:9px!important;box-shadow:0 2px 0 #075e54!important;transition:transform .15s ease,filter .15s ease,box-shadow .15s ease}
+.btn:hover{filter:brightness(1.06);transform:translateY(-1px);box-shadow:0 3px 0 #075e54!important}
+.btn:active{transform:translateY(1px);box-shadow:0 1px 0 #075e54!important}
+.btn.secondary{background:#fff4c7!important;color:#55451a!important;border:1px solid #e8d58c!important;box-shadow:0 2px 0 #d7c17b!important}
+.static-tabs .btn.secondary{background:#fff4c7!important;color:#55451a!important}
+.lab-visual,.visual-resource{background:#172b32!important;border:5px solid #e7e2d5!important;outline:1px solid #c9c6b9;border-radius:9px!important;box-shadow:0 4px 0 rgba(32,43,53,.12)!important}
+.visual-controls{padding:4px 0}.visual-speed{font-weight:800!important}
+footer{border-top:1px solid rgba(32,43,53,.08);background:rgba(255,255,255,.58);font-weight:700!important}
+.site-header{box-shadow:0 2px 12px rgba(32,43,53,.045)!important}
+.site-header .lab-dropdown-toggle{background:#e8f3ed!important}.site-header .lab-dropdown-toggle:hover{background:#d7eee5!important}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid rgba(13,148,136,.45)!important;outline-offset:3px!important}
+@media(max-width:760px){.hero{border-width:5px!important;padding:20px!important}.panel{padding:17px!important}.lab-visual,.visual-resource{border-width:3px!important}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
