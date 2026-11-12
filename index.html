@@ -270,6 +270,31 @@ footer {
   .metric { padding: 12px; }
   .metric strong { font-size: 18px; }
 }
+
+/* Módulo avançado de lançamento oblíquo */
+.advanced-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.8fr);gap:18px}
+.advanced-canvas{width:100%;height:360px;background:#081321;border:1px solid var(--border);border-radius:12px;display:block}
+.advanced-controls{background:var(--panel2);border-radius:12px;padding:16px}
+.advanced-controls .control{margin:14px 0}
+.advanced-controls input[type=number],.advanced-controls select{width:100%;background:#0c1728;color:var(--text);border:1px solid var(--border);border-radius:7px;padding:9px}
+.advanced-controls label{display:block;color:var(--muted);font-size:13px;margin-bottom:6px}
+.advanced-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.advanced-options .control{margin:8px 0}
+.advanced-charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.chart-card{background:#0c1728;border:1px solid var(--border);border-radius:10px;padding:12px;min-width:0}
+.chart-card h3{font-size:14px;margin:0 0 8px;color:#cbd5e1}
+.chart-canvas{width:100%;height:210px;display:block}
+.advanced-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}
+.advanced-metrics .metric{padding:12px}
+.advanced-metrics .metric strong{font-size:18px}
+.step-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:10px}
+.step-table th,.step-table td{padding:8px;border-bottom:1px solid var(--border);text-align:right}
+.step-table th:first-child,.step-table td:first-child{text-align:left}
+.step-table th{color:var(--muted);font-weight:600}
+.step-wrap{overflow-x:auto;max-height:260px}
+.model-note{color:var(--muted);font-size:12px;line-height:1.5}
+@media(max-width:950px){.advanced-grid{grid-template-columns:1fr}.advanced-charts{grid-template-columns:1fr}.advanced-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 </style>
 </head>
 
@@ -389,6 +414,64 @@ footer {
           </div>
         </div>
       </section>
+
+
+<section class="panel" id="advancedProjectile">
+  <div class="panel-title">
+    <h2>🧪 Laboratório avançado — lançamento oblíquo</h2>
+    <span class="status">Modelo ideal + resistência do ar</span>
+  </div>
+  <p class="explanation">Investigue como a altura inicial e a resistência do ar modificam a trajetória. Compare os modelos, acompanhe os vetores e observe os gráficos em tempo real.</p>
+  <div class="advanced-grid">
+    <div>
+      <canvas id="advTrajectory" class="advanced-canvas" aria-label="Trajetórias do lançamento oblíquo"></canvas>
+      <div class="buttons">
+        <button class="btn-primary" id="advPlay">▶ Animar</button>
+        <button class="btn-secondary" id="advPause">Ⅱ Pausar</button>
+        <button class="btn-secondary" id="advReset">↻ Reiniciar</button>
+        <button class="btn-secondary" id="advCSV">⇩ Exportar CSV</button>
+      </div>
+      <div class="control">
+        <label for="advTime">Tempo da simulação <strong id="advTimeLabel">0,00 s</strong></label>
+        <input id="advTime" type="range" min="0" max="1" step="0.01" value="0">
+      </div>
+    </div>
+    <div class="advanced-controls">
+      <h3 style="margin-top:0">Parâmetros do experimento</h3>
+      <div class="control"><label for="advModel">Modelo físico</label>
+        <select id="advModel"><option value="both">Comparar ideal e com ar</option><option value="ideal">Sem resistência do ar</option><option value="drag">Com resistência do ar</option></select>
+      </div>
+      <div class="advanced-options">
+        <div class="control"><label for="advV">Velocidade inicial (m/s)</label><input id="advV" type="number" min="1" max="100" step="1" value="25"></div>
+        <div class="control"><label for="advAngle">Ângulo (°)</label><input id="advAngle" type="number" min="1" max="89" step="1" value="45"></div>
+        <div class="control"><label for="advHeight">Altura inicial (m)</label><input id="advHeight" type="number" min="0" max="100" step="0.5" value="0"></div>
+        <div class="control"><label for="advG">Gravidade (m/s²)</label><input id="advG" type="number" min="1" max="20" step="0.1" value="9.8"></div>
+        <div class="control"><label for="advMass">Massa (kg)</label><input id="advMass" type="number" min="0.01" max="100" step="0.1" value="1"></div>
+        <div class="control"><label for="advCd">Coeficiente Cd</label><input id="advCd" type="number" min="0.01" max="2" step="0.01" value="0.47"></div>
+        <div class="control"><label for="advArea">Área frontal (m²)</label><input id="advArea" type="number" min="0.001" max="5" step="0.001" value="0.01"></div>
+        <div class="control"><label for="advRho">Densidade do ar (kg/m³)</label><input id="advRho" type="number" min="0.1" max="2" step="0.01" value="1.225"></div>
+      </div>
+      <p class="model-note">O arrasto é quadrático: F<sub>d</sub> = ½ ρ Cd A v², sempre contrário ao vetor velocidade. A integração numérica utiliza o método RK4.</p>
+      <div class="buttons"><button class="btn-primary" id="advApply">Atualizar experimento</button></div>
+    </div>
+  </div>
+  <div class="advanced-metrics">
+    <div class="metric"><small>Alcance ideal</small><strong id="advRangeIdeal">—</strong><span>m</span></div>
+    <div class="metric"><small>Alcance com ar</small><strong id="advRangeDrag">—</strong><span>m</span></div>
+    <div class="metric"><small>Altura máxima (ar)</small><strong id="advMaxHeight">—</strong><span>m</span></div>
+    <div class="metric"><small>Tempo de voo (ar)</small><strong id="advFlight">—</strong><span>s</span></div>
+  </div>
+  <div class="advanced-charts">
+    <div class="chart-card"><h3>Posição × tempo</h3><canvas id="advPositionChart" class="chart-canvas"></canvas></div>
+    <div class="chart-card"><h3>Velocidade × tempo</h3><canvas id="advVelocityChart" class="chart-canvas"></canvas></div>
+  </div>
+</section>
+<section class="panel" id="advResolution">
+  <div class="panel-title"><h2>🧭 Resolução passo a passo</h2><span class="status">Modelo matemático</span></div>
+  <div id="advSteps" class="explanation"></div>
+  <h3 style="font-size:15px">Amostras numéricas da trajetória com resistência do ar</h3>
+  <div class="step-wrap"><table class="step-table"><thead><tr><th>t (s)</th><th>x (m)</th><th>y (m)</th><th>vx (m/s)</th><th>vy (m/s)</th></tr></thead><tbody id="advDataRows"></tbody></table></div>
+</section>
 
       <section class="panel">
         <div class="panel-title">
@@ -709,6 +792,92 @@ resizeCanvas();
 calculate();
 </script>
 
+<script>
+
+/* FísicaLab 2D — módulo avançado de lançamento oblíquo */
+(()=>{
+ const $=id=>document.getElementById(id);
+ const ids=['advV','advAngle','advHeight','advG','advMass','advCd','advArea','advRho','advModel'];
+ const fmt=(n,d=2)=>Number.isFinite(n)?n.toFixed(d).replace('.',','):'—';
+ const num=id=>Math.max(0,Number($(id).value)||0);
+ let ideal=[],drag=[],duration=0,clock=0,raf=null,last=0,playing=false;
+ const dt=0.005;
+ function params(){return {v:num('advV'),a:num('advAngle')*Math.PI/180,h:num('advHeight'),g:Math.max(.01,num('advG')),m:Math.max(.001,num('advMass')),cd:num('advCd'),area:num('advArea'),rho:num('advRho'),model:$('advModel').value};}
+ function deriv(s,p){
+   const speed=Math.hypot(s.vx,s.vy),k=.5*p.rho*p.cd*p.area/p.m;
+   return {x:s.vx,y:s.vy,vx:-k*speed*s.vx,vy:-p.g-k*speed*s.vy};
+ }
+ function add(s,k,f){return {x:s.x+k.x*f,y:s.y+k.y*f,vx:s.vx+k.vx*f,vy:s.vy+k.vy*f};}
+ function rk4(s,p,h){
+   const a=deriv(s,p),b=deriv(add(s,a,h/2),p),c=deriv(add(s,b,h/2),p),d=deriv(add(s,c,h),p);
+   return {x:s.x+h*(a.x+2*b.x+2*c.x+d.x)/6,y:s.y+h*(a.y+2*b.y+2*c.y+d.y)/6,vx:s.vx+h*(a.vx+2*b.vx+2*c.vx+d.vx)/6,vy:s.vy+h*(a.vy+2*b.vy+2*c.vy+d.vy)/6};
+ }
+ function integrate(p,withDrag){
+   const s={x:0,y:p.h,vx:p.v*Math.cos(p.a),vy:p.v*Math.sin(p.a)},out=[{t:0,...s}];let t=0,guard=0;
+   while(s.y>=0&&guard<200000&&t<120){
+     const prev={...s},next=withDrag?rk4(s,p,dt):{x:s.x+s.vx*dt,y:s.y+s.vy*dt-.5*p.g*dt*dt,vx:s.vx,vy:s.vy-p.g*dt};
+     Object.assign(s,next);t+=dt;guard++;
+     if(s.y<0){const f=prev.y/(prev.y-s.y);out.push({t:t-dt+dt*f,x:prev.x+(s.x-prev.x)*f,y:0,vx:prev.vx+(s.vx-prev.vx)*f,vy:prev.vy+(s.vy-prev.vy)*f});break;}
+     if(guard%4===0)out.push({t,...s});
+   }
+   return out;
+ }
+ function build(){
+   const p=params(); if(!p.v||!p.g){return;}
+   const tIdeal=(p.v*Math.sin(p.a)+Math.sqrt((p.v*Math.sin(p.a))**2+2*p.g*p.h))/p.g;
+   ideal=Array.from({length:Math.max(2,Math.ceil(tIdeal/dt)+1)},(_,i)=>{const t=tIdeal*i/(Math.max(2,Math.ceil(tIdeal/dt)));return {t,x:p.v*Math.cos(p.a)*t,y:Math.max(0,p.h+p.v*Math.sin(p.a)*t-.5*p.g*t*t),vx:p.v*Math.cos(p.a),vy:p.v*Math.sin(p.a)-p.g*t};});
+   drag=integrate(p,true);duration=Math.max(ideal.at(-1).t,drag.at(-1).t);clock=0;
+   $('advTime').max=duration;$('advTime').value=0;$('advTimeLabel').textContent='0,00 s';
+   $('advRangeIdeal').textContent=fmt(ideal.at(-1).x);$('advRangeDrag').textContent=fmt(drag.at(-1).x);
+   $('advMaxHeight').textContent=fmt(Math.max(...drag.map(q=>q.y)));
+   $('advFlight').textContent=fmt(drag.at(-1).t);
+   steps(p,tIdeal);table();drawAll();
+ }
+ function sample(arr,t){let i=0;while(i<arr.length-2&&arr[i+1].t<t)i++;const a=arr[i],b=arr[Math.min(i+1,arr.length-1)],f=b.t===a.t?0:Math.max(0,Math.min(1,(t-a.t)/(b.t-a.t)));return Object.fromEntries(['x','y','vx','vy'].map(k=>[k,a[k]+(b[k]-a[k])*f]));}
+ function canvasSetup(id){const c=$(id),r=c.getBoundingClientRect(),d=window.devicePixelRatio||1;c.width=Math.max(1,r.width*d);c.height=Math.max(1,r.height*d);const x=c.getContext('2d');x.setTransform(d,0,0,d,0,0);return {c,x,w:r.width,h:r.height};}
+ function drawTrajectory(){
+   const {x,w,h}=canvasSetup('advTrajectory'),p=params(),all=ideal.concat(drag),maxX=Math.max(1,...all.map(q=>q.x))*1.12,maxY=Math.max(1,...all.map(q=>q.y))*1.25,L=42,R=16,T=18,B=34,sx=(w-L-R)/maxX,sy=(h-T-B)/maxY,scale=Math.min(sx,sy),ground=h-B;
+   x.clearRect(0,0,w,h);x.fillStyle='#081321';x.fillRect(0,0,w,h);
+   x.strokeStyle='#1d3048';x.lineWidth=1;for(let gx=L;gx<w-R;gx+=40){x.beginPath();x.moveTo(gx,T);x.lineTo(gx,ground);x.stroke();}for(let gy=ground;gy>T;gy-=40){x.beginPath();x.moveTo(L,gy);x.lineTo(w-R,gy);x.stroke();}
+   x.strokeStyle='#34d399';x.beginPath();x.moveTo(L,ground);x.lineTo(w-R,ground);x.stroke();
+   const path=(arr,color)=>{x.beginPath();x.strokeStyle=color;x.lineWidth=2.5;arr.forEach((q,i)=>{const X=L+q.x*scale,Y=ground-q.y*scale;i?x.lineTo(X,Y):x.moveTo(X,Y)});x.stroke();};
+   if(p.model!=='drag')path(ideal,'#38bdf8');if(p.model!=='ideal')path(drag,'#fb923c');
+   const chosen=p.model==='ideal'?ideal:drag,pt=sample(chosen,Math.min(clock,chosen.at(-1).t)),X=L+pt.x*scale,Y=ground-pt.y*scale;
+   x.fillStyle='#facc15';x.beginPath();x.arc(X,Y,6,0,Math.PI*2);x.fill();
+   const vec=(vx,vy,color)=>{const mag=Math.max(1,Math.hypot(vx,vy)),f=32/mag;x.strokeStyle=color;x.lineWidth=2;x.beginPath();x.moveTo(X,Y);x.lineTo(X+vx*f,Y-vy*f);x.stroke();};
+   if($('advVectors')?.checked!==false){vec(pt.vx,pt.vy,'#a78bfa');vec(0,-p.g,'#f87171');}
+   x.font='12px Arial';x.fillStyle='#cbd5e1';x.fillText('Azul: ideal',L,14);x.fillStyle='#fb923c';x.fillText('Laranja: com ar',L+95,14);x.fillStyle='#94a3b8';x.fillText('x (m)',w-45,h-8);x.fillText('y (m)',5,14);
+ }
+ function chart(id,key1,key2,label1,label2,color1,color2){
+   const {x,w,h}=canvasSetup(id),p=params(),arrs=[ideal,drag],maxT=duration||1,maxV=Math.max(1,...arrs.flatMap(a=>a.map(q=>Math.abs(q[key1]))),...arrs.flatMap(a=>a.map(q=>Math.abs(q[key2]||0))))*1.15,L=38,R=10,T=16,B=28;
+   x.clearRect(0,0,w,h);x.fillStyle='#0c1728';x.fillRect(0,0,w,h);x.strokeStyle='#26384f';x.fillStyle='#94a3b8';x.font='10px Arial';
+   for(let i=0;i<=4;i++){const yy=T+(h-T-B)*i/4;x.beginPath();x.moveTo(L,yy);x.lineTo(w-R,yy);x.stroke();x.fillText(fmt(maxV*(1-i/4),1),2,yy+3);}
+   x.fillText('0',L,h-8);x.fillText(fmt(maxT,1),w-30,h-8);
+   const draw=(arr,key,color)=>{x.beginPath();x.strokeStyle=color;x.lineWidth=2;arr.forEach((q,i)=>{const X=L+q.t/maxT*(w-L-R),Y=T+(h-T-B)*(1-q[key]/maxV);i?x.lineTo(X,Y):x.moveTo(X,Y)});x.stroke();};
+   if(p.model!=='drag'){draw(ideal,key1,color1);if(key2)draw(ideal,key2,'#60a5fa');}
+   if(p.model!=='ideal'){draw(drag,key1,color2);if(key2)draw(drag,key2,'#fdba74');}
+   x.fillStyle=color1;x.fillText(label1,L,11);if(label2){x.fillStyle=color2;x.fillText(label2,L+55,11);}
+ }
+ function drawAll(){drawTrajectory();chart('advPositionChart','x','y','x(t)','y(t)','#38bdf8','#fb923c');chart('advVelocityChart','vx','vy','vx(t)','vy(t)','#a78bfa','#f87171');}
+ function steps(p,ti){
+   const vx=p.v*Math.cos(p.a),vy=p.v*Math.sin(p.a),hmax=p.h+vy*vy/(2*p.g),tmax=(vy+Math.sqrt(vy*vy+2*p.g*p.h))/p.g,range=vx*tmax;
+   $('advSteps').innerHTML='<p><b>1. Decomposição da velocidade inicial</b></p><div class="formula">v₀x = v₀ cos θ = '+fmt(vx)+' m/s; &nbsp; v₀y = v₀ sen θ = '+fmt(vy)+' m/s</div><p><b>2. Modelo ideal (sem resistência do ar)</b></p><div class="formula">x(t) = v₀x · t<br>y(t) = h₀ + v₀y · t − ½ g t²</div><p><b>3. Tempo de impacto e alcance ideal</b></p><div class="formula">t<sub>voo</sub> = '+fmt(tmax)+' s<br>A = v₀x · t<sub>voo</sub> = '+fmt(range)+' m<br>H<sub>máx</sub> = h₀ + v₀y²/(2g) = '+fmt(hmax)+' m</div><p><b>4. Modelo com resistência do ar</b></p><div class="formula">a<sub>x</sub> = −k v v<sub>x</sub>; &nbsp; a<sub>y</sub> = −g − k v v<sub>y</sub><br>k = ρ Cd A/(2m) = '+fmt(p.rho*p.cd*p.area/(2*p.m),4)+' kg/m</div><p>Como a força de arrasto depende do módulo da velocidade, as equações são acopladas e resolvidas numericamente pelo método de Runge–Kutta de 4ª ordem (RK4), com passo de '+fmt(dt,3)+' s. O alcance com ar é '+fmt(drag.at(-1).x)+' m.</p>';
+ }
+ function table(){const rows=$('advDataRows');rows.innerHTML='';const stride=Math.max(1,Math.floor(drag.length/12));drag.filter((q,i)=>i%stride===0||i===drag.length-1).slice(0,14).forEach(q=>{const tr=document.createElement('tr');[fmt(q.t),fmt(q.x),fmt(q.y),fmt(q.vx),fmt(q.vy)].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});rows.appendChild(tr)});}
+ function tick(ts){if(!playing)return;if(!last)last=ts;clock=Math.min(duration,clock+(ts-last)/1000);last=ts;$('advTime').value=clock;$('advTimeLabel').textContent=fmt(clock)+' s';drawTrajectory();if(clock>=duration){playing=false;return;}raf=requestAnimationFrame(tick);}
+ function pause(){playing=false;cancelAnimationFrame(raf);last=0;}
+ $('advApply').addEventListener('click',()=>{pause();build()});
+ $('advPlay').addEventListener('click',()=>{if(clock>=duration)clock=0;playing=true;last=0;raf=requestAnimationFrame(tick)});
+ $('advPause').addEventListener('click',pause);
+ $('advReset').addEventListener('click',()=>{pause();clock=0;$('advTime').value=0;$('advTimeLabel').textContent='0,00 s';drawTrajectory()});
+ $('advTime').addEventListener('input',e=>{pause();clock=Number(e.target.value);$('advTimeLabel').textContent=fmt(clock)+' s';drawTrajectory()});
+ $('advModel').addEventListener('change',drawAll);
+ $('advCSV').addEventListener('click',()=>{const csv=['tempo_s;x_m;y_m;vx_m_s;vy_m_s',...drag.map(q=>[q.t,q.x,q.y,q.vx,q.vy].join(';'))].join('\n'),blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='fisicalab_lancamento_obliquo.csv';a.click();URL.revokeObjectURL(url)});
+ window.addEventListener('resize',drawAll);
+ build();
+})();
+
+</script>
 </body>
 </html>
 
