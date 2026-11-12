@@ -58,4 +58,14 @@ nav a{color:#3f3f46}nav a:hover,nav a.active{background:#e4e4e7}nav .login{backg
 const filters=[...document.querySelectorAll('.filter')],cards=[...document.querySelectorAll('.card')],empty=document.getElementById('empty');
 filters.forEach(btn=>btn.addEventListener('click',()=>{filters.forEach(x=>x.classList.toggle('active',x===btn));const f=btn.dataset.filter;let count=0;cards.forEach(card=>{const cats=card.dataset.category.split(' '),show=f==='all'||cats.includes(f);card.style.display=show?'flex':'none';if(show)count++});empty.style.display=count?'none':'block'}));
 </script>
+<script>
+document.addEventListener('click',event=>{
+ const toggle=event.target.closest('.lab-dropdown-toggle');
+ const dropdown=document.querySelector('.lab-dropdown');
+ if(!dropdown)return;
+ if(toggle){const open=dropdown.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open));return;}
+ if(!event.target.closest('.lab-dropdown')){dropdown.classList.remove('open');dropdown.querySelector('.lab-dropdown-toggle')?.setAttribute('aria-expanded','false');}
+});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'){document.querySelectorAll('.lab-dropdown.open').forEach(el=>{el.classList.remove('open');el.querySelector('.lab-dropdown-toggle')?.setAttribute('aria-expanded','false');});}});
+</script>
 </body></html>
