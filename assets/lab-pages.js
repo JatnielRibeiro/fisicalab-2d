@@ -1,6 +1,6 @@
 const page=document.body.dataset.page;
 const nav=[['index.html','🚀 Lançamento Oblíquo'],['estatica.html','⚖️ Estática'],['movimento-retilineo.html','📐 Movimento Retilíneo'],['queda-livre.html','⚡ Queda Livre'],['gravitacao.html','🪐 Gravitação'],['energia-mecanica.html','🔋 Energia Mecânica'],['leis-newton.html','⚖️ Leis de Newton'],['movimento-circular.html','🔄 Movimento Circular'],['eletromagnetismo.html','🧲 Eletromagnetismo'],['conteudos.html','📚 Conteúdos'],['exercicios.html','📝 Exercícios']];
-document.body.innerHTML='<header><a class="brand" href="index.html">Física<span>Lab</span> 2D</a><span>Laboratório Virtual de Física</span></header><div class="wrap"><aside><b>EXPERIMENTOS E RECURSOS</b>'+nav.map(([u,n])=>'<a class="'+(u===page+'.html'?'active':'')+'" href="'+u+'">'+n+'</a>').join('')+'</aside><main id="mainContent"></main></div><footer>FísicaLab 2D · Projeto educacional e experimental</footer>';
+document.body.innerHTML='<header><a class="brand" href="index.html">Física<span>Lab</span> 2D</a><nav class="top-nav"><a href="index.html">Início</a><a href="index.html#laboratorios">Laboratórios</a></nav></header><div class="wrap"><aside><b>EXPERIMENTOS E RECURSOS</b>'+nav.map(([u,n])=>'<a class="'+(u===page+'.html'?'active':'')+'" href="'+u+'">'+n+'</a>').join('')+'</aside><main id="mainContent"></main></div><footer>FísicaLab 2D · Projeto educacional e experimental</footer>';
 /* Motor compartilhado das páginas do FísicaLab 2D */
 (()=>{
 const $=id=>document.getElementById(id),p=document.body.dataset.page;
