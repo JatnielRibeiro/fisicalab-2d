@@ -73,7 +73,7 @@ function renderExperiment(c){
    const ground=h*.84,top=h*.20,travel=ground-top-22,y=top+fraction*travel,towerX=w*.245,towerTop=top-4,towerBase=ground+4,tw=Math.min(92,w*.15),th=towerBase-towerTop;
    // Chão e Torre de Pisa: a plataforma superior define a origem da queda.
    ctx.fillStyle='#6b8b54';ctx.fillRect(20,ground,w-40,7);ctx.fillStyle='#a7b5c5';ctx.fillRect(20,ground+7,w-40,2);
-   ctx.save();ctx.translate(towerX,towerBase);ctx.rotate(-.075);ctx.fillStyle='#d8bda0';ctx.strokeStyle='#8b735e';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-tw*.5,0);ctx.lineTo(-tw*.38,-th);ctx.lineTo(tw*.38,-th);ctx.lineTo(tw*.5,0);ctx.closePath();ctx.fill();ctx.stroke();
+   ctx.save();ctx.translate(towerX,towerBase);ctx.rotate(.075);ctx.fillStyle='#d8bda0';ctx.strokeStyle='#8b735e';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-tw*.5,0);ctx.lineTo(-tw*.38,-th);ctx.lineTo(tw*.38,-th);ctx.lineTo(tw*.5,0);ctx.closePath();ctx.fill();ctx.stroke();
    for(let k=0;k<7;k++){const yy=-th+12+k*(th-18)/7,ww=tw*(.76+.035*k);ctx.strokeStyle='#a58c72';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-ww/2,yy);ctx.lineTo(ww/2,yy);ctx.stroke();for(let j=-2;j<=2;j++){const xx=j*ww/6;ctx.fillStyle='#8b7967';ctx.beginPath();ctx.arc(xx,yy+4,4,Math.PI,0);ctx.lineTo(xx+4,yy+12);ctx.lineTo(xx-4,yy+12);ctx.closePath();ctx.fill();}}
    ctx.fillStyle='#e8d8c4';ctx.fillRect(-tw*.43,-th-8,tw*.86,9);ctx.restore();
    // Altura de lançamento: seta vertical e linha tracejada até o solo.
