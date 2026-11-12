@@ -79,8 +79,12 @@ function renderExperiment(c){
    const ball=(x,yy,r,col)=>{ctx.fillStyle=col;ctx.beginPath();ctx.arc(x,yy,r,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#f8fafc';ctx.lineWidth=1.5;ctx.stroke()};
    ball(x1,y,r1,'#38bdf8');ball(x2,y,r2,'#fbbf24');
    ctx.fillStyle='#e2e8f0';ctx.font='12px Arial';ctx.fillText('Esfera A: '+fmt(params.m1)+' kg',x1-45,top-24);ctx.fillText('Esfera B: '+fmt(params.m2)+' kg',x2-45,top-24);
-   if(t>0.02){const arrowLen=Math.min(54,12+g*t*3);arrow(x1+18,y,x1+18,y+arrowLen,'#38bdf8','v₁');arrow(x2+18,y,x2+18,y+arrowLen,'#fbbf24','v₂')}
-   ctx.fillStyle='#cbd5e1';ctx.fillText('t = '+fmt(t)+' s',24,48);ctx.fillText('As duas esferas têm a mesma posição em cada instante.',24,68);
+   // Diagrama de corpo livre simplificado: peso para baixo; sem resistência do ar.
+   const mA=Math.max(.01,params.m1||.2),mB=Math.max(.01,params.m2||2),mMax=Math.max(mA,mB),pLenA=22+30*mA/mMax,pLenB=22+30*mB/mMax;
+   arrow(x1-r1-18,y,x1-r1-18,y+pLenA,'#fb923c','P₁');arrow(x2-r2-18,y,x2-r2-18,y+pLenB,'#fb923c','P₂');
+   arrow(x1+r1+17,y,x1+r1+17,y+34,'#34d399','g');arrow(x2+r2+17,y,x2+r2+17,y+34,'#34d399','g');
+   if(t>0.02){const vLen=Math.min(48,10+g*t*2.5);arrow(x1,y+r1+12,x1,y+r1+12+vLen,'#38bdf8','v₁');arrow(x2,y+r2+12,x2,y+r2+12+vLen,'#38bdf8','v₂')}
+   ctx.fillStyle='#cbd5e1';ctx.font='12px Arial';ctx.fillText('P = mg  ↓ peso (força gravitacional)',24,48);ctx.fillText('g  ↓ aceleração da gravidade',24,67);ctx.fillText('Sem resistência do ar: não há força de arrasto.',24,86);
    if(t>=tFall-.001){ctx.fillStyle='#34d399';ctx.font='bold 14px Arial';ctx.fillText('CHEGADA SIMULTÂNEA — no modelo sem ar',Math.max(24,w*.38),ground-18)}
    ctx.fillStyle='#94a3b8';ctx.font='12px Arial';ctx.fillText('A gravidade acelera as duas esferas igualmente: g = '+fmt(g)+' m/s²',24,h-12);
   }else if(p==='gravitacao'){
