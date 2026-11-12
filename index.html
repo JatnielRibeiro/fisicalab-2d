@@ -168,6 +168,34 @@ canvas {
 
 .control strong { color: var(--primary); }
 
+.vector-options {
+  margin-top: 20px;
+  padding: 13px;
+  background: #142238;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+}
+.vector-options h4 {
+  margin: 0 0 11px;
+  color: var(--text);
+  font-size: 13px;
+}
+.vector-options label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 9px 0;
+  color: #cbd5e1;
+  font-size: 12px;
+  cursor: pointer;
+}
+.vector-options input[type="checkbox"] {
+  accent-color: var(--primary);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
 input[type="range"] {
   width: 100%;
   accent-color: var(--primary);
@@ -375,8 +403,14 @@ footer {
               <input id="gravity" type="range" min="1" max="20" step="0.1" value="9.8">
             </div>
 
+            <div class="vector-options" aria-label="Opções de visualização dos vetores">
+              <h4>Visualização dos vetores</h4>
+              <label><input type="checkbox" id="showVelocityVector" checked> Velocidade resultante (v)</label>
+              <label><input type="checkbox" id="showVxVector" checked> Componente horizontal (vₓ)</label>
+              <label><input type="checkbox" id="showVyVector" checked> Componente vertical (vᵧ)</label>
+            </div>
             <p style="font-size:12px;color:#94a3b8">
-              Altere os parâmetros para observar como eles influenciam a trajetória.
+              Altere os parâmetros e selecione os vetores que deseja acompanhar durante o movimento.
             </p>
           </div>
 
@@ -671,10 +705,47 @@ function draw() {
 
   ctx.stroke();
 
-  // Projétil
+  // Posição instantânea e componentes da velocidade
   const ballX = px(currentTime);
   const ballY = py(currentTime);
+  const vx = v * Math.cos(angle);
+  const vy = v * Math.sin(angle) - g * currentTime;
+  const vectorScale = Math.min(3.2, 82 / Math.max(1, Math.hypot(vx, vy)));
 
+  function drawArrow(x1, y1, x2, y2, color, label) {
+    const head = 8;
+    const a = Math.atan2(y2 - y1, x2 - x1);
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - head * Math.cos(a - Math.PI / 6), y2 - head * Math.sin(a - Math.PI / 6));
+    ctx.lineTo(x2 - head * Math.cos(a + Math.PI / 6), y2 - head * Math.sin(a + Math.PI / 6));
+    ctx.closePath();
+    ctx.fill();
+    ctx.font = "bold 12px Arial";
+    ctx.fillText(label, x2 + 7, y2 - 7);
+    ctx.restore();
+  }
+
+  // Vetores opcionais: resultante e componentes cartesianas
+  if (document.getElementById("showVxVector").checked) {
+    drawArrow(ballX, ballY, ballX + vx * vectorScale, ballY, "#38bdf8", "vₓ");
+  }
+  if (document.getElementById("showVyVector").checked) {
+    drawArrow(ballX, ballY, ballX, ballY - vy * vectorScale, "#f97316", "vᵧ");
+  }
+  if (document.getElementById("showVelocityVector").checked) {
+    drawArrow(ballX, ballY, ballX + vx * vectorScale, ballY - vy * vectorScale, "#a78bfa", "v");
+  }
+
+  // Projétil desenhado por último para permanecer visível sobre os vetores
   ctx.beginPath();
   ctx.arc(ballX, ballY, 7, 0, Math.PI * 2);
   ctx.fillStyle = "#facc15";
@@ -682,19 +753,6 @@ function draw() {
   ctx.shadowBlur = 14;
   ctx.fill();
   ctx.shadowBlur = 0;
-
-  // Vetor de velocidade inicial
-  const vectorLength = 48;
-
-  ctx.strokeStyle = "#fb923c";
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(margin, ground);
-  ctx.lineTo(
-    margin + vectorLength * Math.cos(angle),
-    ground - vectorLength * Math.sin(angle)
-  );
-  ctx.stroke();
 
   ctx.fillStyle = "#f1f5f9";
   ctx.font = "12px Arial";
@@ -770,6 +828,10 @@ document.getElementById("reset").addEventListener(
     elapsed = 0;
     draw();
   });
+});
+
+["showVelocityVector", "showVxVector", "showVyVector"].forEach(id => {
+  document.getElementById(id).addEventListener("change", draw);
 });
 
 window.addEventListener("resize", resizeCanvas);
