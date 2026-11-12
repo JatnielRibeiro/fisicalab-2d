@@ -288,3 +288,13 @@ aside a:hover,aside a.active{background:#e4f7ff!important;color:#075985!importan
 footer{color:#526987!important;font-weight:900!important}
 @media(max-width:850px){aside{position:static!important}}
 @media(max-width:700px){.panel{padding:16px!important}.wrap{width:95%!important;margin:18px auto!important}aside{padding:12px!important}}
+
+
+/* Correção de contraste do cabeçalho verde em todas as páginas de laboratório */
+body .hero h1,
+body .hero h1 *,
+body .hero p,
+body .hero .eyebrow,
+body .hero .badge{
+  color:#ffffff!important;
+}
