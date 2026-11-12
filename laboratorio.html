@@ -347,6 +347,32 @@ footer {
 .investigation-box details p{margin-bottom:0}
 @media(max-width:800px){.learning-grid{grid-template-columns:1fr}.projectile-figure{overflow-x:auto}.projectile-figure svg{min-width:580px}}
 .vector-readout{margin-top:14px;padding:12px;background:#0c1728;border:1px solid var(--border);border-radius:9px}.vector-readout h4{font-size:13px;margin:0 0 9px}.vector-readout div{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #203149;font-size:12px;color:#cbd5e1}.vector-readout strong{color:var(--primary);font-variant-numeric:tabular-nums}.vector-readout p{font-size:12px;line-height:1.5;color:#94a3b8;margin:10px 0 0}
+
+/* Identidade FísicaLab 2D — Minimalista Premium / tema claro */
+:root{--bg:#fafafa;--panel:#fff;--panel2:#f4f4f5;--primary:#0d9488;--green:#0d9488;--text:#18181b;--muted:#52525b;--border:#d4d4d8}
+body{background-color:#fafafa!important;background-image:radial-gradient(rgba(63,63,70,.13) 1px,transparent 1.25px),radial-gradient(circle at 72% 0%,rgba(13,148,136,.075),transparent 43%),radial-gradient(circle at 8% 100%,rgba(161,161,170,.08),transparent 42%)!important;background-size:24px 24px,100% 100%,100% 100%!important;color:#18181b!important;font-family:Nunito,Inter,Arial,sans-serif!important}
+header{background:rgba(250,250,250,.95)!important;border-bottom:1px solid #e4e4e7!important;backdrop-filter:blur(12px)}
+.logo{font-family:Fredoka,Nunito,sans-serif!important;color:#18181b!important}.logo span{color:#0d9488!important}header small{color:#52525b!important}
+.welcome h1{font-family:Fredoka,Nunito,sans-serif;color:#18181b}.welcome p{color:#52525b}
+.sidebar,.panel{background:#fff!important;border:1px solid #d4d4d8!important;box-shadow:0 7px 22px rgba(24,24,27,.055)}
+.sidebar h3{color:#71717a!important}.menu-item{color:#3f3f46!important}.menu-item:hover,.menu-item.active{background:#ccfbf1!important;color:#0f766e!important}
+.panel-title h2,.panel h2,.panel h3{color:#18181b}
+.status{color:#0f766e!important;background:#ccfbf1!important}
+.controls,.advanced-controls,.chart-card,.vector-options,.vector-readout,.learning-grid article,.investigation-box{background:#f4f4f5!important;border:1px solid #e4e4e7!important;color:#27272a!important}
+.control label,.advanced-controls label,.model-note,.explanation,.figure-legend,.vector-options label,.vector-readout div,.vector-readout p,.learning-grid p,.learning-grid li,.investigation-box p{color:#52525b!important}
+.control strong,.advanced-controls h3,.vector-options h4,.vector-readout h4,.learning-grid b,.investigation-box h3{color:#0f766e!important}
+.advanced-controls input[type=number],.advanced-controls select,.advanced-controls .control input,.advanced-controls .control select{background:#fff!important;color:#18181b!important;border:1px solid #d4d4d8!important}
+input[type=range]{accent-color:#0d9488!important}
+button{font-family:Nunito,Arial,sans-serif}
+.btn-primary{background:#0d9488!important;color:#fff!important;border:1px solid #0f766e!important}.btn-secondary{background:#e4e4e7!important;color:#3f3f46!important;border:1px solid #d4d4d8!important}
+.metric{background:#f4f4f5!important;border:1px solid #e4e4e7!important}.metric small,.metric span{color:#71717a!important}.metric strong{color:#0f766e!important}
+.formula{background:#f4f4f5!important;border-left-color:#0d9488!important;color:#27272a!important}
+.learning-projectile .projectile-figure{background:#f4f4f5!important;border-color:#d4d4d8!important}.investigation-box{background:#f0fdfa!important;border-color:#99f6e4!important}.investigation-box details{background:#fff!important}.investigation-box summary{color:#0f766e!important}
+.vector-readout strong{color:#0f766e!important}
+.step-table th,.step-table td{border-bottom-color:#e4e4e7!important;color:#3f3f46}
+.step-table th{color:#71717a!important}
+footer{color:#71717a!important}
+.top-nav{display:flex;gap:8px;align-items:center}.top-nav a{color:#3f3f46;text-decoration:none;font-weight:900;font-size:14px;padding:9px 14px;border-radius:22px}.top-nav a:hover{background:#e4e4e7}@media(max-width:500px){.top-nav a{font-size:12px;padding:8px}}
 </style>
 <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head>
 
@@ -354,7 +380,7 @@ footer {
 
 <header>
   <div class="logo">Física<span>Lab</span> 2D</div>
-  <small>Laboratório Virtual de Física</small>
+  <nav class="top-nav"><a href="index.html">Início</a><a href="index.html#laboratorios">Laboratórios</a></nav>
 </header>
 
 <div class="container">
