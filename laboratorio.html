@@ -698,6 +698,16 @@ footer{color:#71717a!important}
 })();
 
 </script>
+<script>
+document.addEventListener('click',event=>{
+ const toggle=event.target.closest('.lab-dropdown-toggle');
+ const dropdown=document.querySelector('.lab-dropdown');
+ if(!dropdown)return;
+ if(toggle){const open=dropdown.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open));return;}
+ if(!event.target.closest('.lab-dropdown')){dropdown.classList.remove('open');dropdown.querySelector('.lab-dropdown-toggle')?.setAttribute('aria-expanded','false');}
+});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'){document.querySelectorAll('.lab-dropdown.open').forEach(el=>{el.classList.remove('open');el.querySelector('.lab-dropdown-toggle')?.setAttribute('aria-expanded','false');});}});
+</script>
 </body>
 </html>
 
