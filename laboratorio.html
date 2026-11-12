@@ -473,6 +473,20 @@ canvas,.advanced-canvas,.chart-canvas{border:4px solid #17345d!important;border-
 footer{color:#526987!important;font-weight:900!important}
 @media(max-width:800px){.sidebar{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar h3{grid-column:1/-1}}
 
+
+/* Guia científico na página de lançamento oblíquo */
+.scientist-card{padding:16px!important;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;background:linear-gradient(160deg,#fff,#edf8ff)!important;border:3px solid #17345d!important;border-radius:20px!important;box-shadow:0 7px 0 rgba(16,36,71,.14)!important}
+.scientist-ribbon{align-self:stretch;padding:8px 10px;background:linear-gradient(180deg,#ffdf65,#ffc83d);border:2px solid #17345d;border-radius:12px;color:#17345d;font:1000 12px Nunito,sans-serif;box-shadow:0 3px 0 #bd8e22}
+.scientist-art{display:block;width:min(100%,190px);height:auto;filter:drop-shadow(0 5px 0 rgba(23,52,93,.12))}
+.scientist-name{font:700 22px Fredoka,sans-serif;color:#17345d}
+.scientist-role{font:800 12px Nunito,sans-serif;color:#52708f}
+.scientist-speech{position:relative;width:100%;padding:13px;text-align:left;background:#fff;border:2px solid #8bd7f4;border-radius:14px;color:#294567}
+.scientist-speech:before{content:"";position:absolute;top:-9px;left:50%;width:14px;height:14px;background:#fff;border-left:2px solid #8bd7f4;border-top:2px solid #8bd7f4;transform:translateX(-50%) rotate(45deg)}
+.scientist-speech .speech-label{font:1000 11px Nunito,sans-serif;color:#087f9b}
+.scientist-speech p{margin:7px 0 0;color:#405b7b;font:800 13px/1.55 Nunito,sans-serif}
+.scientist-tip{padding:10px;background:#fff4d6;border:1.5px solid #f2cc64;border-radius:11px;color:#6d5317;font:800 12px/1.45 Nunito,sans-serif}
+.site-header .brand{color:#fff!important}.site-header .brand em{color:#ffd84d!important}
+
 </style>
 <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><link rel="icon" type="image/svg+xml" href="assets/universolab-favicon.svg">
 </head>
@@ -480,7 +494,7 @@ footer{color:#526987!important;font-weight:900!important}
 <body>
 
 <header class="site-header">
-  <a class="brand" href="index.html" aria-label="UniversoLab — página inicial"><span class="brand-mark">⚛</span><span>FísicaLab <em>2D</em></span></a>
+  <a class="brand" href="index.html" aria-label="UniversoLab — página inicial"><span class="brand-mark">⚛</span><span>Universo<em>Lab</em></span></a>
   <nav class="top-nav"><a class="discipline-link" href="matematica.html">Matemática</a><a class="discipline-link" href="fisica.html">Física</a><a class="discipline-link" href="ciencias.html">Ciências</a><div class="lab-dropdown"><button class="lab-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Laboratórios <span aria-hidden="true">▾</span></button><div class="lab-dropdown-menu"><a href="laboratorio.html">🚀 Lançamento Oblíquo</a><a href="estatica.html">⚖️ Estática</a><a href="movimento-retilineo.html">📐 Movimento Retilíneo</a><a href="queda-livre.html">⚡ Queda Livre</a><a href="gravitacao.html">🪐 Gravitação</a><a href="energia-mecanica.html">🔋 Energia Mecânica</a><a href="leis-newton.html">⚖️ Leis de Newton</a><a href="movimento-circular.html">🔄 Movimento Circular</a><a href="eletromagnetismo.html">🧲 Eletromagnetismo</a><a href="conteudos.html">📚 Conteúdos</a><a href="exercicios.html">📝 Exercícios</a></div></div></nav>
 </header>
 
@@ -493,19 +507,28 @@ footer{color:#526987!important;font-weight:900!important}
 
   <div class="layout">
 
-    <aside class="sidebar">
-      <h3>Experimentos</h3>
-      <a class="menu-item active" href="index.html">🚀 Lançamento Oblíquo</a>
-      <a class="menu-item" href="movimento-retilineo.html">📐 Movimento Retilíneo</a>
-      <a class="menu-item" href="queda-livre.html">⚡ Queda Livre</a>
-      <a class="menu-item" href="gravitacao.html">🪐 Gravitação</a>
-      <a class="menu-item" href="energia-mecanica.html">🔋 Energia Mecânica</a>
-      <a class="menu-item" href="leis-newton.html">⚖️ Leis de Newton</a>
-      <a class="menu-item" href="movimento-circular.html">🔄 Movimento Circular</a>
-      <a class="menu-item" href="eletromagnetismo.html">🧲 Eletromagnetismo</a>
-      <h3>Plataforma</h3>
-      <a class="menu-item" href="conteudos.html">📚 Conteúdos</a>
-      <a class="menu-item" href="exercicios.html">📝 Exercícios</a>
+    <aside class="sidebar scientist-card" aria-label="Professor cientista">
+      <div class="scientist-ribbon">SEU GUIA CIENTÍFICO</div>
+      <svg class="scientist-art" viewBox="0 0 220 270" role="img" aria-label="Professor cientista em estilo de jogo educativo">
+        <defs><linearGradient id="coat" x2="0" y2="1"><stop stop-color="#55d6a4"/><stop offset="1" stop-color="#16866d"/></linearGradient><linearGradient id="skin" x2="0" y2="1"><stop stop-color="#ffd7ad"/><stop offset="1" stop-color="#f3a978"/></linearGradient></defs>
+        <ellipse cx="110" cy="253" rx="75" ry="10" fill="#142d58" opacity=".18"/>
+        <path d="M57 91Q21 74 35 43Q14 19 52 20Q59-1 87 18Q112-4 132 16Q168 3 172 34Q206 42 184 72Q192 101 158 105L61 108Z" fill="#77717b" stroke="#283451" stroke-width="6"/>
+        <path d="M65 70Q54 42 84 32Q111 15 143 37Q166 51 157 91L151 133Q141 164 110 164Q76 161 66 128Z" fill="url(#skin)" stroke="#283451" stroke-width="5"/>
+        <path d="M66 84Q61 49 91 36Q119 17 148 43Q169 57 163 80Q143 58 121 59Q93 71 66 84Z" fill="#85808a" stroke="#283451" stroke-width="5"/>
+        <path d="M75 94Q89 83 102 94M122 94Q137 83 150 94" fill="none" stroke="#4b3540" stroke-width="6" stroke-linecap="round"/>
+        <ellipse cx="91" cy="105" rx="7" ry="10" fill="#fff"/><ellipse cx="136" cy="105" rx="7" ry="10" fill="#fff"/><circle cx="93" cy="107" r="4" fill="#283451"/><circle cx="137" cy="107" r="4" fill="#283451"/>
+        <path d="M107 108Q98 126 111 128Q121 127 119 120" fill="none" stroke="#b66d56" stroke-width="4" stroke-linecap="round"/>
+        <path d="M85 135Q99 126 111 138Q124 126 140 136Q129 157 109 153Q92 153 85 135Z" fill="#77717b" stroke="#4a3c45" stroke-width="3"/><path d="M95 148Q112 160 130 146" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+        <path d="M53 188Q57 161 83 157L108 171L133 157Q164 163 169 190L182 238H38Z" fill="url(#coat)" stroke="#283451" stroke-width="6"/>
+        <path d="M86 158L108 180L130 158L121 196H96Z" fill="#fff" stroke="#283451" stroke-width="3"/><path d="M108 180L108 235" stroke="#e8f7ef" stroke-width="3" stroke-dasharray="5 6"/>
+        <path d="M42 193Q19 182 15 160Q14 150 24 148Q34 146 40 162L57 181M169 193Q190 174 195 153Q198 143 208 148Q216 153 208 170Q199 196 179 207" fill="none" stroke="#283451" stroke-width="12" stroke-linecap="round"/>
+        <path d="M42 193Q19 182 15 160Q14 150 24 148Q34 146 40 162L57 181M169 193Q190 174 195 153Q198 143 208 148Q216 153 208 170Q199 196 179 207" fill="none" stroke="url(#skin)" stroke-width="7" stroke-linecap="round"/>
+        <circle cx="108" cy="20" r="7" fill="#ffd34e" stroke="#283451" stroke-width="3"/>
+      </svg>
+      <div class="scientist-name">Professor Universo</div>
+      <div class="scientist-role">Seu companheiro de descobertas</div>
+      <div class="scientist-speech"><span class="speech-label">LANÇAMENTO OBLÍQUO</span><p>Olá, cientista! Vamos investigar como a velocidade inicial e o ângulo determinam a trajetória de um projétil. Observe os movimentos horizontal e vertical acontecendo ao mesmo tempo.</p></div>
+      <div class="scientist-tip">💡 Dica: altere o ângulo e compare o alcance e a altura máxima!</div>
     </aside>
 
     <main class="content">
