@@ -405,6 +405,32 @@ input,select,textarea{font-size:14px;font-weight:700}
 .site-header .lab-dropdown-menu a:hover,.site-header .lab-dropdown-menu a.active{background:#ccfbf1!important;color:#0f766e!important}
 @media(max-width:580px){.site-header{height:62px!important;min-height:62px!important;padding:0 14px!important;gap:10px!important}.site-header .brand{font-size:20px!important}.site-header .brand-mark{width:36px!important;height:36px!important}.site-header .lab-dropdown-menu{left:auto!important;right:0!important;width:min(270px,calc(100vw - 28px))!important}}
 
+
+/* Ambientação de sala de aula e laboratório — Lançamento Oblíquo */
+:root{--lab-board:#087f70;--lab-board-dark:#075e54;--lab-paper:#fbfaf5;--lab-yellow:#ffc928;--lab-coral:#f47d91}
+html{background:var(--lab-paper)!important}
+body{background-color:var(--lab-paper)!important;background-image:linear-gradient(rgba(61,91,95,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(61,91,95,.055) 1px,transparent 1px),radial-gradient(ellipse at 12% 12%,rgba(255,201,40,.13),transparent 28%),radial-gradient(ellipse at 92% 28%,rgba(13,148,136,.10),transparent 32%),radial-gradient(ellipse at 50% 100%,rgba(244,125,145,.10),transparent 38%)!important;background-size:28px 28px,28px 28px,100% 100%,100% 100%,100% 100%!important;color:#202b35!important;font-family:Nunito,Arial,sans-serif!important}
+.welcome{position:relative;overflow:hidden;padding:28px 32px;margin:0 0 22px!important;border:7px solid #e9a4ad;border-radius:13px;background:repeating-linear-gradient(0deg,transparent 0 31px,rgba(255,255,255,.045) 32px 33px),linear-gradient(135deg,var(--lab-board),var(--lab-board-dark));box-shadow:0 5px 0 rgba(116,76,62,.16),0 12px 28px rgba(32,43,53,.09)}
+.welcome h1{color:#fffdf4!important;font-family:Fredoka,sans-serif!important;text-shadow:0 2px 0 rgba(0,0,0,.12)}
+.welcome p{color:rgba(255,253,244,.92)!important;font-family:Nunito,sans-serif!important;font-weight:700}
+.sidebar,.panel,.controls,.vector-options,.chart-card,.learning-projectile,.investigation-box{background:rgba(255,255,255,.97)!important;border:1px solid #deded5!important;border-radius:14px!important;box-shadow:0 5px 0 rgba(32,43,53,.035),0 10px 24px rgba(32,43,53,.055)!important;color:#202b35!important}
+.sidebar h3,.control label,.explanation,.model-note,.vector-options label{color:#52525b!important}
+.menu-item{color:#3f3f46!important}.menu-item.active{background:#ccfbf1!important;color:#0f766e!important}
+.panel-title h2,.controls h3,.vector-options h4,.learning-projectile h2{font-family:Fredoka,Nunito,sans-serif!important;color:#202b35!important}
+.status{background:#e6f5ed!important;color:#087f70!important}
+.control strong,.metric strong{color:#087f70!important}
+input[type=range]{accent-color:#0d9488!important}
+input[type=number],input[type=text],select{background:#fffefa!important;color:#202b35!important;border:1.5px solid #d7d8d0!important;border-radius:9px!important}
+button{font-family:Nunito,sans-serif!important;font-weight:800!important}
+.btn-primary{background:#0d9488!important;color:white!important;border:1px solid #087f70!important;box-shadow:0 2px 0 #075e54!important}
+.btn-secondary{background:#fff4c7!important;color:#55451a!important;border:1px solid #e8d58c!important}
+.metrics .metric{background:#f2f7f2!important;border:1px solid #dce8dc!important;color:#202b35!important;border-radius:11px!important}
+.formula{background:#f1f6ef!important;border-left:4px solid #0d9488!important;color:#202b35!important;border-radius:8px!important}
+.step-wrap,.step-table{background:#fffdf7!important;color:#303b42!important}
+canvas,.advanced-canvas,.chart-canvas{border:5px solid #e7e2d5!important;outline:1px solid #c9c6b9;border-radius:9px!important;box-shadow:0 4px 0 rgba(32,43,53,.12)!important}
+footer{background:rgba(255,255,255,.58);color:#71717a!important;border-top:1px solid rgba(32,43,53,.08)}
+@media(max-width:700px){.welcome{padding:20px!important;border-width:5px!important}}
+
 </style>
 <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head>
 
