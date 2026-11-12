@@ -213,3 +213,78 @@ p,.muted,.hero p,.field label,aside b{color:#526174!important}
 .step-item b{color:#0f766e!important}
 footer{background:rgba(255,255,255,.7)!important;color:#64748b!important;border-top:1px solid #e2e8f0!important}
 @media(max-width:850px){.site-header{height:auto!important;min-height:62px!important;flex-wrap:wrap!important;padding:9px 14px!important}.site-header nav{gap:3px!important;flex-wrap:wrap!important}.site-header .discipline-link{font-size:11px!important;padding:7px 8px!important}}
+
+
+/* UniversoLab Game UI — camada visual para simuladores científicos
+   Mantém cálculos, controles, animações e gráficos; altera somente a apresentação. */
+:root{
+ --game-ink:#172b4d;--game-navy:#102447;--game-outline:#17345d;
+ --game-sky:#dff5ff;--game-cream:#fff8df;--game-yellow:#ffd84d;
+ --game-coral:#ff7b69;--game-purple:#a78bfa;--game-blue:#38bdf8;
+ --game-green:#45d6a5;--game-pink:#ff8fbd;
+}
+body{background-color:#eaf7ff!important;background-image:
+ radial-gradient(rgba(34,75,125,.10) 1.2px,transparent 1.4px),
+ radial-gradient(circle at 8% 0%,rgba(255,216,77,.32),transparent 28%),
+ radial-gradient(circle at 95% 18%,rgba(167,139,250,.22),transparent 30%),
+ linear-gradient(160deg,#f3fbff,#e6f6ff 55%,#fff5e6)!important;
+ background-size:22px 22px,100% 100%,100% 100%,100% 100%!important;color:var(--game-ink)!important}
+header{background:linear-gradient(90deg,#102447,#1e3a68)!important;border-bottom:4px solid #ffd84d!important;color:#fff!important;box-shadow:0 5px 0 rgba(16,36,71,.12)}
+.brand,.brand span{color:#fff!important}.brand em{color:#ffd84d!important}
+.top-nav a,.lab-dropdown-toggle{color:#fff!important;border-radius:18px!important}
+.top-nav a:hover,.lab-dropdown-toggle:hover,.lab-dropdown.open .lab-dropdown-toggle{background:rgba(255,255,255,.16)!important;color:#fff!important}
+.lab-dropdown-menu{border:3px solid var(--game-outline)!important;border-radius:16px!important}
+.lab-dropdown-menu a:hover,.lab-dropdown-menu a.active{background:#fff0b8!important;color:#17345d!important}
+.wrap{gap:20px!important}
+aside,.panel{background:linear-gradient(180deg,#fff,#f8fcff)!important;border:3px solid var(--game-outline)!important;border-radius:20px!important;box-shadow:0 7px 0 rgba(16,36,71,.14),0 12px 28px rgba(29,78,130,.10)!important}
+aside{padding:15px!important}
+aside b{color:#55708f!important}
+aside a{color:#294567!important;border:2px solid transparent!important;border-radius:13px!important;font-weight:900!important}
+aside a:hover,aside a.active{background:#e4f7ff!important;color:#075985!important;border-color:#38bdf8!important;box-shadow:0 3px 0 #a5dff5}
+.hero h1,.panel h2{color:#17345d!important;text-shadow:0 1px 0 #fff}
+.hero p,.muted{color:#526987!important}
+.panel{position:relative;padding:22px!important}
+.panel h2{display:flex;align-items:center;gap:9px}
+.panel h2:before{content:"";width:9px;height:25px;border-radius:8px;background:linear-gradient(180deg,#ffb84d,#ff7b69);display:inline-block}
+.field label{color:#345477!important;font-weight:900!important}
+.field input,.field select,.panel .field select,.advanced-controls input[type=number],.advanced-controls select{
+ background:#f5fbff!important;color:#17345d!important;border:2px solid #b8d9ed!important;border-radius:12px!important;
+ box-shadow:inset 0 2px 3px rgba(16,36,71,.04)}
+.field input:focus,.field select:focus{outline:3px solid rgba(56,189,248,.22)!important;border-color:#38bdf8!important}
+.results .metric,.metric{background:linear-gradient(145deg,#fff8df,#fff)!important;border:2px solid #e9c85a!important;border-radius:15px!important;box-shadow:0 4px 0 rgba(201,157,24,.15)}
+.metric:nth-child(3n+2){background:linear-gradient(145deg,#e5f7ff,#fff)!important;border-color:#8bd7f4!important}
+.metric:nth-child(3n){background:linear-gradient(145deg,#f0eaff,#fff)!important;border-color:#c4b5fd!important}
+.metric small,.metric span{color:#526987!important;font-weight:800!important}
+.metric strong{color:#0f628c!important;font-family:Fredoka,Nunito,sans-serif!important;font-size:clamp(20px,2vw,27px)!important}
+.formula{background:linear-gradient(135deg,#fff4d6,#fff)!important;border:2px solid #f2cc64!important;border-left:8px solid #ff9f43!important;border-radius:14px!important;color:#17345d!important}
+.MathJax{color:#17345d!important}
+.btn{background:linear-gradient(180deg,#ffdf65,#ffc83d)!important;color:#17345d!important;border:2px solid #17345d!important;border-radius:15px!important;font-weight:1000!important;box-shadow:0 4px 0 #bd8e22!important;transition:transform .15s,filter .15s!important}
+.btn:hover{filter:brightness(1.04)!important;transform:translateY(-2px)}
+.btn:active{transform:translateY(2px)!important;box-shadow:0 1px 0 #bd8e22!important}
+.btn.secondary{background:linear-gradient(180deg,#c4b5fd,#a78bfa)!important;color:#24154e!important;border-color:#49358a!important;box-shadow:0 4px 0 #7355b5!important}
+.cards a,.question,.step-item{background:linear-gradient(145deg,#f0faff,#fff)!important;border:2px solid #9bdcf4!important;border-radius:15px!important;color:#17345d!important;box-shadow:0 4px 0 rgba(56,189,248,.14)}
+.cards a:nth-child(3n+2){background:linear-gradient(145deg,#fff1e8,#fff)!important;border-color:#ffb18c!important}
+.cards a:nth-child(3n){background:linear-gradient(145deg,#f2edff,#fff)!important;border-color:#c4b5fd!important}
+.cards a:hover{border-color:#ffb84d!important;transform:translateY(-3px)}
+.question button{background:#fff!important;color:#17345d!important;border:2px solid #b8d9ed!important;border-radius:12px!important;font-weight:900!important}
+.question button:hover{background:#e8f8ff!important;border-color:#38bdf8!important}
+.question button:disabled{opacity:.7;cursor:default}
+.feedback{color:#087f5b!important;background:#e2fff4;border-radius:10px;padding:9px 12px}
+.learning-card{background:linear-gradient(135deg,#fff8df,#fff)!important;border:3px solid #17345d!important;border-radius:20px!important;box-shadow:0 6px 0 rgba(16,36,71,.12)!important}
+.learning-card h2,.learning-question{color:#17345d!important}
+.eyebrow{color:#087f5b!important}
+.learning-card details{background:#eaf7ff!important;color:#345477!important;border:1px solid #b8d9ed}
+.learning-card summary{color:#075985!important}
+.learning-illustration{background:linear-gradient(135deg,#e5f7ff,#f6f0ff)!important;border:2px solid #17345d!important;border-radius:14px!important}
+.step-item{border-left:7px solid #ff9f43!important}
+.lab-visual,.visual-resource,.advanced-canvas,canvas{
+ border:4px solid #17345d!important;border-radius:15px!important;
+ box-shadow:0 5px 0 rgba(16,36,71,.18),inset 0 0 0 2px rgba(255,255,255,.35)!important;
+}
+.visual-speed{color:#526987!important}.visual-speed span{color:#17345d!important}
+.visual-speed input{accent-color:#ff9f43!important}
+.static-tabs{gap:10px}
+.static-tabs .btn{min-width:120px}
+footer{color:#526987!important;font-weight:900!important}
+@media(max-width:850px){aside{position:static!important}}
+@media(max-width:700px){.panel{padding:16px!important}.wrap{width:95%!important;margin:18px auto!important}aside{padding:12px!important}}
