@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FísicaLab 2D | Laboratório Virtual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 :root {
@@ -376,6 +377,19 @@ footer{color:#71717a!important}
 
 .logo{display:inline-block;text-decoration:none;cursor:pointer}
 .logo:focus-visible{outline:3px solid #0d9488;outline-offset:5px;border-radius:4px}
+
+/* Sistema tipográfico oficial — igual à página principal */
+:root{--font-heading:"Fredoka",sans-serif;--font-body:"Nunito",sans-serif}
+html,body,button,input,select,textarea{font-family:var(--font-body)!important}
+body{font-size:15px;font-weight:600;line-height:1.55}
+h1,h2,h3,.welcome h1,.panel-title h2,.brand,.logo{font-family:var(--font-heading)!important;font-weight:600;letter-spacing:-.25px;line-height:1.2}
+h1{font-size:clamp(30px,4vw,40px)}h2{font-size:clamp(22px,2.6vw,28px)}h3{font-size:19px}
+h4,h5,h6{font-family:var(--font-body)!important;font-weight:900;line-height:1.3}
+p,li,label,small,.explanation,.model-note,.field label,.control label,.menu-item,footer{font-family:var(--font-body)!important}
+p{line-height:1.65}
+button,.btn,.btn-primary,.btn-secondary{font-family:var(--font-body)!important;font-weight:800}
+input,select,textarea{font-size:14px;font-weight:700}
+
 </style>
 <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head>
 
