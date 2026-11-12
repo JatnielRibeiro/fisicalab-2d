@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FísicaLab 2D</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1220;color:#edf5ff;font-family:Arial,sans-serif}
+header{padding:22px;background:#142238;border-bottom:1px solid #29415f}
+header h2{margin:0;color:#38c5d8}
+main{max-width:1100px;margin:auto;padding:20px}
+.card{background:#142238;border:1px solid #29415f;border-radius:14px;padding:18px;margin-bottom:18px}
+h1{font-size:28px}
+p{color:#b5c7dd}
+.layout{display:grid;grid-template-columns:1.5fr 1fr;gap:15px}
+canvas{width:100%;height:330px;background:#081321;border-radius:10px}
+label{display:block;margin:15px 0;color:#b5c7dd}
+input{width:100%;accent-color:#38c5d8}
+button{padding:11px 15px;border:0;border-radius:8px;background:#176b91;color:white;margin:4px}
+.result{background:#0b192a;padding:12px;border-radius:8px;margin:8px 0}
+.result strong{color:#38c5d8}
+@media(max-width:750px){.layout{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<h2>⚛ FísicaLab 2D</h2>
+<small>LABORATÓRIO VIRTUAL DE FÍSICA</small>
+</header>
+<main>
+<div class="card">
+<h1>Laboratório de Física</h1>
+<p>Experimente, investigue e compreenda os fenômenos físicos.</p>
+<h3>Experimento: Lançamento Oblíquo</h3>
+<p>Modifique os parâmetros e observe a trajetória do projétil.</p>
+</div>
+<div class="layout">
+<section>
+<div class="card">
+<h3>Simulação 2D</h3>
+<canvas id="sim" width="800" height="400"></canvas>
+<button onclick="start()">▶ Iniciar</button>
+<button onclick="pause()">Ⅱ Pausar</button>
+<button onclick="reset()">↺ Reiniciar</button>
+</div>
+</section>
+<section>
+<div class="card">
+<h3>Parâmetros</h3>
+<label>Velocidade inicial: <span id="vo">20</span> m/s
+<input id="v" type="range" min="5" max="50" value="20" oninput="change()">
+</label>
+<label>Ângulo: <span id="ao">45</span>°
+<input id="a" type="range" min="5" max="85" value="45" oninput="change()">
+</label>
+<label>Gravidade: <span id="go">9.8</span> m/s²
+<input id="g" type="range" min="1" max="20" step=".1" value="9.8" oninput="change()">
+</label>
+<div class="result">Alcance: <strong id="range"></strong></div>
+<div class="result">Altura máxima: <strong id="height"></strong></div>
+<div class="result">Tempo de voo: <strong id="time"></strong></div>
+</div>
+<div class="card">
+<h3>Equações físicas</h3>
+<p>v₀ₓ = v₀ cos(θ)</p>
+<p>v₀ᵧ = v₀ sen(θ)</p>
+<p>x(t) = v₀ₓ · t</p>
+<p>y(t) = v₀ᵧt − gt²/2</p>
+</div>
+</section>
+</div>
+</main>
+<script>
+let t=0,running=false,raf;
+const $=id=>document.getElementById(id);
+function calc(){
+let v=+$('v').value,a=+$('a').value*Math.PI/180,g=+$('g').value;
+let vx=v*Math.cos(a),vy=v*Math.sin(a);
+let tf=2*vy/g,R=vx*tf,H=vy*vy/(2*g);
+$('vo').textContent=v;
+$('ao').textContent=$('a').value;
+$('go').textContent=g;
+$('range').textContent=R.toFixed(2)+' m';
+$('height').textContent=H.toFixed(2)+' m';
+$('time').textContent=tf.toFixed(2)+' s';
+return{vx,vy,g,tf,R,H};
+}
+function draw(){
+let c=$('sim'),ctx=c.getContext('2d'),W=c.width,H=c.height;
+let q=calc(),s=Math.min((W-80)/(q.R*1.2+1),(H-60)/(q.H*1.3+1));
+let ox=45,oy=H-35;
+ctx.clearRect(0,0,W,H);
+ctx.strokeStyle='#20344e';
+for(let x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
+for(let y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+ctx.strokeStyle='#a9bbd1';ctx.beginPath();ctx.moveTo(ox,10);ctx.lineTo(ox,oy);ctx.lineTo(W,oy);ctx.stroke();
+ctx.strokeStyle='#38c5d8';ctx.lineWidth=3;ctx.beginPath();
+for(let i=0;i<=100;i++){
+let tt=q.tf*i/100,x=ox+q.vx*tt*s,y=oy-(q.vy*tt-.5*q.g*tt*tt)*s;
+i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+}ctx.stroke();
+let x=ox+q.vx*t*s,y=oy-(q.vy*t-.5*q.g*t*t)*s;
+ctx.fillStyle='#ffb454';ctx.beginPath();ctx.arc(x,y,9,0,7);ctx.fill();
+ctx.fillStyle='white';ctx.fillText('Tempo: '+t.toFixed(2)+' s',15,20);
+}
+function start(){let q=calc();if(t>=q.tf)t=0;running=true;frame()}
+function frame(){if(!running)return;let q=calc();t+=.016;if(t>=q.tf){t=q.tf;running=false}draw();if(running)raf=requestAnimationFrame(frame)}
+function pause(){running=false;cancelAnimationFrame(raf)}
+function reset(){pause();t=0;draw()}
+function change(){t=0;pause();draw()}
+draw();
+</script>
+</body>
+</html>
