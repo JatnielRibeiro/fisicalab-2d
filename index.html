@@ -323,6 +323,12 @@ footer {
 .model-note{color:var(--muted);font-size:12px;line-height:1.5}
 @media(max-width:950px){.advanced-grid{grid-template-columns:1fr}.advanced-charts{grid-template-columns:1fr}.advanced-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
+
+.vector-options{margin:14px 0;padding:12px;background:#142238;border:1px solid var(--border);border-radius:9px}
+.vector-options h4{margin:0 0 9px;color:var(--text);font-size:13px}
+.vector-options label{display:flex!important;align-items:center;gap:8px;margin:8px 0!important;color:#cbd5e1!important;font-size:12px!important;cursor:pointer}
+.vector-options input{width:15px;height:15px;accent-color:var(--primary)}
+
 </style>
 <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head>
 
@@ -359,108 +365,17 @@ footer {
 
     <main class="content">
 
-      <section class="panel">
-        <div class="panel-title">
-          <h2>🚀 Simulador de Lançamento Oblíquo</h2>
-          <span class="status">● Simulação disponível</span>
-        </div>
-
-        <div class="simulator-grid">
-
-          <div>
-            <canvas id="simulation"></canvas>
-            <div class="buttons">
-              <button class="btn-primary" id="start">▶ Iniciar</button>
-              <button class="btn-secondary" id="pause">Ⅱ Pausar</button>
-              <button class="btn-secondary" id="reset">↻ Reiniciar</button>
-            </div>
-          </div>
-
-          <div class="controls">
-            <h3>Parâmetros físicos</h3>
-
-            <div class="control">
-              <label>
-                Velocidade inicial
-                <strong id="vLabel">20 m/s</strong>
-              </label>
-              <input id="velocity" type="range" min="5" max="50" value="20">
-            </div>
-
-            <div class="control">
-              <label>
-                Ângulo de lançamento
-                <strong id="angleLabel">45°</strong>
-              </label>
-              <input id="angle" type="range" min="5" max="85" value="45">
-            </div>
-
-            <div class="control">
-              <label>
-                Gravidade
-                <strong id="gravityLabel">9,8 m/s²</strong>
-              </label>
-              <input id="gravity" type="range" min="1" max="20" step="0.1" value="9.8">
-            </div>
-
-            <div class="vector-options" aria-label="Opções de visualização dos vetores">
-              <h4>Visualização dos vetores</h4>
-              <label><input type="checkbox" id="showVelocityVector" checked> Velocidade resultante (v)</label>
-              <label><input type="checkbox" id="showVxVector" checked> Componente horizontal (vₓ)</label>
-              <label><input type="checkbox" id="showVyVector" checked> Componente vertical (vᵧ)</label>
-            </div>
-            <p style="font-size:12px;color:#94a3b8">
-              Altere os parâmetros e selecione os vetores que deseja acompanhar durante o movimento.
-            </p>
-          </div>
-
-        </div>
-      </section>
-
-      <section class="panel">
-        <div class="panel-title">
-          <h2>📊 Resultados da simulação</h2>
-        </div>
-
-        <div class="metrics">
-          <div class="metric">
-            <small>Alcance máximo</small>
-            <strong id="rangeResult">40,82</strong>
-            <span>metros</span>
-          </div>
-
-          <div class="metric">
-            <small>Altura máxima</small>
-            <strong id="heightResult">10,20</strong>
-            <span>metros</span>
-          </div>
-
-          <div class="metric">
-            <small>Tempo de voo</small>
-            <strong id="timeResult">2,89</strong>
-            <span>segundos</span>
-          </div>
-
-          <div class="metric">
-            <small>Velocidade inicial</small>
-            <strong id="speedResult">20,00</strong>
-            <span>m/s</span>
-          </div>
-        </div>
-      </section>
-
-
-<section class="panel" id="advancedProjectile">
+      <section class="panel" id="projectileLab">
   <div class="panel-title">
-    <h2>🧪 Laboratório avançado — lançamento oblíquo</h2>
+    <h2>🚀 Simulador de Lançamento Oblíquo</h2>
     <span class="status">Modelo ideal + resistência do ar</span>
   </div>
-  <p class="explanation">Investigue como a altura inicial e a resistência do ar modificam a trajetória. Compare os modelos, acompanhe os vetores e observe os gráficos em tempo real.</p>
+  <p class="explanation">Explore o lançamento oblíquo em um único laboratório: ajuste os parâmetros, compare os modelos físicos, acompanhe os vetores e analise os gráficos e resultados.</p>
   <div class="advanced-grid">
     <div>
-      <canvas id="advTrajectory" class="advanced-canvas" aria-label="Trajetórias do lançamento oblíquo"></canvas>
+      <canvas id="advTrajectory" class="advanced-canvas" aria-label="Simulação integrada de lançamento oblíquo"></canvas>
       <div class="buttons">
-        <button class="btn-primary" id="advPlay">▶ Animar</button>
+        <button class="btn-primary" id="advPlay">▶ Iniciar</button>
         <button class="btn-secondary" id="advPause">Ⅱ Pausar</button>
         <button class="btn-secondary" id="advReset">↻ Reiniciar</button>
         <button class="btn-secondary" id="advCSV">⇩ Exportar CSV</button>
@@ -485,6 +400,12 @@ footer {
         <div class="control"><label for="advArea">Área frontal (m²)</label><input id="advArea" type="number" min="0.001" max="5" step="0.001" value="0.01"></div>
         <div class="control"><label for="advRho">Densidade do ar (kg/m³)</label><input id="advRho" type="number" min="0.1" max="2" step="0.01" value="1.225"></div>
       </div>
+      <div class="vector-options" aria-label="Opções de visualização dos vetores">
+        <h4>Visualização dos vetores</h4>
+        <label><input type="checkbox" id="advShowV" checked> Velocidade resultante (v)</label>
+        <label><input type="checkbox" id="advShowVx" checked> Componente horizontal (vₓ)</label>
+        <label><input type="checkbox" id="advShowVy" checked> Componente vertical (vᵧ)</label>
+      </div>
       <p class="model-note">O arrasto é quadrático: F<sub>d</sub> = ½ ρ Cd A v², sempre contrário ao vetor velocidade. A integração numérica utiliza o método RK4.</p>
       <div class="buttons"><button class="btn-primary" id="advApply">Atualizar experimento</button></div>
     </div>
@@ -499,9 +420,7 @@ footer {
     <div class="chart-card"><h3>Posição × tempo</h3><canvas id="advPositionChart" class="chart-canvas"></canvas></div>
     <div class="chart-card"><h3>Velocidade × tempo</h3><canvas id="advVelocityChart" class="chart-canvas"></canvas></div>
   </div>
-</section>
-<section class="panel" id="advResolution">
-  <div class="panel-title"><h2>🧭 Resolução passo a passo</h2><span class="status">Modelo matemático</span></div>
+  <div class="panel-title" style="margin-top:22px"><h2>🧭 Resolução passo a passo</h2><span class="status">Modelo matemático</span></div>
   <div id="advSteps" class="explanation"></div>
   <h3 style="font-size:15px">Amostras numéricas da trajetória com resistência do ar</h3>
   <div class="step-wrap"><table class="step-table"><thead><tr><th>t (s)</th><th>x (m)</th><th>y (m)</th><th>vx (m/s)</th><th>vy (m/s)</th></tr></thead><tbody id="advDataRows"></tbody></table></div>
@@ -563,284 +482,6 @@ footer {
 </footer>
 
 <script>
-const canvas = document.getElementById("simulation");
-const ctx = canvas.getContext("2d");
-
-const velocityInput = document.getElementById("velocity");
-const angleInput = document.getElementById("angle");
-const gravityInput = document.getElementById("gravity");
-
-let running = false;
-let animationId = null;
-let elapsed = 0;
-let lastFrame = 0;
-
-function parameters() {
-  return {
-    v: Number(velocityInput.value),
-    angle: Number(angleInput.value) * Math.PI / 180,
-    g: Number(gravityInput.value)
-  };
-}
-
-function calculate() {
-  const {v, angle, g} = parameters();
-
-  const time = 2 * v * Math.sin(angle) / g;
-  const range = v * v * Math.sin(2 * angle) / g;
-  const height = Math.pow(v * Math.sin(angle), 2) / (2 * g);
-
-  document.getElementById("rangeResult").textContent =
-    range.toFixed(2).replace(".", ",");
-
-  document.getElementById("heightResult").textContent =
-    height.toFixed(2).replace(".", ",");
-
-  document.getElementById("timeResult").textContent =
-    time.toFixed(2).replace(".", ",");
-
-  document.getElementById("speedResult").textContent =
-    v.toFixed(2).replace(".", ",");
-
-  document.getElementById("vLabel").textContent = v + " m/s";
-  document.getElementById("angleLabel").textContent =
-    angleInput.value + "°";
-  document.getElementById("gravityLabel").textContent =
-    g.toFixed(1).replace(".", ",") + " m/s²";
-
-  return {time, range, height};
-}
-
-function resizeCanvas() {
-  const rect = canvas.getBoundingClientRect();
-  const dpr = window.devicePixelRatio || 1;
-
-  canvas.width = rect.width * dpr;
-  canvas.height = rect.height * dpr;
-
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  draw();
-}
-
-function draw() {
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
-  const result = calculate();
-  const {v, angle, g} = parameters();
-
-  ctx.clearRect(0, 0, width, height);
-
-  const margin = 38;
-  const ground = height - margin;
-  const availableWidth = width - 2 * margin;
-  const availableHeight = height - 2 * margin;
-
-  const scaleX = availableWidth / Math.max(result.range * 1.15, 1);
-  const scaleY = availableHeight / Math.max(result.height * 1.5, 1);
-  const scale = Math.min(scaleX, scaleY);
-
-  // Fundo
-  ctx.fillStyle = "#0c1728";
-  ctx.fillRect(0, 0, width, height);
-
-  // Linhas da grade
-  ctx.strokeStyle = "#1d3048";
-  ctx.lineWidth = 1;
-
-  for (let x = margin; x < width; x += 40) {
-    ctx.beginPath();
-    ctx.moveTo(x, 0);
-    ctx.lineTo(x, height);
-    ctx.stroke();
-  }
-
-  for (let y = margin; y < height; y += 40) {
-    ctx.beginPath();
-    ctx.moveTo(0, y);
-    ctx.lineTo(width, y);
-    ctx.stroke();
-  }
-
-  // Solo
-  ctx.strokeStyle = "#34d399";
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(margin, ground);
-  ctx.lineTo(width - 10, ground);
-  ctx.stroke();
-
-  const px = t => margin + v * Math.cos(angle) * t * scale;
-  const py = t => ground -
-    (v * Math.sin(angle) * t - 0.5 * g * t * t) * scale;
-
-  // Trajetória completa
-  ctx.beginPath();
-  ctx.strokeStyle = "#38bdf8";
-  ctx.lineWidth = 2.5;
-
-  for (let t = 0; t <= result.time; t += result.time / 120) {
-    const x = px(t);
-    const y = py(t);
-
-    if (t === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  }
-
-  ctx.stroke();
-
-  // Trajetória percorrida
-  const currentTime = Math.min(elapsed, result.time);
-
-  ctx.beginPath();
-  ctx.strokeStyle = "#34d399";
-  ctx.lineWidth = 3;
-
-  for (let t = 0; t <= currentTime; t += Math.max(result.time / 120, 0.001)) {
-    const x = px(t);
-    const y = py(t);
-
-    if (t === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  }
-
-  ctx.stroke();
-
-  // Posição instantânea e componentes da velocidade
-  const ballX = px(currentTime);
-  const ballY = py(currentTime);
-  const vx = v * Math.cos(angle);
-  const vy = v * Math.sin(angle) - g * currentTime;
-  const vectorScale = Math.min(3.2, 82 / Math.max(1, Math.hypot(vx, vy)));
-
-  function drawArrow(x1, y1, x2, y2, color, label) {
-    const head = 8;
-    const a = Math.atan2(y2 - y1, x2 - x1);
-    ctx.save();
-    ctx.strokeStyle = color;
-    ctx.fillStyle = color;
-    ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(x2, y2);
-    ctx.lineTo(x2 - head * Math.cos(a - Math.PI / 6), y2 - head * Math.sin(a - Math.PI / 6));
-    ctx.lineTo(x2 - head * Math.cos(a + Math.PI / 6), y2 - head * Math.sin(a + Math.PI / 6));
-    ctx.closePath();
-    ctx.fill();
-    ctx.font = "bold 12px Arial";
-    ctx.fillText(label, x2 + 7, y2 - 7);
-    ctx.restore();
-  }
-
-  // Vetores opcionais: resultante e componentes cartesianas
-  if (document.getElementById("showVxVector").checked) {
-    drawArrow(ballX, ballY, ballX + vx * vectorScale, ballY, "#38bdf8", "vₓ");
-  }
-  if (document.getElementById("showVyVector").checked) {
-    drawArrow(ballX, ballY, ballX, ballY - vy * vectorScale, "#f97316", "vᵧ");
-  }
-  if (document.getElementById("showVelocityVector").checked) {
-    drawArrow(ballX, ballY, ballX + vx * vectorScale, ballY - vy * vectorScale, "#a78bfa", "v");
-  }
-
-  // Projétil desenhado por último para permanecer visível sobre os vetores
-  ctx.beginPath();
-  ctx.arc(ballX, ballY, 7, 0, Math.PI * 2);
-  ctx.fillStyle = "#facc15";
-  ctx.shadowColor = "#facc15";
-  ctx.shadowBlur = 14;
-  ctx.fill();
-  ctx.shadowBlur = 0;
-
-  ctx.fillStyle = "#f1f5f9";
-  ctx.font = "12px Arial";
-  ctx.fillText("Lançamento", margin, ground + 20);
-  ctx.fillText("Trajetória", margin + 10, margin + 10);
-
-  ctx.fillStyle = "#94a3b8";
-  ctx.fillText("x (m)", width - 42, ground + 22);
-  ctx.fillText("y (m)", 8, 18);
-}
-
-function animate(timestamp) {
-  if (!running) return;
-
-  if (!lastFrame) lastFrame = timestamp;
-
-  const delta = (timestamp - lastFrame) / 1000;
-  lastFrame = timestamp;
-
-  const result = calculate();
-  elapsed += delta;
-
-  if (elapsed >= result.time) {
-    elapsed = result.time;
-    running = false;
-  }
-
-  draw();
-
-  if (running) {
-    animationId = requestAnimationFrame(animate);
-  }
-}
-
-function startSimulation() {
-  if (running) return;
-
-  const result = calculate();
-
-  if (elapsed >= result.time) elapsed = 0;
-
-  running = true;
-  lastFrame = 0;
-  animationId = requestAnimationFrame(animate);
-}
-
-function pauseSimulation() {
-  running = false;
-  cancelAnimationFrame(animationId);
-}
-
-function resetSimulation() {
-  pauseSimulation();
-  elapsed = 0;
-  draw();
-}
-
-document.getElementById("start").addEventListener(
-  "click", startSimulation
-);
-
-document.getElementById("pause").addEventListener(
-  "click", pauseSimulation
-);
-
-document.getElementById("reset").addEventListener(
-  "click", resetSimulation
-);
-
-[velocityInput, angleInput, gravityInput].forEach(input => {
-  input.addEventListener("input", () => {
-    pauseSimulation();
-    elapsed = 0;
-    draw();
-  });
-});
-
-["showVelocityVector", "showVxVector", "showVyVector"].forEach(id => {
-  document.getElementById(id).addEventListener("change", draw);
-});
-
-window.addEventListener("resize", resizeCanvas);
-
-resizeCanvas();
-calculate();
-</script>
-
-<script>
 
 /* FísicaLab 2D — módulo avançado de lançamento oblíquo */
 (()=>{
@@ -892,8 +533,10 @@ calculate();
    if(p.model!=='drag')path(ideal,'#38bdf8');if(p.model!=='ideal')path(drag,'#fb923c');
    const chosen=p.model==='ideal'?ideal:drag,pt=sample(chosen,Math.min(clock,chosen.at(-1).t)),X=L+pt.x*scale,Y=ground-pt.y*scale;
    x.fillStyle='#facc15';x.beginPath();x.arc(X,Y,6,0,Math.PI*2);x.fill();
-   const vec=(vx,vy,color)=>{const mag=Math.max(1,Math.hypot(vx,vy)),f=32/mag;x.strokeStyle=color;x.lineWidth=2;x.beginPath();x.moveTo(X,Y);x.lineTo(X+vx*f,Y-vy*f);x.stroke();};
-   if($('advVectors')?.checked!==false){vec(pt.vx,pt.vy,'#a78bfa');vec(0,-p.g,'#f87171');}
+   const vec=(vx,vy,color,label)=>{const mag=Math.max(1,Math.hypot(vx,vy)),f=Math.min(4,58/mag),x2=X+vx*f,y2=Y-vy*f,ang=Math.atan2(y2-Y,x2-X),head=7;x.save();x.strokeStyle=color;x.fillStyle=color;x.lineWidth=2.4;x.beginPath();x.moveTo(X,Y);x.lineTo(x2,y2);x.stroke();x.beginPath();x.moveTo(x2,y2);x.lineTo(x2-head*Math.cos(ang-Math.PI/6),y2-head*Math.sin(ang-Math.PI/6));x.lineTo(x2-head*Math.cos(ang+Math.PI/6),y2-head*Math.sin(ang+Math.PI/6));x.closePath();x.fill();x.font='bold 12px Arial';x.fillText(label,x2+6,y2-6);x.restore();};
+   if($('advShowVx').checked)vec(pt.vx,0,'#38bdf8','vₓ');
+   if($('advShowVy').checked)vec(0,pt.vy,'#f97316','vᵧ');
+   if($('advShowV').checked)vec(pt.vx,pt.vy,'#a78bfa','v');
    x.font='12px Arial';x.fillStyle='#cbd5e1';x.fillText('Azul: ideal',L,14);x.fillStyle='#fb923c';x.fillText('Laranja: com ar',L+95,14);x.fillStyle='#94a3b8';x.fillText('x (m)',w-45,h-8);x.fillText('y (m)',5,14);
  }
  function chart(id,key1,key2,label1,label2,color1,color2){
@@ -921,6 +564,7 @@ calculate();
  $('advReset').addEventListener('click',()=>{pause();clock=0;$('advTime').value=0;$('advTimeLabel').textContent='0,00 s';drawTrajectory()});
  $('advTime').addEventListener('input',e=>{pause();clock=Number(e.target.value);$('advTimeLabel').textContent=fmt(clock)+' s';drawTrajectory()});
  $('advModel').addEventListener('change',drawAll);
+ ['advShowV','advShowVx','advShowVy'].forEach(id=>$(id).addEventListener('change',drawTrajectory));
  $('advCSV').addEventListener('click',()=>{const csv=['tempo_s;x_m;y_m;vx_m_s;vy_m_s',...drag.map(q=>[q.t,q.x,q.y,q.vx,q.vy].join(';'))].join('\n'),blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='fisicalab_lancamento_obliquo.csv';a.click();URL.revokeObjectURL(url)});
  window.addEventListener('resize',drawAll);
  build();
