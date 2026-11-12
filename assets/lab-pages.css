@@ -20,3 +20,44 @@
 .static-inputs .btn{grid-column:1/-1;margin-top:2px}
 [hidden]{display:none!important}
 @media(max-width:760px){.static-layout{grid-template-columns:1fr}.static-inputs{grid-template-columns:1fr 1fr}}
+
+
+/* FísicaLab 2D — identidade visual compartilhada: Minimalista Premium / claro */
+:root{--bg:#fafafa;--panel:#ffffff;--panel2:#f4f4f5;--primary:#0d9488;--green:#0d9488;--text:#18181b;--muted:#52525b;--border:#d4d4d8}
+html{scroll-behavior:smooth}
+body{background-color:#fafafa!important;background-image:radial-gradient(rgba(63,63,70,.13) 1px,transparent 1.25px),radial-gradient(circle at 72% 0%,rgba(13,148,136,.075),transparent 43%),radial-gradient(circle at 8% 100%,rgba(161,161,170,.08),transparent 42%)!important;background-size:24px 24px,100% 100%,100% 100%!important;color:#18181b!important;font-family:Nunito,Inter,Arial,sans-serif!important}
+header{background:rgba(250,250,250,.95)!important;border-bottom:1px solid #e4e4e7!important;color:#52525b!important;backdrop-filter:blur(12px)}
+.brand{font-family:Fredoka,Nunito,sans-serif!important;color:#18181b!important}.brand span{color:#0d9488!important}
+.wrap{align-items:start}
+aside,.panel{background:#fff!important;border:1px solid #d4d4d8!important;border-radius:16px!important;box-shadow:0 7px 22px rgba(24,24,27,.055)}
+aside{position:sticky;top:84px}
+aside b{color:#71717a!important}
+aside a{color:#3f3f46!important;border-radius:9px!important}
+aside a:hover,aside a.active{background:#ccfbf1!important;color:#0f766e!important}
+.hero h1,.panel h2{color:#18181b!important;font-family:Fredoka,Nunito,sans-serif!important}
+.hero p,.muted{color:#52525b!important}
+.grid .field label,.field label{color:#52525b!important}
+.field input,.field select,.panel .field select{background:#fff!important;color:#18181b!important;border:1px solid #d4d4d8!important;border-radius:9px!important}
+.field input:focus,.field select:focus{outline:2px solid rgba(13,148,136,.22);border-color:#0d9488!important}
+.results .metric,.metric{background:#f4f4f5!important;border:1px solid #e4e4e7!important;color:#18181b!important}
+.metric small,.metric span{color:#71717a!important}.metric strong{color:#0f766e!important}
+.formula{background:#f4f4f5!important;border-left-color:#0d9488!important;color:#27272a!important}
+.MathJax{color:#18181b!important}
+.btn{background:#0d9488!important;color:#fff!important;border:1px solid #0f766e!important;border-radius:9px!important}
+.btn.secondary{background:#e4e4e7!important;color:#3f3f46!important;border:1px solid #d4d4d8!important}
+.cards a,.question,.step-item{background:#f4f4f5!important;border:1px solid #e4e4e7!important;color:#18181b!important}
+.cards a:hover{border-color:#0d9488!important}
+.question button{background:#fff!important;color:#27272a!important;border:1px solid #d4d4d8!important}
+.question button:hover{border-color:#0d9488!important}
+.feedback{color:#0f766e!important}
+footer{color:#71717a!important}
+.learning-card{background:#fff!important;border:1px solid #d4d4d8!important;box-shadow:0 7px 22px rgba(24,24,27,.055)}
+.learning-card h2,.learning-question{color:#18181b!important}
+.eyebrow{color:#0f766e!important}
+.learning-card details{background:#f4f4f5!important;color:#52525b!important}
+.learning-card summary{color:#0f766e!important}
+.learning-illustration{background:#f4f4f5!important;border-color:#d4d4d8!important}
+.step-item{border-left-color:#0d9488!important}
+.visual-speed{color:#52525b!important}.visual-speed span{color:#18181b!important}
+.lab-visual,.visual-resource{border:1px solid #d4d4d8!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2);border-radius:12px!important}
+@media(max-width:850px){aside{position:static}}
