@@ -497,6 +497,46 @@ footer{color:#526987!important;font-weight:900!important}
 .site-header .top-nav a,.site-header .discipline-link{color:#334155!important}
 .site-header .lab-dropdown-toggle{background:#e2e8f0!important;color:#263445!important}
 
+
+/* Ajustes específicos para smartphones — simulador de lançamento oblíquo */
+html,body{max-width:100%;overflow-x:hidden}
+.container,.layout,.content,.advanced-grid,.advanced-grid>div{min-width:0;max-width:100%}
+canvas,.advanced-canvas{width:100%;max-width:100%;height:auto;aspect-ratio:16/9;min-height:190px}
+.advanced-grid{grid-template-columns:minmax(0,1.5fr) minmax(260px,.8fr)}
+.advanced-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}
+.site-header{padding-left:clamp(12px,3vw,44px)!important;padding-right:clamp(12px,3vw,44px)!important}
+@media(max-width:950px){
+ .container{width:calc(100% - 28px)!important;margin:18px auto!important}
+ .layout{grid-template-columns:minmax(0,1fr)!important}
+ .advanced-grid{grid-template-columns:minmax(0,1fr)!important}
+ .advanced-controls{width:100%;min-width:0}
+ .advanced-options{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .scientist-card{width:100%;max-width:none}
+}
+@media(max-width:700px){
+ .site-header{height:auto!important;min-height:0!important;flex-wrap:wrap!important;padding:9px 12px!important;gap:8px!important}
+ .site-header nav{width:100%!important;justify-content:flex-start!important;flex-wrap:wrap!important}
+ .site-header .lab-dropdown{margin-left:auto!important}
+ .container{width:calc(100% - 20px)!important;margin:12px auto!important}
+ .welcome{padding:18px!important;margin-bottom:14px!important}
+ .panel{padding:14px!important}
+ .panel-title{align-items:flex-start!important}
+ .advanced-grid{gap:12px!important}
+ .advanced-canvas{min-height:190px!important}
+ .buttons{display:flex!important;flex-wrap:wrap!important;gap:8px!important}
+ .buttons button{flex:1 1 125px!important}
+ .advanced-controls{padding:13px!important}
+}
+@media(max-width:430px){
+ .site-header .brand{font-size:19px!important}
+ .site-header .brand-mark{width:36px!important;height:36px!important;min-width:36px!important}
+ .site-header .discipline-link{font-size:11px!important;padding:6px 7px!important}
+ .site-header .lab-dropdown-toggle{font-size:11px!important;padding:8px 10px!important}
+ .advanced-options{grid-template-columns:minmax(0,1fr)!important}
+ .advanced-canvas{min-height:170px!important}
+ .metrics,.advanced-metrics{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
 </style>
 <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><link rel="icon" type="image/svg+xml" href="assets/universolab-favicon.svg">
 </head>
