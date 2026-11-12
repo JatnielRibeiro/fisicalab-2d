@@ -74,11 +74,25 @@ nav .lab-dropdown-menu a:hover,nav .lab-dropdown-menu a.active{background:#ccfbf
 .go{display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
 .card .body h3{margin-top:0}
 
+
+/* Aviso discreto de construção e convite à comunidade */
+.construction-note{position:absolute;top:142px;left:max(24px,calc((100vw - 1160px)/2 + 22px));z-index:1;width:235px;padding:16px 17px;background:rgba(255,255,255,.88);border:1px solid #e4e4e7;border-radius:14px;box-shadow:0 5px 18px rgba(24,24,27,.045);text-align:left}
+.construction-status{display:inline-flex;align-items:center;gap:7px;color:#71717a;font:900 10px Nunito,sans-serif;letter-spacing:.075em}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#0d9488;box-shadow:0 0 0 3px rgba(13,148,136,.12)}
+.construction-note p{margin:8px 0 5px;color:#27272a;font:700 16px Fredoka,sans-serif;line-height:1.25}
+.construction-note a{color:#0f766e;font:800 12px Nunito,sans-serif;line-height:1.45;text-decoration:none}
+.construction-note a:hover{text-decoration:underline}
+@media(max-width:900px){.construction-note{position:static;width:min(100%,420px);margin:0 auto 17px;padding:12px 15px}.construction-note p{font-size:15px}.hero{padding-top:25px}}
 </style>
 </head>
 <body>
 <header class="top"><div class="wrap bar"><a class="brand" href="index.html"><span class="brand-mark">∑</span><span>FísicaLab <em>2D</em></span></a><nav><div class="lab-dropdown"><button class="lab-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Laboratórios <span aria-hidden="true">▾</span></button><div class="lab-dropdown-menu"><a href="laboratorio.html">🚀 Lançamento Oblíquo</a><a href="vetores.html">🧭 Laboratório de Vetores</a><a href="estatica.html">⚖️ Estática</a><a href="movimento-retilineo.html">📐 Movimento Retilíneo</a><a href="queda-livre.html">⚡ Queda Livre</a><a href="gravitacao.html">🪐 Gravitação</a><a href="energia-mecanica.html">🔋 Energia Mecânica</a><a href="leis-newton.html">⚖️ Leis de Newton</a><a href="movimento-circular.html">🔄 Movimento Circular</a><a href="eletromagnetismo.html">🧲 Eletromagnetismo</a><a href="conteudos.html">📚 Conteúdos</a><a href="exercicios.html">📝 Exercícios</a></div></div><a class="hide-mobile" href="#desafios">Desafios</a><a class="hide-mobile" href="#sobre">Sobre</a><a class="login" href="laboratorio.html">Entrar</a></nav></div></header>
 <main class="wrap">
+<aside class="construction-note" aria-label="Aviso sobre o desenvolvimento do FísicaLab 2D">
+  <span class="construction-status"><span class="status-dot"></span> EM DESENVOLVIMENTO</span>
+  <p>O FísicaLab 2D está em construção.</p>
+  <a href="https://github.com/JatnielRibeiro/fisicalab-2d" target="_blank" rel="noopener noreferrer">Sugestões e contribuições são bem-vindas ↗</a>
+</aside>
 <section class="hero"><span class="pill">⚛ LABORATÓRIO VIRTUAL · EXPERIMENTE E DESCUBRA</span><h1>Simulações de Física <span>e muito mais</span></h1><p>Explore fenômenos físicos, manipule variáveis e descubra na prática como as leis da Física explicam o mundo ao nosso redor.</p>
 <div class="filters discipline-filters" aria-label="Filtrar por disciplina"><button class="filter active" data-subject="all">Todas</button><button class="filter" data-subject="matematica">Matemática</button><button class="filter" data-subject="fisica">Física</button><button class="filter" data-subject="quimica">Química</button><button class="filter" data-subject="ciencias">Ciências</button></div>
 <div class="filters topic-filters" aria-label="Filtrar experiências por tema"><button class="filter active" data-filter="all">Todas</button><button class="filter" data-filter="lab">Laboratórios</button><button class="filter" data-filter="cinematica">Cinemática</button><button class="filter" data-filter="dinamica">Dinâmica</button><button class="filter" data-filter="estatica">Estática</button><button class="filter" data-filter="energia">Energia</button><button class="filter" data-filter="vetores">Vetores</button></div></section>
