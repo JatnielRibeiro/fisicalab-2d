@@ -329,6 +329,23 @@ footer {
 .vector-options label{display:flex!important;align-items:center;gap:8px;margin:8px 0!important;color:#cbd5e1!important;font-size:12px!important;cursor:pointer}
 .vector-options input{width:15px;height:15px;accent-color:var(--primary)}
 
+/* Recursos pedagógicos do experimento principal */
+.learning-projectile .projectile-figure{background:#081321;border:1px solid var(--border);border-radius:12px;padding:14px;margin:16px 0}
+.projectile-figure svg{display:block;width:100%;height:auto;max-height:340px}
+.figure-legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;color:#cbd5e1;font-size:12px}
+.figure-legend span{display:flex;align-items:center;gap:6px}
+.figure-legend i{display:inline-block;width:10px;height:10px;border-radius:50%}
+.learning-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}
+.learning-grid article{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:15px}
+.learning-grid b{color:var(--primary)}
+.learning-grid p,.learning-grid li{font-size:13px;line-height:1.65;color:#cbd5e1}
+.investigation-box{background:#10283a;border:1px solid #24516a;border-radius:10px;padding:16px;margin:16px 0}
+.investigation-box h3{margin:0 0 8px;font-size:16px}
+.investigation-box p{font-size:14px;line-height:1.6;color:#dbeafe}
+.investigation-box details{background:#0b1d2c;border-radius:8px;padding:11px}
+.investigation-box summary{cursor:pointer;color:var(--primary);font-weight:700}
+.investigation-box details p{margin-bottom:0}
+@media(max-width:800px){.learning-grid{grid-template-columns:1fr}.projectile-figure{overflow-x:auto}.projectile-figure svg{min-width:580px}}
 </style>
 <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head>
 
@@ -425,6 +442,68 @@ footer {
   <h3 style="font-size:15px">Amostras numéricas da trajetória com resistência do ar</h3>
   <div class="step-wrap"><table class="step-table"><thead><tr><th>t (s)</th><th>x (m)</th><th>y (m)</th><th>vx (m/s)</th><th>vy (m/s)</th></tr></thead><tbody id="advDataRows"></tbody></table></div>
 </section>
+
+      <section class="panel learning-projectile" id="learnProjectile">
+        <div class="panel-title">
+          <h2>🧠 Entenda o lançamento oblíquo</h2>
+          <span class="status">Aprenda antes de calcular</span>
+        </div>
+        <p class="explanation">O lançamento oblíquo combina dois movimentos que acontecem simultaneamente: na horizontal, o movimento é uniforme; na vertical, é uniformemente variado pela ação da gravidade. A trajetória parabólica resulta da composição desses movimentos, no modelo ideal sem resistência do ar.</p>
+        <div class="projectile-figure">
+          <svg viewBox="0 0 760 330" role="img" aria-label="Diagrama do lançamento oblíquo: trajetória parabólica, velocidade inicial decomposta nos eixos horizontal e vertical, velocidade no ponto mais alto e aceleração gravitacional para baixo">
+            <defs>
+              <marker id="arrBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#38bdf8"/></marker>
+              <marker id="arrOrange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#fb923c"/></marker>
+              <marker id="arrGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#34d399"/></marker>
+              <marker id="arrPurple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#a78bfa"/></marker>
+            </defs>
+            <path d="M55 270H710M55 270V25" stroke="#64748b" stroke-width="2"/>
+            <path d="M55 270 Q355 -185 665 270" fill="none" stroke="#38bdf8" stroke-width="4"/>
+            <path d="M55 270L160 190" stroke="#a78bfa" stroke-width="3" marker-end="url(#arrPurple)"/>
+            <path d="M55 270H180" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrBlue)"/>
+            <path d="M180 270V175" stroke="#fb923c" stroke-width="3" marker-end="url(#arrOrange)"/>
+            <path d="M55 270L180 175" stroke="#a78bfa" stroke-width="3" stroke-dasharray="5 4"/>
+            <path d="M350 157H455" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrBlue)"/>
+            <path d="M455 157V157" stroke="#fb923c" stroke-width="3"/>
+            <path d="M455 157V220" stroke="#34d399" stroke-width="3" marker-end="url(#arrGreen)"/>
+            <path d="M350 157V220" stroke="#34d399" stroke-width="3" marker-end="url(#arrGreen)"/>
+            <circle cx="350" cy="157" r="7" fill="#facc15"/>
+            <circle cx="55" cy="270" r="6" fill="#facc15"/>
+            <text x="190" y="286" fill="#38bdf8" font-size="15">v₀ₓ</text>
+            <text x="190" y="180" fill="#fb923c" font-size="15">v₀ᵧ</text>
+            <text x="92" y="205" fill="#a78bfa" font-size="15">v₀</text>
+            <text x="465" y="151" fill="#38bdf8" font-size="15">vₓ</text>
+            <text x="466" y="204" fill="#34d399" font-size="15">g (para baixo)</text>
+            <text x="362" y="140" fill="#facc15" font-size="13">Ponto mais alto</text>
+            <text x="368" y="177" fill="#cbd5e1" font-size="12">vᵧ = 0</text>
+            <text x="680" y="290" fill="#cbd5e1" font-size="13">x</text>
+            <text x="38" y="22" fill="#cbd5e1" font-size="13">y</text>
+            <text x="65" y="300" fill="#cbd5e1" font-size="12">Lançamento</text>
+            <text x="510" y="45" fill="#94a3b8" font-size="12">Esquema conceitual</text>
+            <text x="510" y="62" fill="#94a3b8" font-size="12">vetores sem escala comum</text>
+          </svg>
+          <div class="figure-legend">
+            <span><i style="background:#a78bfa"></i> Velocidade inicial</span>
+            <span><i style="background:#38bdf8"></i> Componente horizontal</span>
+            <span><i style="background:#fb923c"></i> Componente vertical</span>
+            <span><i style="background:#34d399"></i> Gravidade</span>
+          </div>
+        </div>
+        <div class="learning-grid">
+          <article><b>1. Na horizontal (eixo x)</b><p>Sem resistência do ar, a aceleração horizontal é nula. Portanto, (v_x) permanece constante.</p><div class="formula">\[a_x=0\qquad v_x=v_0\cos\theta\]</div></article>
+          <article><b>2. Na vertical (eixo y)</b><p>A gravidade atua para baixo. A componente vertical da velocidade diminui na subida, zera instantaneamente no ponto mais alto e aumenta em módulo na descida.</p><div class="formula">\[a_y=-g\qquad v_y=v_0\sin\theta-gt\]</div></article>
+          <article><b>3. No ponto mais alto</b><p>Apenas a componente vertical da velocidade é zero. O projétil continua avançando horizontalmente.</p><div class="formula">\[v_y=0\qquad |\vec v|=|v_x|\]</div></article>
+        </div>
+        <div class="investigation-box">
+          <h3>🔎 Investigue antes de alterar os parâmetros</h3>
+          <p>Se aumentarmos o ângulo mantendo a velocidade inicial constante, o que acontece com as componentes horizontal e vertical?</p>
+          <details><summary>Verifique sua hipótese</summary><p>Ao aumentar o ângulo entre 0° e 90°, (v_{0x}=v_0\cos\theta) diminui e (v_{0y}=v_0\sin\theta) aumenta. O alcance não cresce indefinidamente: para lançamento e queda na mesma altura, no modelo ideal, ele é máximo a 45°.</p></details>
+        </div>
+        <div class="learning-grid">
+          <article><b>Como estudar com o simulador</b><ol><li>Escolha o modelo ideal.</li><li>Altere apenas o ângulo.</li><li>Observe os vetores e a trajetória.</li><li>Compare os gráficos de posição e velocidade.</li><li>Repita com resistência do ar e identifique as diferenças.</li></ol></article>
+          <article><b>Cuidados com o modelo</b><p>As relações (v_x=constante) e trajetória parabólica valem para o modelo ideal, sem arrasto. Com resistência do ar, a força de arrasto altera as componentes da velocidade e a trajetória deixa de ser uma parábola exata.</p></article>
+        </div>
+      </section>
 
       <section class="panel">
         <div class="panel-title">
