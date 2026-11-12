@@ -346,6 +346,7 @@ footer {
 .investigation-box summary{cursor:pointer;color:var(--primary);font-weight:700}
 .investigation-box details p{margin-bottom:0}
 @media(max-width:800px){.learning-grid{grid-template-columns:1fr}.projectile-figure{overflow-x:auto}.projectile-figure svg{min-width:580px}}
+.vector-readout{margin-top:14px;padding:12px;background:#0c1728;border:1px solid var(--border);border-radius:9px}.vector-readout h4{font-size:13px;margin:0 0 9px}.vector-readout div{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #203149;font-size:12px;color:#cbd5e1}.vector-readout strong{color:var(--primary);font-variant-numeric:tabular-nums}.vector-readout p{font-size:12px;line-height:1.5;color:#94a3b8;margin:10px 0 0}
 </style>
 <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head>
 
@@ -422,6 +423,16 @@ footer {
         <label><input type="checkbox" id="advShowV" checked> Velocidade resultante (v)</label>
         <label><input type="checkbox" id="advShowVx" checked> Componente horizontal (vₓ)</label>
         <label><input type="checkbox" id="advShowVy" checked> Componente vertical (vᵧ)</label>
+        <label><input type="checkbox" id="advShowG" checked> Aceleração gravitacional (g)</label>
+        <label><input type="checkbox" id="advShowComponents" checked> Linhas de decomposição x/y</label>
+      </div>
+      <div class="vector-readout" aria-live="polite">
+        <h4>Leitura dos vetores no instante atual</h4>
+        <div><span>vₓ</span><strong id="advReadVx">—</strong></div>
+        <div><span>vᵧ</span><strong id="advReadVy">—</strong></div>
+        <div><span>|v|</span><strong id="advReadV">—</strong></div>
+        <div><span>aᵧ</span><strong id="advReadAy">—</strong></div>
+        <p id="advVectorInterpretation">Inicie a simulação para acompanhar as componentes da velocidade.</p>
       </div>
       <p class="model-note">O arrasto é quadrático: F<sub>d</sub> = ½ ρ Cd A v², sempre contrário ao vetor velocidade. A integração numérica utiliza o método RK4.</p>
       <div class="buttons"><button class="btn-primary" id="advApply">Atualizar experimento</button></div>
@@ -613,9 +624,17 @@ footer {
    const chosen=p.model==='ideal'?ideal:drag,pt=sample(chosen,Math.min(clock,chosen.at(-1).t)),X=L+pt.x*scale,Y=ground-pt.y*scale;
    x.fillStyle='#facc15';x.beginPath();x.arc(X,Y,6,0,Math.PI*2);x.fill();
    const vec=(vx,vy,color,label)=>{const mag=Math.max(1,Math.hypot(vx,vy)),f=Math.min(4,58/mag),x2=X+vx*f,y2=Y-vy*f,ang=Math.atan2(y2-Y,x2-X),head=7;x.save();x.strokeStyle=color;x.fillStyle=color;x.lineWidth=2.4;x.beginPath();x.moveTo(X,Y);x.lineTo(x2,y2);x.stroke();x.beginPath();x.moveTo(x2,y2);x.lineTo(x2-head*Math.cos(ang-Math.PI/6),y2-head*Math.sin(ang-Math.PI/6));x.lineTo(x2-head*Math.cos(ang+Math.PI/6),y2-head*Math.sin(ang+Math.PI/6));x.closePath();x.fill();x.font='bold 12px Arial';x.fillText(label,x2+6,y2-6);x.restore();};
+   if($('advShowComponents').checked){
+     x.save();x.setLineDash([5,5]);x.strokeStyle='rgba(203,213,225,.75)';x.lineWidth=1.5;
+     x.beginPath();x.moveTo(X,Y);x.lineTo(X+pt.vx* Math.min(4,58/Math.max(1,Math.hypot(pt.vx,pt.vy))),Y);x.lineTo(X+pt.vx*Math.min(4,58/Math.max(1,Math.hypot(pt.vx,pt.vy))),Y-pt.vy*Math.min(4,58/Math.max(1,Math.hypot(pt.vx,pt.vy))));x.stroke();x.restore();
+   }
    if($('advShowVx').checked)vec(pt.vx,0,'#38bdf8','vₓ');
    if($('advShowVy').checked)vec(0,pt.vy,'#f97316','vᵧ');
    if($('advShowV').checked)vec(pt.vx,pt.vy,'#a78bfa','v');
+   if($('advShowG').checked)vec(0,-p.g,'#34d399','g');
+   const speed=Math.hypot(pt.vx,pt.vy);
+   $('advReadVx').textContent=fmt(pt.vx)+' m/s';$('advReadVy').textContent=fmt(pt.vy)+' m/s';$('advReadV').textContent=fmt(speed)+' m/s';$('advReadAy').textContent=fmt(deriv(pt,p).vy)+' m/s²';
+   $('advVectorInterpretation').textContent=pt.vy>0.15?'O projétil está subindo: vᵧ é positiva e diminui até zero.':pt.vy< -0.15?'O projétil está descendo: vᵧ é negativa.':'Perto do ponto mais alto: vᵧ é aproximadamente zero, mas vₓ continua existindo.';
    x.font='12px Arial';x.fillStyle='#cbd5e1';x.fillText('Azul: ideal',L,14);x.fillStyle='#fb923c';x.fillText('Laranja: com ar',L+95,14);x.fillStyle='#94a3b8';x.fillText('x (m)',w-45,h-8);x.fillText('y (m)',5,14);
  }
  function chart(id,key1,key2,label1,label2,color1,color2){
@@ -643,7 +662,7 @@ footer {
  $('advReset').addEventListener('click',()=>{pause();clock=0;$('advTime').value=0;$('advTimeLabel').textContent='0,00 s';drawTrajectory()});
  $('advTime').addEventListener('input',e=>{pause();clock=Number(e.target.value);$('advTimeLabel').textContent=fmt(clock)+' s';drawTrajectory()});
  $('advModel').addEventListener('change',drawAll);
- ['advShowV','advShowVx','advShowVy'].forEach(id=>$(id).addEventListener('change',drawTrajectory));
+ ['advShowV','advShowVx','advShowVy','advShowG','advShowComponents'].forEach(id=>$(id).addEventListener('change',drawTrajectory));
  $('advCSV').addEventListener('click',()=>{const csv=['tempo_s;x_m;y_m;vx_m_s;vy_m_s',...drag.map(q=>[q.t,q.x,q.y,q.vx,q.vy].join(';'))].join('\n'),blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='fisicalab_lancamento_obliquo.csv';a.click();URL.revokeObjectURL(url)});
  window.addEventListener('resize',drawAll);
  build();
