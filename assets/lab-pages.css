@@ -298,3 +298,70 @@ body .hero .eyebrow,
 body .hero .badge{
   color:#ffffff!important;
 }
+
+
+/* Layout universal dos laboratórios: cientista-guia + simulador + parâmetros */
+.wrap{
+  width:min(1540px,96%)!important;
+  grid-template-columns:minmax(230px,270px) minmax(0,1fr)!important;
+  align-items:start!important;
+  gap:20px!important;
+}
+.scientist-guide{
+  position:sticky!important;
+  top:88px!important;
+  align-self:start!important;
+  padding:12px!important;
+  overflow:hidden!important;
+  background:linear-gradient(155deg,#eee8ff 0%,#d8f2ff 52%,#fff0d8 100%)!important;
+  border:3px solid #49358a!important;
+  border-radius:22px!important;
+  box-shadow:0 7px 0 rgba(73,53,138,.22),0 14px 28px rgba(29,78,130,.12)!important;
+}
+.scientist-card{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
+.scientist-ribbon{
+  width:100%;padding:9px 7px;border-radius:13px;
+  background:linear-gradient(180deg,#ffe16b,#ffc83d);
+  border:2px solid #17345d;color:#17345d;
+  font:900 12px Nunito,sans-serif;letter-spacing:.045em;
+  box-shadow:0 3px 0 #bd8e22;
+}
+.scientist-art{display:block;width:100%;max-width:220px;height:auto;max-height:260px;filter:drop-shadow(0 5px 2px rgba(23,52,93,.13))}
+.scientist-name{
+  width:100%;padding:9px 8px;border-radius:13px;
+  background:linear-gradient(180deg,#c4b5fd,#a78bfa);
+  border:2px solid #49358a;color:#24154e;
+  font:700 18px Fredoka,sans-serif;box-shadow:0 3px 0 #7355b5;
+}
+.scientist-role{font:900 11px Nunito,sans-serif;color:#49358a}
+.scientist-speech{
+  width:100%;position:relative;text-align:left;padding:12px;
+  background:#fffdf5;border:2px solid #17345d;border-radius:15px;
+  box-shadow:0 4px 0 rgba(23,52,93,.13);color:#17345d;
+}
+.scientist-speech:before{
+  content:"";position:absolute;top:-9px;left:calc(50% - 8px);
+  width:14px;height:14px;background:#fffdf5;
+  border-left:2px solid #17345d;border-top:2px solid #17345d;transform:rotate(45deg)
+}
+.speech-label{display:block;margin-bottom:6px;color:#087f70;font:700 16px Fredoka,sans-serif}
+.scientist-speech p{margin:0;color:#294567!important;font:800 13px/1.5 Nunito,sans-serif!important}
+.scientist-tip{
+  width:100%;padding:9px;border-radius:12px;
+  background:#e2fff4;border:1.5px solid #39b98b;color:#075e54;
+  font:900 11px/1.4 Nunito,sans-serif;
+}
+#mainContent{min-width:0}
+@media(max-width:900px){
+  .wrap{grid-template-columns:220px minmax(0,1fr)!important;width:97%!important;gap:13px!important}
+  .scientist-guide{top:78px!important}
+}
+@media(max-width:700px){
+  .wrap{display:flex!important;flex-direction:column!important;width:95%!important}
+  .scientist-guide{position:relative!important;top:auto!important;width:100%!important}
+  .scientist-card{display:grid;grid-template-columns:100px minmax(0,1fr);text-align:left;align-items:center;column-gap:12px}
+  .scientist-ribbon,.scientist-speech,.scientist-tip{grid-column:1/-1}
+  .scientist-art{grid-column:1;grid-row:2/5;width:100%;max-height:180px}
+  .scientist-name,.scientist-role{grid-column:2}
+  .scientist-speech{margin-top:4px}
+}
