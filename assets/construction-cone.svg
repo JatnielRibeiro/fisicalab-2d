@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-labelledby="title desc">
+<title id="title">Cone de sinalização em adesivo</title>
+<desc id="desc">Ilustração de um cone laranja e branco sobre uma forma verde-água, com contorno branco de adesivo.</desc>
+<defs>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dy="5"/><feComponentTransfer><feFuncA type="linear" slope=".18"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <clipPath id="cone"><path d="M91 48 Q110 34 129 48 L153 166 Q110 183 67 166Z"/></clipPath>
+</defs>
+<path d="M110 9C163 9 207 49 207 105s-39 103-96 103S12 170 12 111 52 9 110 9Z" fill="#c9f3eb" stroke="#fff" stroke-width="12" stroke-linejoin="round" filter="url(#shadow)"/>
+<path d="M110 21c47 0 84 37 84 84s-37 84-84 84-84-37-84-84 37-84 84-84Z" fill="#e9faf6"/>
+<g filter="url(#shadow)" stroke="#222b31" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+ <path d="M68 165h84l16 21H52Z" fill="#f6a623"/>
+ <path d="M91 48Q110 34 129 48l24 118q-43 17-86 0Z" fill="#f8a52b"/>
+ <g clip-path="url(#cone)" stroke="none">
+  <path d="M72 91h76l8 30H64Z" fill="#fff"/>
+  <path d="M66 138h92l8 28q-48 18-104 0Z" fill="#fff"/>
+  <path d="M107 43h12l24 126-13 4Z" fill="#e98318" opacity=".65"/>
+ </g>
+ <path d="M91 48Q110 34 129 48" fill="none"/>
+ <path d="M67 165q43 17 86 0" fill="none"/>
+ <path d="M52 186h116" fill="none"/>
+</g>
+<path d="m42 47 5 10 10 5-10 5-5 10-5-10-10-5 10-5Z" fill="#f5bf43" stroke="#fff" stroke-width="4"/>
+<circle cx="177" cy="53" r="7" fill="#0d9488" stroke="#fff" stroke-width="4"/>
+</svg>
