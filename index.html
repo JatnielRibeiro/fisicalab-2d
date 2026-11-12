@@ -3,114 +3,712 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FísicaLab 2D</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FísicaLab 2D | Laboratório Virtual</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#0b1220;color:#edf5ff;font-family:Arial,sans-serif}
-header{padding:22px;background:#142238;border-bottom:1px solid #29415f}
-header h2{margin:0;color:#38c5d8}
-main{max-width:1100px;margin:auto;padding:20px}
-.card{background:#142238;border:1px solid #29415f;border-radius:14px;padding:18px;margin-bottom:18px}
-h1{font-size:28px}
-p{color:#b5c7dd}
-.layout{display:grid;grid-template-columns:1.5fr 1fr;gap:15px}
-canvas{width:100%;height:330px;background:#081321;border-radius:10px}
-label{display:block;margin:15px 0;color:#b5c7dd}
-input{width:100%;accent-color:#38c5d8}
-button{padding:11px 15px;border:0;border-radius:8px;background:#176b91;color:white;margin:4px}
-.result{background:#0b192a;padding:12px;border-radius:8px;margin:8px 0}
-.result strong{color:#38c5d8}
-@media(max-width:750px){.layout{grid-template-columns:1fr}}
+:root {
+  --bg: #0b1120;
+  --panel: #151f32;
+  --panel2: #1b2940;
+  --primary: #38bdf8;
+  --green: #34d399;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --border: #2b3b54;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header {
+  padding: 18px 5%;
+  background: #101a2b;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.logo span { color: white; }
+
+header small { color: var(--muted); }
+
+.container {
+  width: 92%;
+  max-width: 1450px;
+  margin: 30px auto;
+}
+
+.welcome {
+  margin-bottom: 28px;
+}
+
+.welcome h1 {
+  font-size: clamp(25px, 4vw, 36px);
+  margin: 0 0 8px;
+}
+
+.welcome p { color: var(--muted); }
+
+.layout {
+  display: grid;
+  grid-template-columns: 245px 1fr;
+  gap: 22px;
+}
+
+.sidebar, .panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+}
+
+.sidebar { padding: 18px; }
+
+.sidebar h3 {
+  font-size: 13px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 8px 0 15px;
+}
+
+.menu-item {
+  padding: 13px;
+  margin-bottom: 7px;
+  border-radius: 9px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.menu-item.active {
+  background: #12334b;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.content { min-width: 0; }
+
+.panel {
+  padding: 22px;
+  margin-bottom: 20px;
+}
+
+.panel-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.panel-title h2 {
+  margin: 0;
+  font-size: 19px;
+}
+
+.status {
+  color: var(--green);
+  font-size: 12px;
+  background: #123b36;
+  padding: 7px 12px;
+  border-radius: 30px;
+}
+
+.simulator-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 290px;
+  gap: 20px;
+}
+
+canvas {
+  width: 100%;
+  height: 390px;
+  display: block;
+  background: #0c1728;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.controls {
+  background: var(--panel2);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.controls h3 {
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.control { margin: 22px 0; }
+
+.control label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.control strong { color: var(--primary); }
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 11px 14px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #082032;
+}
+
+.btn-secondary {
+  background: #334155;
+  color: white;
+}
+
+button:hover { opacity: .85; }
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.metric {
+  background: var(--panel2);
+  padding: 17px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.metric small {
+  display: block;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.metric strong {
+  font-size: 22px;
+  color: var(--primary);
+}
+
+.metric span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.explanation {
+  line-height: 1.7;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+.formula {
+  padding: 14px;
+  background: #0c1728;
+  border-left: 3px solid var(--primary);
+  border-radius: 6px;
+  margin: 12px 0;
+  font-family: Georgia, serif;
+  font-size: 17px;
+  overflow-wrap: anywhere;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  padding: 30px;
+  font-size: 12px;
+}
+
+@media(max-width: 950px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .simulator-grid { grid-template-columns: 1fr; }
+  .metrics { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media(max-width: 500px) {
+  .container { width: 95%; margin: 18px auto; }
+  .panel { padding: 14px; }
+  canvas { height: 300px; }
+  .metrics { gap: 8px; }
+  .metric { padding: 12px; }
+  .metric strong { font-size: 18px; }
+}
 </style>
 </head>
+
 <body>
+
 <header>
-<h2>⚛ FísicaLab 2D</h2>
-<small>LABORATÓRIO VIRTUAL DE FÍSICA</small>
+  <div class="logo">Física<span>Lab</span> 2D</div>
+  <small>Laboratório Virtual de Física</small>
 </header>
-<main>
-<div class="card">
-<h1>Laboratório de Física</h1>
-<p>Experimente, investigue e compreenda os fenômenos físicos.</p>
-<h3>Experimento: Lançamento Oblíquo</h3>
-<p>Modifique os parâmetros e observe a trajetória do projétil.</p>
+
+<div class="container">
+
+  <section class="welcome">
+    <h1>Laboratório de Mecânica</h1>
+    <p>Explore fenômenos físicos por meio de simulações interativas.</p>
+  </section>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <h3>Experimentos</h3>
+      <div class="menu-item active">🚀 Lançamento Oblíquo</div>
+      <div class="menu-item">📐 Movimento Retilíneo</div>
+      <div class="menu-item">⚡ Queda Livre</div>
+      <div class="menu-item">🪐 Gravitação</div>
+      <div class="menu-item">🔋 Energia Mecânica</div>
+      <div class="menu-item">⚖️ Leis de Newton</div>
+      <div class="menu-item">🔄 Movimento Circular</div>
+      <div class="menu-item">🧲 Eletromagnetismo</div>
+      <h3>Plataforma</h3>
+      <div class="menu-item">📚 Conteúdos</div>
+      <div class="menu-item">📝 Exercícios</div>
+    </aside>
+
+    <main class="content">
+
+      <section class="panel">
+        <div class="panel-title">
+          <h2>🚀 Simulador de Lançamento Oblíquo</h2>
+          <span class="status">● Simulação disponível</span>
+        </div>
+
+        <div class="simulator-grid">
+
+          <div>
+            <canvas id="simulation"></canvas>
+            <div class="buttons">
+              <button class="btn-primary" id="start">▶ Iniciar</button>
+              <button class="btn-secondary" id="pause">Ⅱ Pausar</button>
+              <button class="btn-secondary" id="reset">↻ Reiniciar</button>
+            </div>
+          </div>
+
+          <div class="controls">
+            <h3>Parâmetros físicos</h3>
+
+            <div class="control">
+              <label>
+                Velocidade inicial
+                <strong id="vLabel">20 m/s</strong>
+              </label>
+              <input id="velocity" type="range" min="5" max="50" value="20">
+            </div>
+
+            <div class="control">
+              <label>
+                Ângulo de lançamento
+                <strong id="angleLabel">45°</strong>
+              </label>
+              <input id="angle" type="range" min="5" max="85" value="45">
+            </div>
+
+            <div class="control">
+              <label>
+                Gravidade
+                <strong id="gravityLabel">9,8 m/s²</strong>
+              </label>
+              <input id="gravity" type="range" min="1" max="20" step="0.1" value="9.8">
+            </div>
+
+            <p style="font-size:12px;color:#94a3b8">
+              Altere os parâmetros para observar como eles influenciam a trajetória.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">
+          <h2>📊 Resultados da simulação</h2>
+        </div>
+
+        <div class="metrics">
+          <div class="metric">
+            <small>Alcance máximo</small>
+            <strong id="rangeResult">40,82</strong>
+            <span>metros</span>
+          </div>
+
+          <div class="metric">
+            <small>Altura máxima</small>
+            <strong id="heightResult">10,20</strong>
+            <span>metros</span>
+          </div>
+
+          <div class="metric">
+            <small>Tempo de voo</small>
+            <strong id="timeResult">2,89</strong>
+            <span>segundos</span>
+          </div>
+
+          <div class="metric">
+            <small>Velocidade inicial</small>
+            <strong id="speedResult">20,00</strong>
+            <span>m/s</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">
+          <h2>📖 Fundamentação teórica</h2>
+        </div>
+
+        <div class="explanation">
+          <p>
+            O lançamento oblíquo é um movimento bidimensional que combina
+            dois movimentos independentes: o movimento horizontal uniforme
+            (MRU) e o movimento vertical uniformemente variado (MRUV).
+          </p>
+
+          <h3>1. Decomposição da velocidade inicial</h3>
+
+          <div class="formula">
+            Vx = V₀ · cos(θ)
+          </div>
+
+          <div class="formula">
+            Vy = V₀ · sen(θ)
+          </div>
+
+          <h3>2. Movimento horizontal</h3>
+
+          <div class="formula">
+            x(t) = V₀ · cos(θ) · t
+          </div>
+
+          <h3>3. Movimento vertical</h3>
+
+          <div class="formula">
+            y(t) = V₀ · sen(θ) · t − (g · t²)/2
+          </div>
+
+          <h3>4. Altura máxima</h3>
+
+          <div class="formula">
+            H = V₀² · sen²(θ) / 2g
+          </div>
+
+          <h3>5. Alcance horizontal</h3>
+
+          <div class="formula">
+            A = V₀² · sen(2θ) / g
+          </div>
+
+          <h3>6. Tempo total de voo</h3>
+
+          <div class="formula">
+            T = 2 · V₀ · sen(θ) / g
+          </div>
+
+          <p>
+            Neste modelo, consideramos que o objeto parte do solo,
+            retorna à mesma altura de lançamento e não sofre resistência
+            do ar.
+          </p>
+        </div>
+      </section>
+
+    </main>
+  </div>
 </div>
-<div class="layout">
-<section>
-<div class="card">
-<h3>Simulação 2D</h3>
-<canvas id="sim" width="800" height="400"></canvas>
-<button onclick="start()">▶ Iniciar</button>
-<button onclick="pause()">Ⅱ Pausar</button>
-<button onclick="reset()">↺ Reiniciar</button>
-</div>
-</section>
-<section>
-<div class="card">
-<h3>Parâmetros</h3>
-<label>Velocidade inicial: <span id="vo">20</span> m/s
-<input id="v" type="range" min="5" max="50" value="20" oninput="change()">
-</label>
-<label>Ângulo: <span id="ao">45</span>°
-<input id="a" type="range" min="5" max="85" value="45" oninput="change()">
-</label>
-<label>Gravidade: <span id="go">9.8</span> m/s²
-<input id="g" type="range" min="1" max="20" step=".1" value="9.8" oninput="change()">
-</label>
-<div class="result">Alcance: <strong id="range"></strong></div>
-<div class="result">Altura máxima: <strong id="height"></strong></div>
-<div class="result">Tempo de voo: <strong id="time"></strong></div>
-</div>
-<div class="card">
-<h3>Equações físicas</h3>
-<p>v₀ₓ = v₀ cos(θ)</p>
-<p>v₀ᵧ = v₀ sen(θ)</p>
-<p>x(t) = v₀ₓ · t</p>
-<p>y(t) = v₀ᵧt − gt²/2</p>
-</div>
-</section>
-</div>
-</main>
+
+<footer>
+  FísicaLab 2D — Laboratório Virtual de Física
+  <br>Projeto educacional e experimental
+</footer>
+
 <script>
-let t=0,running=false,raf;
-const $=id=>document.getElementById(id);
-function calc(){
-let v=+$('v').value,a=+$('a').value*Math.PI/180,g=+$('g').value;
-let vx=v*Math.cos(a),vy=v*Math.sin(a);
-let tf=2*vy/g,R=vx*tf,H=vy*vy/(2*g);
-$('vo').textContent=v;
-$('ao').textContent=$('a').value;
-$('go').textContent=g;
-$('range').textContent=R.toFixed(2)+' m';
-$('height').textContent=H.toFixed(2)+' m';
-$('time').textContent=tf.toFixed(2)+' s';
-return{vx,vy,g,tf,R,H};
+const canvas = document.getElementById("simulation");
+const ctx = canvas.getContext("2d");
+
+const velocityInput = document.getElementById("velocity");
+const angleInput = document.getElementById("angle");
+const gravityInput = document.getElementById("gravity");
+
+let running = false;
+let animationId = null;
+let elapsed = 0;
+let lastFrame = 0;
+
+function parameters() {
+  return {
+    v: Number(velocityInput.value),
+    angle: Number(angleInput.value) * Math.PI / 180,
+    g: Number(gravityInput.value)
+  };
 }
-function draw(){
-let c=$('sim'),ctx=c.getContext('2d'),W=c.width,H=c.height;
-let q=calc(),s=Math.min((W-80)/(q.R*1.2+1),(H-60)/(q.H*1.3+1));
-let ox=45,oy=H-35;
-ctx.clearRect(0,0,W,H);
-ctx.strokeStyle='#20344e';
-for(let x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
-for(let y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
-ctx.strokeStyle='#a9bbd1';ctx.beginPath();ctx.moveTo(ox,10);ctx.lineTo(ox,oy);ctx.lineTo(W,oy);ctx.stroke();
-ctx.strokeStyle='#38c5d8';ctx.lineWidth=3;ctx.beginPath();
-for(let i=0;i<=100;i++){
-let tt=q.tf*i/100,x=ox+q.vx*tt*s,y=oy-(q.vy*tt-.5*q.g*tt*tt)*s;
-i?ctx.lineTo(x,y):ctx.moveTo(x,y);
-}ctx.stroke();
-let x=ox+q.vx*t*s,y=oy-(q.vy*t-.5*q.g*t*t)*s;
-ctx.fillStyle='#ffb454';ctx.beginPath();ctx.arc(x,y,9,0,7);ctx.fill();
-ctx.fillStyle='white';ctx.fillText('Tempo: '+t.toFixed(2)+' s',15,20);
+
+function calculate() {
+  const {v, angle, g} = parameters();
+
+  const time = 2 * v * Math.sin(angle) / g;
+  const range = v * v * Math.sin(2 * angle) / g;
+  const height = Math.pow(v * Math.sin(angle), 2) / (2 * g);
+
+  document.getElementById("rangeResult").textContent =
+    range.toFixed(2).replace(".", ",");
+
+  document.getElementById("heightResult").textContent =
+    height.toFixed(2).replace(".", ",");
+
+  document.getElementById("timeResult").textContent =
+    time.toFixed(2).replace(".", ",");
+
+  document.getElementById("speedResult").textContent =
+    v.toFixed(2).replace(".", ",");
+
+  document.getElementById("vLabel").textContent = v + " m/s";
+  document.getElementById("angleLabel").textContent =
+    angleInput.value + "°";
+  document.getElementById("gravityLabel").textContent =
+    g.toFixed(1).replace(".", ",") + " m/s²";
+
+  return {time, range, height};
 }
-function start(){let q=calc();if(t>=q.tf)t=0;running=true;frame()}
-function frame(){if(!running)return;let q=calc();t+=.016;if(t>=q.tf){t=q.tf;running=false}draw();if(running)raf=requestAnimationFrame(frame)}
-function pause(){running=false;cancelAnimationFrame(raf)}
-function reset(){pause();t=0;draw()}
-function change(){t=0;pause();draw()}
-draw();
+
+function resizeCanvas() {
+  const rect = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  draw();
+}
+
+function draw() {
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  const result = calculate();
+  const {v, angle, g} = parameters();
+
+  ctx.clearRect(0, 0, width, height);
+
+  const margin = 38;
+  const ground = height - margin;
+  const availableWidth = width - 2 * margin;
+  const availableHeight = height - 2 * margin;
+
+  const scaleX = availableWidth / Math.max(result.range * 1.15, 1);
+  const scaleY = availableHeight / Math.max(result.height * 1.5, 1);
+  const scale = Math.min(scaleX, scaleY);
+
+  // Fundo
+  ctx.fillStyle = "#0c1728";
+  ctx.fillRect(0, 0, width, height);
+
+  // Linhas da grade
+  ctx.strokeStyle = "#1d3048";
+  ctx.lineWidth = 1;
+
+  for (let x = margin; x < width; x += 40) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, height);
+    ctx.stroke();
+  }
+
+  for (let y = margin; y < height; y += 40) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(width, y);
+    ctx.stroke();
+  }
+
+  // Solo
+  ctx.strokeStyle = "#34d399";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(margin, ground);
+  ctx.lineTo(width - 10, ground);
+  ctx.stroke();
+
+  const px = t => margin + v * Math.cos(angle) * t * scale;
+  const py = t => ground -
+    (v * Math.sin(angle) * t - 0.5 * g * t * t) * scale;
+
+  // Trajetória completa
+  ctx.beginPath();
+  ctx.strokeStyle = "#38bdf8";
+  ctx.lineWidth = 2.5;
+
+  for (let t = 0; t <= result.time; t += result.time / 120) {
+    const x = px(t);
+    const y = py(t);
+
+    if (t === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+
+  ctx.stroke();
+
+  // Trajetória percorrida
+  const currentTime = Math.min(elapsed, result.time);
+
+  ctx.beginPath();
+  ctx.strokeStyle = "#34d399";
+  ctx.lineWidth = 3;
+
+  for (let t = 0; t <= currentTime; t += Math.max(result.time / 120, 0.001)) {
+    const x = px(t);
+    const y = py(t);
+
+    if (t === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+
+  ctx.stroke();
+
+  // Projétil
+  const ballX = px(currentTime);
+  const ballY = py(currentTime);
+
+  ctx.beginPath();
+  ctx.arc(ballX, ballY, 7, 0, Math.PI * 2);
+  ctx.fillStyle = "#facc15";
+  ctx.shadowColor = "#facc15";
+  ctx.shadowBlur = 14;
+  ctx.fill();
+  ctx.shadowBlur = 0;
+
+  // Vetor de velocidade inicial
+  const vectorLength = 48;
+
+  ctx.strokeStyle = "#fb923c";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(margin, ground);
+  ctx.lineTo(
+    margin + vectorLength * Math.cos(angle),
+    ground - vectorLength * Math.sin(angle)
+  );
+  ctx.stroke();
+
+  ctx.fillStyle = "#f1f5f9";
+  ctx.font = "12px Arial";
+  ctx.fillText("Lançamento", margin, ground + 20);
+  ctx.fillText("Trajetória", margin + 10, margin + 10);
+
+  ctx.fillStyle = "#94a3b8";
+  ctx.fillText("x (m)", width - 42, ground + 22);
+  ctx.fillText("y (m)", 8, 18);
+}
+
+function animate(timestamp) {
+  if (!running) return;
+
+  if (!lastFrame) lastFrame = timestamp;
+
+  const delta = (timestamp - lastFrame) / 1000;
+  lastFrame = timestamp;
+
+  const result = calculate();
+  elapsed += delta;
+
+  if (elapsed >= result.time) {
+    elapsed = result.time;
+    running = false;
+  }
+
+  draw();
+
+  if (running) {
+    animationId = requestAnimationFrame(animate);
+  }
+}
+
+function startSimulation() {
+  if (running) return;
+
+  const result = calculate();
+
+  if (elapsed >= result.time) elapsed = 0;
+
+  running = true;
+  lastFrame = 0;
+  animationId = requestAnimationFrame(animate);
+}
+
+function pauseSimulation() {
+  running = false;
+  cancelAnimationFrame(animationId);
+}
+
+function resetSimulation() {
+  pauseSimulation();
+  elapsed = 0;
+  draw();
+}
+
+document.getElementById("start").addEventListener(
+  "click", startSimulation
+);
+
+document.getElementById("pause").addEventListener(
+  "click", pauseSimulation
+);
+
+document.getElementById("reset").addEventListener(
+  "click", resetSimulation
+);
+
+[velocityInput, angleInput, gravityInput].forEach(input => {
+  input.addEventListener("input", () => {
+    pauseSimulation();
+    elapsed = 0;
+    draw();
+  });
+});
+
+window.addEventListener("resize", resizeCanvas);
+
+resizeCanvas();
+calculate();
 </script>
+
 </body>
 </html>
+
