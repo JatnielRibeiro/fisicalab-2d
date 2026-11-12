@@ -437,6 +437,42 @@ footer{background:rgba(255,255,255,.58);color:#71717a!important;border-top:1px s
 .site-header .discipline-link:hover{background:#ccfbf1!important;color:#0f766e!important}
 .site-header .brand{font-family:Fredoka,sans-serif!important}
 @media(max-width:850px){.site-header{flex-wrap:wrap!important;height:auto!important;min-height:64px!important}.site-header nav{flex-wrap:wrap!important;gap:3px!important}}
+
+/* Game UI/UX — experiência de lançamento oblíquo */
+:root{--game-ink:#17345d;--game-outline:#17345d;--game-yellow:#ffd84d;--game-blue:#38bdf8;--game-coral:#ff8b70;--game-purple:#a78bfa;--game-green:#45d6a5}
+body{background-color:#eaf7ff!important;background-image:radial-gradient(rgba(34,75,125,.10) 1.2px,transparent 1.4px),radial-gradient(circle at 8% 0%,rgba(255,216,77,.30),transparent 28%),radial-gradient(circle at 95% 18%,rgba(167,139,250,.20),transparent 30%),linear-gradient(160deg,#f3fbff,#e6f6ff 55%,#fff5e6)!important;background-size:22px 22px,100% 100%,100% 100%,100% 100%!important;color:#17345d!important}
+.site-header{background:linear-gradient(90deg,#102447,#1e3a68)!important;border-bottom:4px solid #ffd84d!important;box-shadow:0 5px 0 rgba(16,36,71,.12)}
+.site-header .brand,.site-header .brand em{color:#fff!important}.site-header .brand-mark{background:#ffd84d!important;color:#17345d!important;box-shadow:0 4px 0 #bd8e22!important}
+.site-header .top-nav a,.site-header .lab-dropdown-toggle{color:#fff!important}.site-header .top-nav a:hover,.site-header .lab-dropdown-toggle:hover{background:rgba(255,255,255,.16)!important}
+.container{max-width:1500px}
+.sidebar,.panel{background:linear-gradient(180deg,#fff,#f8fcff)!important;border:3px solid #17345d!important;border-radius:20px!important;box-shadow:0 7px 0 rgba(16,36,71,.14),0 12px 28px rgba(29,78,130,.10)!important}
+.sidebar h3{color:#55708f!important}.menu-item{color:#294567!important;border:2px solid transparent;border-radius:13px!important;font-weight:900}.menu-item:hover,.menu-item.active{background:#e4f7ff!important;color:#075985!important;border-color:#38bdf8!important;box-shadow:0 3px 0 #a5dff5}
+.welcome h1,.panel-title h2,.panel h2,.controls h3{color:#17345d!important}
+.welcome p,.explanation,.model-note{color:#526987!important}
+.controls,.advanced-controls,.vector-options,.chart-card,.vector-readout,.learning-grid article{background:linear-gradient(145deg,#eaf7ff,#fff)!important;border:2px solid #a8dff5!important;border-radius:15px!important;color:#17345d!important}
+.control label,.advanced-controls label,.vector-options label,.vector-readout div,.vector-readout p,.learning-grid p,.learning-grid li{color:#526987!important;font-weight:800!important}
+.control strong,.vector-options h4,.vector-readout h4,.learning-grid b{color:#087f9b!important}
+input[type=number],input[type=range],select{accent-color:#ff9f43!important}
+.advanced-controls input[type=number],.advanced-controls select{background:#fff!important;color:#17345d!important;border:2px solid #b8d9ed!important;border-radius:11px!important}
+button,.btn,.btn-primary,.btn-secondary{border-radius:14px!important;font-weight:1000!important}
+.btn-primary{background:linear-gradient(180deg,#ffdf65,#ffc83d)!important;color:#17345d!important;border:2px solid #17345d!important;box-shadow:0 4px 0 #bd8e22!important}
+.btn-secondary{background:linear-gradient(180deg,#c4b5fd,#a78bfa)!important;color:#24154e!important;border:2px solid #49358a!important;box-shadow:0 4px 0 #7355b5!important}
+button:hover{filter:brightness(1.04);transform:translateY(-1px)}
+.metric{background:linear-gradient(145deg,#fff8df,#fff)!important;border:2px solid #e9c85a!important;border-radius:15px!important;box-shadow:0 4px 0 rgba(201,157,24,.15)}
+.metric:nth-child(3n+2){background:linear-gradient(145deg,#e5f7ff,#fff)!important;border-color:#8bd7f4!important}
+.metric:nth-child(3n){background:linear-gradient(145deg,#f0eaff,#fff)!important;border-color:#c4b5fd!important}
+.metric small,.metric span{color:#526987!important}.metric strong{color:#0f628c!important;font-family:Fredoka,Nunito,sans-serif!important}
+.formula{background:linear-gradient(135deg,#fff4d6,#fff)!important;border:2px solid #f2cc64!important;border-left:8px solid #ff9f43!important;border-radius:14px!important;color:#17345d!important}
+.learning-projectile .projectile-figure,.investigation-box{background:linear-gradient(145deg,#e5f7ff,#f6f0ff)!important;border:3px solid #17345d!important;border-radius:16px!important}
+.figure-legend,.learning-grid p,.learning-grid li,.investigation-box p{color:#526987!important}
+.investigation-box h3,.investigation-box summary{color:#087f9b!important}
+.investigation-box details{background:#fff!important;border-radius:11px!important}
+.vector-readout{background:#fff!important;border:2px solid #c4b5fd!important}.vector-readout strong{color:#7c3aed!important}
+.step-table th,.step-table td{border-bottom-color:#dbeafe!important;color:#345477!important}
+canvas,.advanced-canvas,.chart-canvas{border:4px solid #17345d!important;border-radius:15px!important;box-shadow:0 5px 0 rgba(16,36,71,.18),inset 0 0 0 2px rgba(255,255,255,.35)!important}
+footer{color:#526987!important;font-weight:900!important}
+@media(max-width:800px){.sidebar{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar h3{grid-column:1/-1}}
+
 </style>
 <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><link rel="icon" type="image/svg+xml" href="assets/universolab-favicon.svg">
 </head>
