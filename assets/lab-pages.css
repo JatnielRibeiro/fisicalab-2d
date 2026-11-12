@@ -64,3 +64,12 @@ footer{color:#71717a!important}
 @media(max-width:850px){aside{position:static}}
 
 .top-nav{display:flex;align-items:center;gap:7px}.top-nav a{color:#3f3f46;text-decoration:none;font-weight:900;font-size:14px;padding:9px 14px;border-radius:22px}.top-nav a:hover{background:#e4e4e7}@media(max-width:580px){.top-nav a{font-size:12px;padding:8px}}
+
+.lab-dropdown{position:relative;display:inline-flex;align-items:center}
+.lab-dropdown-toggle{display:inline-flex;align-items:center;gap:9px;padding:10px 15px;border:0;border-radius:24px;background:transparent;color:#3f3f46;font:900 14px Nunito,Arial,sans-serif;cursor:pointer}
+.lab-dropdown-toggle:hover,.lab-dropdown.open .lab-dropdown-toggle{background:#e4e4e7;color:#18181b}
+.lab-dropdown-menu{display:none;position:absolute;z-index:100;top:calc(100% + 10px);right:0;width:260px;max-height:min(70vh,480px);overflow:auto;padding:8px;background:#fff;border:1px solid #d4d4d8;border-radius:14px;box-shadow:0 16px 38px rgba(24,24,27,.16)}
+.lab-dropdown.open .lab-dropdown-menu{display:block}
+.lab-dropdown-menu a{display:flex;align-items:center;gap:8px;padding:10px 11px;border-radius:9px;color:#3f3f46;text-decoration:none;font:800 13px Nunito,Arial,sans-serif;white-space:normal}
+.lab-dropdown-menu a:hover,.lab-dropdown-menu a.active{background:#ccfbf1;color:#0f766e}
+@media(max-width:580px){.lab-dropdown-menu{right:-8px;width:min(270px,calc(100vw - 30px))}.lab-dropdown-toggle{font-size:13px;padding:9px 12px}}
