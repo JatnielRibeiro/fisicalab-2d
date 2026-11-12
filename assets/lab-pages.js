@@ -69,24 +69,28 @@ function renderExperiment(c){
   if(p==='movimento-retilineo'){
    const x0=Math.max(0,Math.min(w*.65,(params.x0||0)*3+w*.12)),v=params.v0||0,a=params.a||0,xx=Math.max(28,Math.min(w-35,x0+v*phase*5+.5*a*phase*phase*2));ctx.strokeStyle='#94a3b8';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(24,ground);ctx.lineTo(w-24,ground);ctx.stroke();for(let x=30;x<w-20;x+=50){ctx.beginPath();ctx.moveTo(x,ground-5);ctx.lineTo(x,ground+5);ctx.stroke()}ball(xx,ground-15);arrow(xx,ground-15,xx+Math.max(-70,Math.min(70,v*3)),ground-15,'#34d399','v');if(Math.abs(a)>.01)arrow(xx,ground-15,xx+Math.sign(a)*40,ground-52,'#fbbf24','a');ctx.fillText('Trajetória retilínea',24,28);ctx.fillText('t = '+fmt(phase)+' s',24,50);
   }else if(p==='queda-livre'){
-   const H=Math.max(1,params.h||56),g=Math.max(.1,params.g||9.8),v0=Math.max(0,params.v0||0),tFall=(-v0+Math.sqrt(v0*v0+2*g*H))/g,t=Math.min(phase,tFall),drop=Math.min(H,v0*t+.5*g*t*t),fraction=drop/H,ground=h*.84,top=h*.22,travel=ground-top-20,y=top+fraction*travel,towerX=w*.22,towerTop=top-8,towerBase=ground+4;
-   // Torre inclinada estilizada, com andares e arcadas inspiradas na Torre de Pisa.
-   ctx.save();ctx.translate(towerX,towerBase);ctx.rotate(-.075);const tw=Math.min(76,w*.13),th=towerBase-towerTop;ctx.fillStyle='#d6c7a7';ctx.strokeStyle='#786d5d';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-tw*.48,0);ctx.lineTo(-tw*.37,-th);ctx.lineTo(tw*.37,-th);ctx.lineTo(tw*.48,0);ctx.closePath();ctx.fill();ctx.stroke();
-   for(let k=0;k<6;k++){const yy=-th+18+k*(th-24)/6,ww=tw*(.72+.04*k);ctx.strokeStyle='#8c806d';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-ww/2,yy);ctx.lineTo(ww/2,yy);ctx.stroke();for(let j=-2;j<=2;j++){const xx=j*ww/6;ctx.fillStyle='#8b8172';ctx.beginPath();ctx.arc(xx,yy+6,4,Math.PI,0);ctx.lineTo(xx+4,yy+14);ctx.lineTo(xx-4,yy+14);ctx.closePath();ctx.fill();}}
-   ctx.fillStyle='#e5d9c1';ctx.fillRect(-tw*.42,-th-7,tw*.84,9);ctx.restore();
-   ctx.fillStyle='#94a3b8';ctx.fillRect(24,ground,w-48,5);ctx.fillStyle='#cbd5e1';ctx.font='bold 12px Arial';ctx.fillText('TORRE DE PISA — altura ilustrativa: '+fmt(H)+' m',24,22);
-   const x1=w*.59,x2=w*.78,r1=8+Math.min(7,Math.sqrt(params.m1||.2)*4),r2=8+Math.min(7,Math.sqrt(params.m2||2)*4);
-   const ball=(x,yy,r,col)=>{ctx.fillStyle=col;ctx.beginPath();ctx.arc(x,yy,r,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#f8fafc';ctx.lineWidth=1.5;ctx.stroke()};
+   const H=Math.max(1,params.h||56),g=Math.max(.1,params.g||9.8),v0=Math.max(0,params.v0||0),tFall=(-v0+Math.sqrt(v0*v0+2*g*H))/g,t=Math.min(phase,tFall),drop=Math.min(H,v0*t+.5*g*t*t),fraction=drop/H;
+   const ground=h*.84,top=h*.20,travel=ground-top-22,y=top+fraction*travel,towerX=w*.245,towerTop=top-4,towerBase=ground+4,tw=Math.min(92,w*.15),th=towerBase-towerTop;
+   // Chão e Torre de Pisa: a plataforma superior define a origem da queda.
+   ctx.fillStyle='#6b8b54';ctx.fillRect(20,ground,w-40,7);ctx.fillStyle='#a7b5c5';ctx.fillRect(20,ground+7,w-40,2);
+   ctx.save();ctx.translate(towerX,towerBase);ctx.rotate(-.075);ctx.fillStyle='#d8bda0';ctx.strokeStyle='#8b735e';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-tw*.5,0);ctx.lineTo(-tw*.38,-th);ctx.lineTo(tw*.38,-th);ctx.lineTo(tw*.5,0);ctx.closePath();ctx.fill();ctx.stroke();
+   for(let k=0;k<7;k++){const yy=-th+12+k*(th-18)/7,ww=tw*(.76+.035*k);ctx.strokeStyle='#a58c72';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-ww/2,yy);ctx.lineTo(ww/2,yy);ctx.stroke();for(let j=-2;j<=2;j++){const xx=j*ww/6;ctx.fillStyle='#8b7967';ctx.beginPath();ctx.arc(xx,yy+4,4,Math.PI,0);ctx.lineTo(xx+4,yy+12);ctx.lineTo(xx-4,yy+12);ctx.closePath();ctx.fill();}}
+   ctx.fillStyle='#e8d8c4';ctx.fillRect(-tw*.43,-th-8,tw*.86,9);ctx.restore();
+   // Altura de lançamento: seta vertical e linha tracejada até o solo.
+   const measureX=38;ctx.strokeStyle='#e2e8f0';ctx.lineWidth=2;ctx.setLineDash([5,4]);ctx.beginPath();ctx.moveTo(measureX+18,top);ctx.lineTo(measureX+18,ground);ctx.stroke();ctx.setLineDash([]);arrow(measureX+18,top+12,measureX+18,top,'#e2e8f0','');arrow(measureX+18,ground-12,measureX+18,ground,'#e2e8f0','');ctx.fillStyle='#f8fafc';ctx.font='bold 13px Arial';ctx.fillText('h = '+fmt(H)+' m',measureX+28,(top+ground)/2);
+   // Plataforma de lançamento visualmente conectada ao topo da torre.
+   const launchY=top-2,launchStart=towerX+tw*.25,launchEnd=w*.86;ctx.strokeStyle='#c7b69e';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(launchStart,launchY);ctx.lineTo(launchEnd,launchY);ctx.stroke();
+   ctx.fillStyle='#f8fafc';ctx.font='bold 13px Arial';ctx.fillText('TORRE DE PISA',towerX-tw*.65,Math.max(16,top-25));ctx.fillStyle='#cbd5e1';ctx.font='12px Arial';ctx.fillText('Liberação simultânea',launchEnd-130,launchY-12);
+   const x1=w*.58,x2=w*.76,r1=8+Math.min(6,Math.sqrt(params.m1||.2)*3),r2=8+Math.min(6,Math.sqrt(params.m2||2)*3),ball=(x,yy,r,col)=>{ctx.fillStyle=col;ctx.beginPath();ctx.arc(x,yy,r,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#f8fafc';ctx.lineWidth=1.5;ctx.stroke()};
    ball(x1,y,r1,'#38bdf8');ball(x2,y,r2,'#fbbf24');
-   ctx.fillStyle='#e2e8f0';ctx.font='12px Arial';ctx.fillText('Esfera A: '+fmt(params.m1)+' kg',x1-45,top-24);ctx.fillText('Esfera B: '+fmt(params.m2)+' kg',x2-45,top-24);
-   // Diagrama de corpo livre simplificado: peso para baixo; sem resistência do ar.
-   const mA=Math.max(.01,params.m1||.2),mB=Math.max(.01,params.m2||2),mMax=Math.max(mA,mB),pLenA=22+30*mA/mMax,pLenB=22+30*mB/mMax;
-   arrow(x1-r1-18,y,x1-r1-18,y+pLenA,'#fb923c','P₁');arrow(x2-r2-18,y,x2-r2-18,y+pLenB,'#fb923c','P₂');
-   arrow(x1+r1+17,y,x1+r1+17,y+34,'#34d399','g');arrow(x2+r2+17,y,x2+r2+17,y+34,'#34d399','g');
-   if(t>0.02){const vLen=Math.min(48,10+g*t*2.5);arrow(x1,y+r1+12,x1,y+r1+12+vLen,'#38bdf8','v₁');arrow(x2,y+r2+12,x2,y+r2+12+vLen,'#38bdf8','v₂')}
-   ctx.fillStyle='#cbd5e1';ctx.font='12px Arial';ctx.fillText('P = mg  ↓ peso (força gravitacional)',24,48);ctx.fillText('g  ↓ aceleração da gravidade',24,67);ctx.fillText('Sem resistência do ar: não há força de arrasto.',24,86);
-   if(t>=tFall-.001){ctx.fillStyle='#34d399';ctx.font='bold 14px Arial';ctx.fillText('CHEGADA SIMULTÂNEA — no modelo sem ar',Math.max(24,w*.38),ground-18)}
-   ctx.fillStyle='#94a3b8';ctx.font='12px Arial';ctx.fillText('A gravidade acelera as duas esferas igualmente: g = '+fmt(g)+' m/s²',24,h-12);
+   ctx.fillStyle='#e2e8f0';ctx.font='12px Arial';ctx.fillText('A: '+fmt(params.m1)+' kg',x1-35,top-25);ctx.fillText('B: '+fmt(params.m2)+' kg',x2-35,top-25);
+   // Forças: somente o peso aponta para baixo no modelo sem resistência do ar.
+   arrow(x1-r1-12,y,x1-r1-12,y+38,'#fb923c','P₁');arrow(x2-r2-12,y,x2-r2-12,y+38,'#fb923c','P₂');
+   if(t>0.02){const vLen=Math.min(42,8+g*t*2);arrow(x1+r1+12,y,x1+r1+12,y+vLen,'#38bdf8','v₁');arrow(x2+r2+12,y,x2+r2+12,y+vLen,'#38bdf8','v₂')}
+   // Legenda e relógio em área própria, sem competir com a torre ou com o solo.
+   ctx.fillStyle='#fbbf24';ctx.font='bold 12px Arial';ctx.fillText('P = mg  (peso)',24,24);ctx.fillStyle='#cbd5e1';ctx.font='12px Arial';ctx.fillText('v = velocidade para baixo',24,43);ctx.fillText('t = '+fmt(t)+' s',w-105,24);
+   if(t>=tFall-.001){ctx.fillStyle='#34d399';ctx.font='bold 13px Arial';ctx.fillText('AS DUAS ESFERAS CHEGAM JUNTAS',Math.max(24,w*.43),ground-18)}
+   ctx.fillStyle='#94a3b8';ctx.font='11px Arial';ctx.fillText('Modelo ideal: resistência do ar desprezada',24,h-10);
   }else if(p==='gravitacao'){
    const r=Math.max(35,Math.min(130,(params.r||2)*28)),m1=Math.max(8,Math.min(30,Math.sqrt(params.m1||5)*5)),m2=Math.max(8,Math.min(30,Math.sqrt(params.m2||10)*5));ball(cx-r/2,cy,m1,'#38bdf8');ball(cx+r/2,cy,m2,'#fb923c');arrow(cx-r/2+m1,cy,cx-r/2+m1+24,cy,'#a78bfa','F');arrow(cx+r/2-m2,cy,cx+r/2-m2-24,cy,'#a78bfa','F');ctx.setLineDash([5,5]);ctx.strokeStyle='#94a3b8';ctx.beginPath();ctx.moveTo(cx-r/2,cy+45);ctx.lineTo(cx+r/2,cy+45);ctx.stroke();ctx.setLineDash([]);ctx.fillText('m₁ = '+fmt(params.m1)+' kg',cx-r/2-45,cy-42);ctx.fillText('m₂ = '+fmt(params.m2)+' kg',cx+r/2-35,cy-42);ctx.fillText('r = '+fmt(params.r)+' m',cx-25,cy+67);
   }else if(p==='energia-mecanica'){
