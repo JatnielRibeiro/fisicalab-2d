@@ -85,7 +85,7 @@ function renderExperiment(c){
    ball(x1,y,r1,'#38bdf8');ball(x2,y,r2,'#fbbf24');
    ctx.fillStyle='#e2e8f0';ctx.font='12px Arial';ctx.fillText('A: '+fmt(params.m1)+' kg',x1-35,top-25);ctx.fillText('B: '+fmt(params.m2)+' kg',x2-35,top-25);
    // Forças: somente o peso aponta para baixo no modelo sem resistência do ar.
-   arrow(x1-r1-12,y,x1-r1-12,y+38,'#fb923c','P₁');arrow(x2-r2-12,y,x2-r2-12,y+38,'#fb923c','P₂');
+   const mA=Math.max(.01,params.m1||.2),mB=Math.max(.01,params.m2||2),mMax=Math.max(mA,mB),pA=20+34*mA/mMax,pB=20+34*mB/mMax;arrow(x1-r1-12,y,x1-r1-12,y+pA,'#fb923c','P₁');arrow(x2-r2-12,y,x2-r2-12,y+pB,'#fb923c','P₂');
    if(t>0.02){const vLen=Math.min(42,8+g*t*2);arrow(x1+r1+12,y,x1+r1+12,y+vLen,'#38bdf8','v₁');arrow(x2+r2+12,y,x2+r2+12,y+vLen,'#38bdf8','v₂')}
    // Legenda e relógio em área própria, sem competir com a torre ou com o solo.
    ctx.fillStyle='#fbbf24';ctx.font='bold 12px Arial';ctx.fillText('P = mg  (peso)',24,24);ctx.fillStyle='#cbd5e1';ctx.font='12px Arial';ctx.fillText('v = velocidade para baixo',24,43);ctx.fillText('t = '+fmt(t)+' s',w-105,24);
