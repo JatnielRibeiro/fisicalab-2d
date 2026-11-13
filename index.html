@@ -378,7 +378,7 @@ document.addEventListener('keydown',event=>{if(event.key==='Escape'){document.qu
 </script>
 
 <script>
-(()=>{
+document.addEventListener('DOMContentLoaded',()=>{
  const canvas=document.getElementById('draw-canvas');if(!canvas)return;
  const wrap=document.getElementById('draw-canvas-wrap'),cursor=document.getElementById('draw-cursor'),ctx=canvas.getContext('2d',{alpha:true});
  const colorButtons=[...document.querySelectorAll('.draw-color')],sizeInput=document.getElementById('draw-size'),sizeOutput=document.getElementById('draw-size-value');
@@ -405,7 +405,7 @@ document.addEventListener('keydown',event=>{if(event.key==='Escape'){document.qu
  clearButton.addEventListener('click',()=>{strokes=[];history=[];activeStroke=null;pointerId=null;redraw()});
  window.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();undoButton.click()}});
  resize();sizeInput.dispatchEvent(new Event('input'));
-})();
+});
 </script>
 <div class="draw-dock" id="draw-dock">
 <button type="button" class="draw-dock-toggle" id="draw-dock-toggle" aria-expanded="false" aria-controls="universolab-draw"><span aria-hidden="true">✎</span><span>Rascunho</span></button>
