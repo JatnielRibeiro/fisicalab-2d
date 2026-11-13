@@ -292,7 +292,7 @@ img,svg,video,canvas{max-width:100%}
 .draw-dock-toggle{position:fixed;right:0;top:48%;transform:translateY(-50%);z-index:1202;display:flex;flex-direction:column;align-items:center;gap:7px;padding:15px 10px;border:1px solid #0f766e;border-right:0;border-radius:14px 0 0 14px;background:#0d9488;color:#fff;box-shadow:0 5px 18px rgba(15,118,110,.25);font:900 12px Nunito;cursor:pointer;writing-mode:vertical-rl}
 .draw-dock-toggle span:first-child{font-size:21px;line-height:1}
 .draw-dock-toggle:hover{background:#0f766e}
-.draw-panel{position:fixed;right:58px;top:50%;z-index:1201;width:min(570px,calc(100vw - 82px));max-height:min(82vh,760px);overflow:auto;transform:translateY(-50%) translateX(12px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,transform .2s ease,visibility .2s;border-radius:22px}
+.draw-panel{position:fixed;right:58px;top:50%;z-index:1201;width:min(760px,calc(100vw - 82px));max-height:min(90vh,900px);overflow:auto;transform:translateY(-50%) translateX(12px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,transform .2s ease,visibility .2s;border-radius:22px}
 .draw-dock.is-open .draw-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(-50%) translateX(0)}
 .draw-dock.is-scroll-translucent .draw-panel{opacity:.32;transition:opacity .22s ease,transform .2s ease,visibility .2s}
 .draw-dock.is-scroll-translucent .draw-panel:hover{opacity:.48}
@@ -321,18 +321,18 @@ img,svg,video,canvas{max-width:100%}
 .draw-panel .draw-width input{width:85px}
 .draw-panel .draw-actions{gap:5px}
 .draw-panel .draw-actions button{padding:7px 9px;font-size:11px}
-.draw-panel .draw-canvas-wrap{height:clamp(210px,32vh,310px)}
+.draw-panel .draw-canvas-wrap{height:clamp(300px,42vh,450px)}
 .draw-panel .draw-footer{font-size:10px}
 @media(max-width:600px){
  .draw-dock-toggle{top:auto;bottom:22%;right:0;padding:13px 8px}
- .draw-panel{right:10px;left:10px;top:auto;bottom:12px;width:auto;max-height:78vh;transform:translateY(14px)}
+ .draw-panel{right:10px;left:10px;top:auto;bottom:12px;width:auto;max-height:90vh;transform:translateY(14px)}
  .draw-dock.is-open .draw-panel{transform:translateY(0)}
  .draw-panel .draw-lab{padding:13px;border-radius:18px}
  .draw-panel .draw-lab-heading h2{font-size:20px}
  .draw-panel .draw-toolbar{gap:8px}
  .draw-panel .draw-colors{width:100%}
  .draw-panel .draw-actions{margin-left:0}
- .draw-panel .draw-canvas-wrap{height:230px}
+ .draw-panel .draw-canvas-wrap{height:300px}
 }
 @media(prefers-reduced-motion:reduce){.draw-panel{transition:none}}
 .draw-tool-actions{display:flex;align-items:center;gap:7px}.draw-actions .draw-tool-button{width:36px;height:36px;display:grid;place-items:center;padding:7px;border-radius:10px;border:1.5px solid #cbd5e1;background:#fff;color:#475569}.draw-actions .draw-tool-button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.draw-actions .draw-tool-button.is-active{background:#ccfbf1!important;border-color:#0f766e!important;color:#0f766e!important;box-shadow:0 0 0 2px rgba(13,148,136,.12)}.draw-panel .draw-actions .draw-tool-button{width:34px;height:34px;padding:6px}</style>
