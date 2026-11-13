@@ -287,6 +287,40 @@ img,svg,video,canvas{max-width:100%}
 .draw-actions button.is-active{background:#ccfbf1!important;border-color:#0f766e!important;color:#0f766e!important}
 .draw-canvas-wrap.is-erasing,#draw-canvas.is-erasing{cursor:none!important}
 .draw-cursor.is-eraser{width:26px!important;height:26px!important;border:2px solid #e11d48!important;border-radius:5px!important;background:rgba(225,29,72,.08);box-shadow:0 0 0 2px rgba(225,29,72,.12)!important}
+
+/* Espaço Criativo opcional — rascunho flutuante */
+.draw-dock-toggle{position:fixed;right:0;top:48%;transform:translateY(-50%);z-index:1202;display:flex;flex-direction:column;align-items:center;gap:7px;padding:15px 10px;border:1px solid #0f766e;border-right:0;border-radius:14px 0 0 14px;background:#0d9488;color:#fff;box-shadow:0 5px 18px rgba(15,118,110,.25);font:900 12px Nunito;cursor:pointer;writing-mode:vertical-rl}
+.draw-dock-toggle span:first-child{font-size:21px;line-height:1}
+.draw-dock-toggle:hover{background:#0f766e}
+.draw-panel{position:fixed;right:58px;top:50%;z-index:1201;width:min(570px,calc(100vw - 82px));max-height:min(82vh,760px);overflow:auto;transform:translateY(-50%) translateX(12px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,transform .2s ease,visibility .2s;border-radius:22px}
+.draw-dock.is-open .draw-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(-50%) translateX(0)}
+.draw-panel .draw-lab{margin:0;padding:18px;border:2px solid #99d8d1;box-shadow:0 18px 55px rgba(15,23,42,.2)}
+.draw-panel .draw-lab-heading{align-items:flex-start;padding-right:2px}
+.draw-panel .draw-lab-heading h2{font-size:23px}
+.draw-panel .draw-lab-heading p{max-width:420px}
+.draw-panel .draw-minimize{flex:0 0 32px;width:32px;height:32px;display:grid;place-items:center;border:1px solid #cbd5e1;border-radius:50%;background:#fff;color:#334155;font-size:22px;line-height:1;cursor:pointer}
+.draw-panel .draw-spark{display:none}
+.draw-panel .draw-toolbar{gap:10px;padding:9px}
+.draw-panel .draw-colors{gap:4px}
+.draw-panel .draw-color{width:27px;height:27px}
+.draw-panel .draw-width{font-size:11px}
+.draw-panel .draw-width input{width:85px}
+.draw-panel .draw-actions{gap:5px}
+.draw-panel .draw-actions button{padding:7px 9px;font-size:11px}
+.draw-panel .draw-canvas-wrap{height:clamp(210px,32vh,310px)}
+.draw-panel .draw-footer{font-size:10px}
+@media(max-width:600px){
+ .draw-dock-toggle{top:auto;bottom:22%;right:0;padding:13px 8px}
+ .draw-panel{right:10px;left:10px;top:auto;bottom:12px;width:auto;max-height:78vh;transform:translateY(14px)}
+ .draw-dock.is-open .draw-panel{transform:translateY(0)}
+ .draw-panel .draw-lab{padding:13px;border-radius:18px}
+ .draw-panel .draw-lab-heading h2{font-size:20px}
+ .draw-panel .draw-toolbar{gap:8px}
+ .draw-panel .draw-colors{width:100%}
+ .draw-panel .draw-actions{margin-left:0}
+ .draw-panel .draw-canvas-wrap{height:230px}
+}
+@media(prefers-reduced-motion:reduce){.draw-panel{transition:none}}
 </style>
 <link rel="icon" type="image/svg+xml" href="assets/universolab-favicon.svg">
 </head>
@@ -303,30 +337,7 @@ img,svg,video,canvas{max-width:100%}
 </aside>
 <section class="hero"><span class="pill">🔬 DIVULGAÇÃO CIENTÍFICA · EXPLORE E DESCUBRA</span><h1>Explore o universo <span>do conhecimento</span></h1><p>Explore fenômenos, investigue ideias e descubra como a Matemática, a Física e as Ciências ajudam a compreender o mundo ao nosso redor.</p>
 </section>
-<section class="draw-lab" id="universolab-draw" aria-labelledby="draw-lab-title">
-  <div class="draw-lab-heading">
-    <div><span class="draw-kicker">ESPAÇO CRIATIVO INTERATIVO</span><h2 id="draw-lab-title">Seu espaço para desenhar ideias</h2><p>Rabisque, esboce uma figura ou represente uma ideia científica. Use o mouse, a caneta ou o toque.</p></div>
-    <span class="draw-spark" aria-hidden="true">✎</span>
-  </div>
-  <div class="draw-toolbar" role="toolbar" aria-label="Ferramentas de desenho">
-    <div class="draw-colors" role="group" aria-label="Cor do traço">
-      <button type="button" class="draw-color is-selected" data-color="#0d9488" aria-label="Verde-azulado" aria-pressed="true"><span style="background:#0d9488"></span></button>
-      <button type="button" class="draw-color" data-color="#2563eb" aria-label="Azul" aria-pressed="false"><span style="background:#2563eb"></span></button>
-      <button type="button" class="draw-color" data-color="#e11d48" aria-label="Vermelho" aria-pressed="false"><span style="background:#e11d48"></span></button>
-      <button type="button" class="draw-color" data-color="#7c3aed" aria-label="Roxo" aria-pressed="false"><span style="background:#7c3aed"></span></button>
-      <button type="button" class="draw-color" data-color="#18181b" aria-label="Preto" aria-pressed="false"><span style="background:#18181b"></span></button>
-      <button type="button" class="draw-color" data-color="#f59e0b" aria-label="Laranja" aria-pressed="false"><span style="background:#f59e0b"></span></button>
-    </div>
-    <label class="draw-width" for="draw-size"><span>Espessura</span><input id="draw-size" type="range" min="1" max="18" value="4"><output id="draw-size-value" for="draw-size">4 px</output></label>
-    <div class="draw-actions"><button type="button" id="draw-eraser" aria-pressed="false">⌫ Borracha</button><button type="button" id="draw-undo" disabled>↶ Desfazer</button><button type="button" id="draw-clear">Limpar</button></div>
-  </div>
-  <div class="draw-canvas-wrap" id="draw-canvas-wrap">
-    <canvas id="draw-canvas" aria-label="Área livre para desenhar com mouse, caneta ou toque">Seu navegador não oferece suporte ao Canvas.</canvas>
-    <span class="draw-cursor" id="draw-cursor" aria-hidden="true"></span>
-    <span class="draw-hint" id="draw-hint">Comece a desenhar aqui</span>
-  </div>
-  <div class="draw-footer"><span>Seus desenhos ficam nesta sessão enquanto a página estiver aberta.</span><span>Experimente combinar cores e espessuras.</span></div>
-</section>
+
 <section class="learning-features" aria-label="Recursos de aprendizagem">
 <section class="visual-feature" aria-label="Fichas Visuais e Interativas">
   <div class="visual-feature-art" aria-hidden="true"><span>🗂️</span><i>∑</i><i>⚛</i><i>🧪</i></div>
@@ -396,4 +407,41 @@ document.addEventListener('keydown',event=>{if(event.key==='Escape'){document.qu
  resize();sizeInput.dispatchEvent(new Event('input'));
 })();
 </script>
-</body></html>
+<div class="draw-dock" id="draw-dock">
+<button type="button" class="draw-dock-toggle" id="draw-dock-toggle" aria-expanded="false" aria-controls="universolab-draw"><span aria-hidden="true">✎</span><span>Rascunho</span></button>
+<div class="draw-panel" id="draw-panel" aria-hidden="true"><section class="draw-lab" id="universolab-draw" aria-labelledby="draw-lab-title">
+  <div class="draw-lab-heading"><div class="draw-panel-title">
+    <div><span class="draw-kicker">ESPAÇO CRIATIVO INTERATIVO</span><h2 id="draw-lab-title">Seu espaço para desenhar ideias</h2><p>Rabisque, esboce uma figura ou represente uma ideia científica. Use o mouse, a caneta ou o toque.</p></div></div>
+    <button type="button" class="draw-minimize" id="draw-minimize" aria-label="Minimizar espaço criativo">—</button>
+    <span class="draw-spark" aria-hidden="true">✎</span>
+  </div>
+  <div class="draw-toolbar" role="toolbar" aria-label="Ferramentas de desenho">
+    <div class="draw-colors" role="group" aria-label="Cor do traço">
+      <button type="button" class="draw-color is-selected" data-color="#0d9488" aria-label="Verde-azulado" aria-pressed="true"><span style="background:#0d9488"></span></button>
+      <button type="button" class="draw-color" data-color="#2563eb" aria-label="Azul" aria-pressed="false"><span style="background:#2563eb"></span></button>
+      <button type="button" class="draw-color" data-color="#e11d48" aria-label="Vermelho" aria-pressed="false"><span style="background:#e11d48"></span></button>
+      <button type="button" class="draw-color" data-color="#7c3aed" aria-label="Roxo" aria-pressed="false"><span style="background:#7c3aed"></span></button>
+      <button type="button" class="draw-color" data-color="#18181b" aria-label="Preto" aria-pressed="false"><span style="background:#18181b"></span></button>
+      <button type="button" class="draw-color" data-color="#f59e0b" aria-label="Laranja" aria-pressed="false"><span style="background:#f59e0b"></span></button>
+    </div>
+    <label class="draw-width" for="draw-size"><span>Espessura</span><input id="draw-size" type="range" min="1" max="18" value="4"><output id="draw-size-value" for="draw-size">4 px</output></label>
+    <div class="draw-actions"><button type="button" id="draw-eraser" aria-pressed="false">⌫ Borracha</button><button type="button" id="draw-undo" disabled>↶ Desfazer</button><button type="button" id="draw-clear">Limpar</button></div>
+  </div>
+  <div class="draw-canvas-wrap" id="draw-canvas-wrap">
+    <canvas id="draw-canvas" aria-label="Área livre para desenhar com mouse, caneta ou toque">Seu navegador não oferece suporte ao Canvas.</canvas>
+    <span class="draw-cursor" id="draw-cursor" aria-hidden="true"></span>
+    <span class="draw-hint" id="draw-hint">Comece a desenhar aqui</span>
+  </div>
+  <div class="draw-footer"><span>Seus desenhos ficam nesta sessão enquanto a página estiver aberta.</span><span>Experimente combinar cores e espessuras.</span></div>
+</section></div>
+</div>
+<script>
+(()=>{
+ const dock=document.getElementById('draw-dock'),toggle=document.getElementById('draw-dock-toggle'),panel=document.getElementById('draw-panel'),minimize=document.getElementById('draw-minimize');
+ if(!dock||!toggle||!panel||!minimize)return;
+ function setOpen(open){dock.classList.toggle('is-open',open);toggle.setAttribute('aria-expanded',String(open));panel.setAttribute('aria-hidden',String(!open));toggle.querySelector('span:last-child').textContent=open?'Fechar':'Rascunho';if(open)requestAnimationFrame(()=>window.dispatchEvent(new Event('resize')))}
+ toggle.addEventListener('click',()=>setOpen(!dock.classList.contains('is-open')));
+ minimize.addEventListener('click',()=>setOpen(false));
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&dock.classList.contains('is-open')){setOpen(false);toggle.focus()}});
+})();
+</script></body></html>
