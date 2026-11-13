@@ -283,6 +283,10 @@ img,svg,video,canvas{max-width:100%}
 .draw-canvas-wrap.has-drawing .draw-hint{opacity:0}
 .draw-footer{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:9px;color:#71717a;font-size:11px;font-weight:700}
 @media(max-width:650px){.draw-lab{padding:14px;margin:18px 0 23px}.draw-toolbar{gap:10px}.draw-colors{width:100%;justify-content:flex-start}.draw-actions{margin-left:0}.draw-canvas-wrap{height:250px}.draw-footer{font-size:10px}}
+
+.draw-actions button.is-active{background:#ccfbf1!important;border-color:#0f766e!important;color:#0f766e!important}
+.draw-canvas-wrap.is-erasing,#draw-canvas.is-erasing{cursor:none!important}
+.draw-cursor.is-eraser{width:26px!important;height:26px!important;border:2px solid #e11d48!important;border-radius:5px!important;background:rgba(225,29,72,.08);box-shadow:0 0 0 2px rgba(225,29,72,.12)!important}
 </style>
 <link rel="icon" type="image/svg+xml" href="assets/universolab-favicon.svg">
 </head>
@@ -314,7 +318,7 @@ img,svg,video,canvas{max-width:100%}
       <button type="button" class="draw-color" data-color="#f59e0b" aria-label="Laranja" aria-pressed="false"><span style="background:#f59e0b"></span></button>
     </div>
     <label class="draw-width" for="draw-size"><span>Espessura</span><input id="draw-size" type="range" min="1" max="18" value="4"><output id="draw-size-value" for="draw-size">4 px</output></label>
-    <div class="draw-actions"><button type="button" id="draw-undo" disabled>↶ Desfazer</button><button type="button" id="draw-clear">Limpar</button></div>
+    <div class="draw-actions"><button type="button" id="draw-eraser" aria-pressed="false">⌫ Borracha</button><button type="button" id="draw-undo" disabled>↶ Desfazer</button><button type="button" id="draw-clear">Limpar</button></div>
   </div>
   <div class="draw-canvas-wrap" id="draw-canvas-wrap">
     <canvas id="draw-canvas" aria-label="Área livre para desenhar com mouse, caneta ou toque">Seu navegador não oferece suporte ao Canvas.</canvas>
@@ -364,51 +368,31 @@ document.addEventListener('keydown',event=>{if(event.key==='Escape'){document.qu
 
 <script>
 (()=>{
- const canvas=document.getElementById('draw-canvas');
- if(!canvas)return;
- const wrap=document.getElementById('draw-canvas-wrap');
- const cursor=document.getElementById('draw-cursor');
- const hint=document.getElementById('draw-hint');
- const ctx=canvas.getContext('2d',{alpha:true});
- const colorButtons=[...document.querySelectorAll('.draw-color')];
- const sizeInput=document.getElementById('draw-size');
- const sizeOutput=document.getElementById('draw-size-value');
- const undoButton=document.getElementById('draw-undo');
- const clearButton=document.getElementById('draw-clear');
- let color='#0d9488',width=4,strokes=[],activeStroke=null,pointerId=null,cssWidth=0,cssHeight=0,dpr=1;
+ const canvas=document.getElementById('draw-canvas');if(!canvas)return;
+ const wrap=document.getElementById('draw-canvas-wrap'),cursor=document.getElementById('draw-cursor'),ctx=canvas.getContext('2d',{alpha:true});
+ const colorButtons=[...document.querySelectorAll('.draw-color')],sizeInput=document.getElementById('draw-size'),sizeOutput=document.getElementById('draw-size-value');
+ const undoButton=document.getElementById('draw-undo'),clearButton=document.getElementById('draw-clear'),eraserButton=document.getElementById('draw-eraser');
+ let color='#0d9488',width=4,strokes=[],history=[],activeStroke=null,pointerId=null,cssWidth=0,cssHeight=0,dpr=1,erasing=false;
  const pointFromEvent=e=>{const r=canvas.getBoundingClientRect();return{x:Math.max(0,Math.min(1,(e.clientX-r.left)/r.width)),y:Math.max(0,Math.min(1,(e.clientY-r.top)/r.height))}};
- const updateUI=()=>{undoButton.disabled=strokes.length===0;wrap.classList.toggle('has-drawing',strokes.length>0||!!activeStroke)};
- function drawStroke(stroke){
-  if(!stroke.points.length)return;
-  const pts=stroke.points.map(p=>({x:p.x*cssWidth,y:p.y*cssHeight}));
-  ctx.beginPath();ctx.strokeStyle=stroke.color;ctx.lineWidth=stroke.width;ctx.lineCap='round';ctx.lineJoin='round';
-  if(pts.length===1){ctx.arc(pts[0].x,pts[0].y,stroke.width/2,0,Math.PI*2);ctx.fillStyle=stroke.color;ctx.fill();return}
-  ctx.moveTo(pts[0].x,pts[0].y);
-  if(pts.length===2){ctx.lineTo(pts[1].x,pts[1].y)}else{
-   for(let i=1;i<pts.length-1;i++){const midX=(pts[i].x+pts[i+1].x)/2,midY=(pts[i].y+pts[i+1].y)/2;ctx.quadraticCurveTo(pts[i].x,pts[i].y,midX,midY)}
-   const last=pts[pts.length-1];ctx.lineTo(last.x,last.y);
-  }
-  ctx.stroke();
- }
+ const updateUI=()=>{undoButton.disabled=history.length===0;wrap.classList.toggle('has-drawing',strokes.length>0||!!activeStroke)};
+ function drawStroke(stroke){if(!stroke.points.length)return;const pts=stroke.points.map(p=>({x:p.x*cssWidth,y:p.y*cssHeight}));ctx.beginPath();ctx.strokeStyle=stroke.color;ctx.lineWidth=stroke.width;ctx.lineCap='round';ctx.lineJoin='round';if(pts.length===1){ctx.arc(pts[0].x,pts[0].y,stroke.width/2,0,Math.PI*2);ctx.fillStyle=stroke.color;ctx.fill();return}ctx.moveTo(pts[0].x,pts[0].y);if(pts.length===2)ctx.lineTo(pts[1].x,pts[1].y);else{for(let i=1;i<pts.length-1;i++){const mx=(pts[i].x+pts[i+1].x)/2,my=(pts[i].y+pts[i+1].y)/2;ctx.quadraticCurveTo(pts[i].x,pts[i].y,mx,my)}const last=pts[pts.length-1];ctx.lineTo(last.x,last.y)}ctx.stroke()}
  function redraw(){ctx.clearRect(0,0,cssWidth,cssHeight);strokes.forEach(drawStroke);if(activeStroke)drawStroke(activeStroke);updateUI()}
- function resize(){
-  const rect=wrap.getBoundingClientRect();if(!rect.width||!rect.height)return;
-  cssWidth=rect.width;cssHeight=rect.height;dpr=Math.min(window.devicePixelRatio||1,2);
-  canvas.width=Math.round(cssWidth*dpr);canvas.height=Math.round(cssHeight*dpr);
-  ctx.setTransform(dpr,0,0,dpr,0,0);redraw();
- }
- if('ResizeObserver' in window){new ResizeObserver(resize).observe(wrap)}else{window.addEventListener('resize',resize)}
+ function resize(){const rect=wrap.getBoundingClientRect();if(!rect.width||!rect.height)return;cssWidth=rect.width;cssHeight=rect.height;dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(cssWidth*dpr);canvas.height=Math.round(cssHeight*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);redraw()}
+ if('ResizeObserver'in window)new ResizeObserver(resize).observe(wrap);else window.addEventListener('resize',resize);
  colorButtons.forEach(button=>button.addEventListener('click',()=>{color=button.dataset.color;colorButtons.forEach(b=>{const selected=b===button;b.classList.toggle('is-selected',selected);b.setAttribute('aria-pressed',String(selected))});cursor.style.borderColor=color}));
- sizeInput.addEventListener('input',()=>{width=Number(sizeInput.value);sizeOutput.value=width+' px';sizeOutput.textContent=width+' px';cursor.style.width=Math.max(8,width+8)+'px';cursor.style.height=Math.max(8,width+8)+'px'});
+ sizeInput.addEventListener('input',()=>{width=Number(sizeInput.value);sizeOutput.value=width+' px';sizeOutput.textContent=width+' px';if(!erasing){cursor.style.width=Math.max(8,width+8)+'px';cursor.style.height=Math.max(8,width+8)+'px'}});
  function moveCursor(e){const p=pointFromEvent(e);cursor.style.left=(p.x*cssWidth)+'px';cursor.style.top=(p.y*cssHeight)+'px'}
- canvas.addEventListener('pointerdown',e=>{if(e.button!==undefined&&e.button!==0)return;e.preventDefault();pointerId=e.pointerId;canvas.setPointerCapture(pointerId);activeStroke={color,width,points:[pointFromEvent(e)]};wrap.classList.add('is-drawing');moveCursor(e);redraw()});
- canvas.addEventListener('pointermove',e=>{moveCursor(e);if(!activeStroke||e.pointerId!==pointerId)return;e.preventDefault();const events=e.getCoalescedEvents?e.getCoalescedEvents():[e];events.forEach(ev=>{const p=pointFromEvent(ev);const last=activeStroke.points[activeStroke.points.length-1];if(!last||Math.hypot(p.x-last.x,p.y-last.y)>.0007)activeStroke.points.push(p)});redraw()});
- function finish(e){if(!activeStroke||e.pointerId!==pointerId)return;activeStroke.points.push(pointFromEvent(e));strokes.push(activeStroke);activeStroke=null;pointerId=null;wrap.classList.remove('is-drawing');redraw()}
- canvas.addEventListener('pointerup',finish);canvas.addEventListener('pointercancel',finish);canvas.addEventListener('lostpointercapture',()=>{if(activeStroke){strokes.push(activeStroke);activeStroke=null;pointerId=null;wrap.classList.remove('is-drawing');redraw()}});
+ function distanceToSegment(p,a,b){const dx=b.x-a.x,dy=b.y-a.y,len=dx*dx+dy*dy;if(!len)return Math.hypot(p.x-a.x,p.y-a.y);const t=Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/len));return Math.hypot(p.x-(a.x+t*dx),p.y-(a.y+t*dy))}
+ function eraseAt(p){const radius=(Math.max(14,width*2)+8)/Math.max(cssWidth,cssHeight);const removed=[];strokes=strokes.filter((stroke,index)=>{const pts=stroke.points;let hit=false;for(let i=0;i<pts.length;i++){if(Math.hypot((pts[i].x-p.x)*cssWidth,(pts[i].y-p.y)*cssHeight)<=radius*Math.max(cssWidth,cssHeight)+stroke.width/2){hit=true;break}if(i&&distanceToSegment({x:p.x*cssWidth,y:p.y*cssHeight},{x:pts[i-1].x*cssWidth,y:pts[i-1].y*cssHeight},{x:pts[i].x*cssWidth,y:pts[i].y*cssHeight})<=radius*Math.max(cssWidth,cssHeight)+stroke.width/2){hit=true;break}}if(hit)removed.push({stroke,index});return !hit});if(removed.length){history.push({type:'erase',removed});redraw()}}
+ eraserButton.addEventListener('click',()=>{erasing=!erasing;eraserButton.classList.toggle('is-active',erasing);eraserButton.setAttribute('aria-pressed',String(erasing));eraserButton.textContent=erasing?'✎ Desenhar':'⌫ Borracha';cursor.classList.toggle('is-eraser',erasing);wrap.classList.toggle('is-erasing',erasing);canvas.classList.toggle('is-erasing',erasing);if(erasing){cursor.style.width='26px';cursor.style.height='26px'}else{cursor.style.width=Math.max(8,width+8)+'px';cursor.style.height=Math.max(8,width+8)+'px';cursor.style.borderColor=color}});
+ canvas.addEventListener('pointerdown',e=>{if(e.button!==undefined&&e.button!==0)return;e.preventDefault();pointerId=e.pointerId;canvas.setPointerCapture(pointerId);const p=pointFromEvent(e);if(erasing){eraseAt(p);return}activeStroke={color,width,points:[p]};wrap.classList.add('is-drawing');moveCursor(e);redraw()});
+ canvas.addEventListener('pointermove',e=>{moveCursor(e);if(erasing&&e.buttons){eraseAt(pointFromEvent(e));return}if(!activeStroke||e.pointerId!==pointerId)return;e.preventDefault();(e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pointFromEvent(ev),last=activeStroke.points[activeStroke.points.length-1];if(!last||Math.hypot(p.x-last.x,p.y-last.y)>.0007)activeStroke.points.push(p)});redraw()});
+ function finish(e){if(erasing){pointerId=null;return}if(!activeStroke||e.pointerId!==pointerId)return;activeStroke.points.push(pointFromEvent(e));strokes.push(activeStroke);history.push({type:'draw',stroke:activeStroke});activeStroke=null;pointerId=null;wrap.classList.remove('is-drawing');redraw()}
+ canvas.addEventListener('pointerup',finish);canvas.addEventListener('pointercancel',finish);canvas.addEventListener('lostpointercapture',()=>{if(activeStroke){strokes.push(activeStroke);history.push({type:'draw',stroke:activeStroke});activeStroke=null;pointerId=null;wrap.classList.remove('is-drawing');redraw()}});
  canvas.addEventListener('pointerenter',moveCursor);canvas.addEventListener('pointerleave',()=>{if(!activeStroke)cursor.style.opacity='0'});canvas.addEventListener('pointermove',()=>{if(wrap.matches(':hover'))cursor.style.opacity='1'});
- undoButton.addEventListener('click',()=>{if(strokes.length){strokes.pop();redraw()}});
- clearButton.addEventListener('click',()=>{strokes=[];activeStroke=null;pointerId=null;redraw()});
- window.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();if(strokes.length){strokes.pop();redraw()}}});
+ undoButton.addEventListener('click',()=>{const action=history.pop();if(!action)return;if(action.type==='draw'){const i=strokes.lastIndexOf(action.stroke);if(i>=0)strokes.splice(i,1)}else if(action.type==='erase'){action.removed.sort((a,b)=>a.index-b.index).forEach(item=>strokes.splice(Math.min(item.index,strokes.length),0,item.stroke))}redraw()});
+ clearButton.addEventListener('click',()=>{strokes=[];history=[];activeStroke=null;pointerId=null;redraw()});
+ window.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();undoButton.click()}});
  resize();sizeInput.dispatchEvent(new Event('input'));
 })();
 </script>
