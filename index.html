@@ -255,6 +255,34 @@ img,svg,video,canvas{max-width:100%}
  #lab-menu-main{width:calc(100vw - 24px)!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:repeat(6,min-content)!important}
  #lab-menu-main a{font-size:11px!important}
 }
+
+/* UniversoLab — área criativa de desenho */
+.draw-lab{margin:22px 0 30px;padding:20px;background:#fff;border:2px solid #d4d4d8;border-radius:22px;box-shadow:0 8px 22px rgba(24,24,27,.07);text-align:left}
+.draw-lab-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:15px}
+.draw-kicker{font-size:10px;letter-spacing:.14em;font-weight:1000;color:#0f766e}
+.draw-lab-heading h2{margin:5px 0 4px;font:700 clamp(21px,3vw,28px) Fredoka;color:#18181b}
+.draw-lab-heading p{margin:0;color:#52525b;font-size:13px;line-height:1.5;font-weight:700}
+.draw-spark{flex:0 0 48px;width:48px;height:48px;display:grid;place-items:center;border-radius:15px;background:#ccfbf1;color:#0f766e;font-size:27px}
+.draw-toolbar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:10px 12px;margin-bottom:10px;border:1px solid #e4e4e7;border-radius:13px;background:#fafafa}
+.draw-colors{display:flex;align-items:center;gap:7px}
+.draw-color{width:29px;height:29px;display:grid;place-items:center;border:2px solid transparent;border-radius:50%;background:transparent;cursor:pointer;padding:3px}
+.draw-color span{display:block;width:19px;height:19px;border-radius:50%;border:1px solid rgba(0,0,0,.14)}
+.draw-color.is-selected{border-color:#0f766e;box-shadow:0 0 0 2px #ccfbf1}
+.draw-width{display:flex;align-items:center;gap:8px;color:#3f3f46;font-size:12px;font-weight:900}
+.draw-width input{width:105px;accent-color:#0d9488;cursor:pointer}
+.draw-width output{min-width:34px;color:#0f766e;font-variant-numeric:tabular-nums}
+.draw-actions{display:flex;gap:7px;margin-left:auto}
+.draw-actions button{padding:7px 12px;border:1.5px solid #cbd5e1;border-radius:20px;background:#fff;color:#334155;font:900 12px Nunito;cursor:pointer}
+.draw-actions button:hover:not(:disabled){border-color:#0d9488;color:#0f766e;background:#f0fdfa}
+.draw-actions button:disabled{opacity:.42;cursor:not-allowed}
+.draw-canvas-wrap{position:relative;height:clamp(220px,34vw,340px);overflow:hidden;border:1.5px solid #dbe4e8;border-radius:15px;background-color:#fff;background-image:radial-gradient(#d4d4d8 .8px,transparent .9px);background-size:18px 18px;cursor:crosshair;touch-action:none}
+#draw-canvas{display:block;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.draw-cursor{position:absolute;z-index:2;left:0;top:0;width:18px;height:18px;border:2px solid #0f766e;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);opacity:0;transition:opacity .12s;box-shadow:0 0 0 3px rgba(13,148,136,.12)}
+.draw-canvas-wrap:hover .draw-cursor,.draw-canvas-wrap.is-drawing .draw-cursor{opacity:1}
+.draw-hint{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:#a1a1aa;font:800 14px Nunito;pointer-events:none;white-space:nowrap;transition:opacity .2s}
+.draw-canvas-wrap.has-drawing .draw-hint{opacity:0}
+.draw-footer{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:9px;color:#71717a;font-size:11px;font-weight:700}
+@media(max-width:650px){.draw-lab{padding:14px;margin:18px 0 23px}.draw-toolbar{gap:10px}.draw-colors{width:100%;justify-content:flex-start}.draw-actions{margin-left:0}.draw-canvas-wrap{height:250px}.draw-footer{font-size:10px}}
 </style>
 <link rel="icon" type="image/svg+xml" href="assets/universolab-favicon.svg">
 </head>
@@ -270,6 +298,30 @@ img,svg,video,canvas{max-width:100%}
   </div>
 </aside>
 <section class="hero"><span class="pill">🔬 DIVULGAÇÃO CIENTÍFICA · EXPLORE E DESCUBRA</span><h1>Explore o universo <span>do conhecimento</span></h1><p>Explore fenômenos, investigue ideias e descubra como a Matemática, a Física e as Ciências ajudam a compreender o mundo ao nosso redor.</p>
+</section>
+<section class="draw-lab" id="universolab-draw" aria-labelledby="draw-lab-title">
+  <div class="draw-lab-heading">
+    <div><span class="draw-kicker">ESPAÇO CRIATIVO INTERATIVO</span><h2 id="draw-lab-title">Seu espaço para desenhar ideias</h2><p>Rabisque, esboce uma figura ou represente uma ideia científica. Use o mouse, a caneta ou o toque.</p></div>
+    <span class="draw-spark" aria-hidden="true">✎</span>
+  </div>
+  <div class="draw-toolbar" role="toolbar" aria-label="Ferramentas de desenho">
+    <div class="draw-colors" role="group" aria-label="Cor do traço">
+      <button type="button" class="draw-color is-selected" data-color="#0d9488" aria-label="Verde-azulado" aria-pressed="true"><span style="background:#0d9488"></span></button>
+      <button type="button" class="draw-color" data-color="#2563eb" aria-label="Azul" aria-pressed="false"><span style="background:#2563eb"></span></button>
+      <button type="button" class="draw-color" data-color="#e11d48" aria-label="Vermelho" aria-pressed="false"><span style="background:#e11d48"></span></button>
+      <button type="button" class="draw-color" data-color="#7c3aed" aria-label="Roxo" aria-pressed="false"><span style="background:#7c3aed"></span></button>
+      <button type="button" class="draw-color" data-color="#18181b" aria-label="Preto" aria-pressed="false"><span style="background:#18181b"></span></button>
+      <button type="button" class="draw-color" data-color="#f59e0b" aria-label="Laranja" aria-pressed="false"><span style="background:#f59e0b"></span></button>
+    </div>
+    <label class="draw-width" for="draw-size"><span>Espessura</span><input id="draw-size" type="range" min="1" max="18" value="4"><output id="draw-size-value" for="draw-size">4 px</output></label>
+    <div class="draw-actions"><button type="button" id="draw-undo" disabled>↶ Desfazer</button><button type="button" id="draw-clear">Limpar</button></div>
+  </div>
+  <div class="draw-canvas-wrap" id="draw-canvas-wrap">
+    <canvas id="draw-canvas" aria-label="Área livre para desenhar com mouse, caneta ou toque">Seu navegador não oferece suporte ao Canvas.</canvas>
+    <span class="draw-cursor" id="draw-cursor" aria-hidden="true"></span>
+    <span class="draw-hint" id="draw-hint">Comece a desenhar aqui</span>
+  </div>
+  <div class="draw-footer"><span>Seus desenhos ficam nesta sessão enquanto a página estiver aberta.</span><span>Experimente combinar cores e espessuras.</span></div>
 </section>
 <section class="learning-features" aria-label="Recursos de aprendizagem">
 <section class="visual-feature" aria-label="Fichas Visuais e Interativas">
@@ -308,5 +360,56 @@ document.addEventListener('click',event=>{
  if(!event.target.closest('.lab-dropdown')){dropdown.classList.remove('open');dropdown.querySelector('.lab-dropdown-toggle')?.setAttribute('aria-expanded','false');}
 });
 document.addEventListener('keydown',event=>{if(event.key==='Escape'){document.querySelectorAll('.lab-dropdown.open').forEach(el=>{el.classList.remove('open');el.querySelector('.lab-dropdown-toggle')?.setAttribute('aria-expanded','false');});}});
+</script>
+
+<script>
+(()=>{
+ const canvas=document.getElementById('draw-canvas');
+ if(!canvas)return;
+ const wrap=document.getElementById('draw-canvas-wrap');
+ const cursor=document.getElementById('draw-cursor');
+ const hint=document.getElementById('draw-hint');
+ const ctx=canvas.getContext('2d',{alpha:true});
+ const colorButtons=[...document.querySelectorAll('.draw-color')];
+ const sizeInput=document.getElementById('draw-size');
+ const sizeOutput=document.getElementById('draw-size-value');
+ const undoButton=document.getElementById('draw-undo');
+ const clearButton=document.getElementById('draw-clear');
+ let color='#0d9488',width=4,strokes=[],activeStroke=null,pointerId=null,cssWidth=0,cssHeight=0,dpr=1;
+ const pointFromEvent=e=>{const r=canvas.getBoundingClientRect();return{x:Math.max(0,Math.min(1,(e.clientX-r.left)/r.width)),y:Math.max(0,Math.min(1,(e.clientY-r.top)/r.height))}};
+ const updateUI=()=>{undoButton.disabled=strokes.length===0;wrap.classList.toggle('has-drawing',strokes.length>0||!!activeStroke)};
+ function drawStroke(stroke){
+  if(!stroke.points.length)return;
+  const pts=stroke.points.map(p=>({x:p.x*cssWidth,y:p.y*cssHeight}));
+  ctx.beginPath();ctx.strokeStyle=stroke.color;ctx.lineWidth=stroke.width;ctx.lineCap='round';ctx.lineJoin='round';
+  if(pts.length===1){ctx.arc(pts[0].x,pts[0].y,stroke.width/2,0,Math.PI*2);ctx.fillStyle=stroke.color;ctx.fill();return}
+  ctx.moveTo(pts[0].x,pts[0].y);
+  if(pts.length===2){ctx.lineTo(pts[1].x,pts[1].y)}else{
+   for(let i=1;i<pts.length-1;i++){const midX=(pts[i].x+pts[i+1].x)/2,midY=(pts[i].y+pts[i+1].y)/2;ctx.quadraticCurveTo(pts[i].x,pts[i].y,midX,midY)}
+   const last=pts[pts.length-1];ctx.lineTo(last.x,last.y);
+  }
+  ctx.stroke();
+ }
+ function redraw(){ctx.clearRect(0,0,cssWidth,cssHeight);strokes.forEach(drawStroke);if(activeStroke)drawStroke(activeStroke);updateUI()}
+ function resize(){
+  const rect=wrap.getBoundingClientRect();if(!rect.width||!rect.height)return;
+  cssWidth=rect.width;cssHeight=rect.height;dpr=Math.min(window.devicePixelRatio||1,2);
+  canvas.width=Math.round(cssWidth*dpr);canvas.height=Math.round(cssHeight*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);redraw();
+ }
+ if('ResizeObserver' in window){new ResizeObserver(resize).observe(wrap)}else{window.addEventListener('resize',resize)}
+ colorButtons.forEach(button=>button.addEventListener('click',()=>{color=button.dataset.color;colorButtons.forEach(b=>{const selected=b===button;b.classList.toggle('is-selected',selected);b.setAttribute('aria-pressed',String(selected))});cursor.style.borderColor=color}));
+ sizeInput.addEventListener('input',()=>{width=Number(sizeInput.value);sizeOutput.value=width+' px';sizeOutput.textContent=width+' px';cursor.style.width=Math.max(8,width+8)+'px';cursor.style.height=Math.max(8,width+8)+'px'});
+ function moveCursor(e){const p=pointFromEvent(e);cursor.style.left=(p.x*cssWidth)+'px';cursor.style.top=(p.y*cssHeight)+'px'}
+ canvas.addEventListener('pointerdown',e=>{if(e.button!==undefined&&e.button!==0)return;e.preventDefault();pointerId=e.pointerId;canvas.setPointerCapture(pointerId);activeStroke={color,width,points:[pointFromEvent(e)]};wrap.classList.add('is-drawing');moveCursor(e);redraw()});
+ canvas.addEventListener('pointermove',e=>{moveCursor(e);if(!activeStroke||e.pointerId!==pointerId)return;e.preventDefault();const events=e.getCoalescedEvents?e.getCoalescedEvents():[e];events.forEach(ev=>{const p=pointFromEvent(ev);const last=activeStroke.points[activeStroke.points.length-1];if(!last||Math.hypot(p.x-last.x,p.y-last.y)>.0007)activeStroke.points.push(p)});redraw()});
+ function finish(e){if(!activeStroke||e.pointerId!==pointerId)return;activeStroke.points.push(pointFromEvent(e));strokes.push(activeStroke);activeStroke=null;pointerId=null;wrap.classList.remove('is-drawing');redraw()}
+ canvas.addEventListener('pointerup',finish);canvas.addEventListener('pointercancel',finish);canvas.addEventListener('lostpointercapture',()=>{if(activeStroke){strokes.push(activeStroke);activeStroke=null;pointerId=null;wrap.classList.remove('is-drawing');redraw()}});
+ canvas.addEventListener('pointerenter',moveCursor);canvas.addEventListener('pointerleave',()=>{if(!activeStroke)cursor.style.opacity='0'});canvas.addEventListener('pointermove',()=>{if(wrap.matches(':hover'))cursor.style.opacity='1'});
+ undoButton.addEventListener('click',()=>{if(strokes.length){strokes.pop();redraw()}});
+ clearButton.addEventListener('click',()=>{strokes=[];activeStroke=null;pointerId=null;redraw()});
+ window.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();if(strokes.length){strokes.pop();redraw()}}});
+ resize();sizeInput.dispatchEvent(new Event('input'));
+})();
 </script>
 </body></html>
