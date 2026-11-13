@@ -303,6 +303,17 @@ img,svg,video,canvas{max-width:100%}
 .draw-panel .draw-lab-heading p{max-width:420px}
 .draw-panel .draw-minimize{flex:0 0 32px;width:32px;height:32px;display:grid;place-items:center;border:1px solid #cbd5e1;border-radius:50%;background:#fff;color:#334155;font-size:22px;line-height:1;cursor:pointer}
 .draw-panel .draw-spark{display:none}
+.draw-calculator{margin:0 0 10px;padding:11px 12px;border:1px solid #dbe4e8;border-radius:13px;background:#f8fafc;color:#334155}
+.draw-calculator>label{display:block;margin-bottom:7px;font:900 12px Nunito;color:#334155}
+.draw-calculator-row{display:flex;gap:7px}
+.draw-calculator-row input{min-width:0;flex:1;padding:10px 12px;border:1.5px solid #cbd5e1;border-radius:10px;background:#fff;color:#18181b;font:800 15px Nunito;outline:none}
+.draw-calculator-row input:focus{border-color:#0d9488;box-shadow:0 0 0 3px #0d94881c}
+.draw-calculator-row button{padding:9px 14px;border:1px solid #0f766e;border-radius:10px;background:#0d9488;color:#fff;font:900 12px Nunito;cursor:pointer}
+.draw-calculator-row button:hover{background:#0f766e}
+.draw-calculator-result{min-height:23px;margin-top:8px;color:#0f766e;font:900 16px Nunito;overflow-wrap:anywhere}
+.draw-calculator-result.is-error{color:#be123c;font-size:12px}
+.draw-calculator small{display:block;margin-top:4px;color:#64748b;font:700 10px Nunito}
+@media(max-width:420px){.draw-calculator-row{flex-direction:column}.draw-calculator-row button{width:100%}}
 .draw-panel .draw-toolbar{gap:10px;padding:9px}
 .draw-panel .draw-colors{gap:4px}
 .draw-panel .draw-color{width:27px;height:27px}
@@ -430,6 +441,15 @@ document.addEventListener('DOMContentLoaded',()=>{
     <label class="draw-width" for="draw-size"><span>Espessura</span><input id="draw-size" type="range" min="1" max="18" value="4"><output id="draw-size-value" for="draw-size">4 px</output></label>
     <div class="draw-actions draw-tool-actions"><button type="button" id="draw-pencil" class="draw-tool-button is-active" aria-label="Lápis" title="Lápis" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 20 4.5-1 10.8-10.8a2.1 2.1 0 0 0-3-3L5.5 16 4 20Z"/><path d="m14.8 6.2 3 3"/></svg></button><button type="button" id="draw-eraser" class="draw-tool-button" aria-label="Borracha" title="Borracha" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 16 8.8-8.8a2 2 0 0 1 2.8 0l2.2 2.2a2 2 0 0 1 0 2.8L12 20H8l-5-5a2 2 0 0 1 0-2.8l4-4"/><path d="m10 13 5 5"/></svg></button><button type="button" id="draw-undo" disabled aria-label="Desfazer" title="Desfazer">↶</button><button type="button" id="draw-clear" aria-label="Limpar tudo" title="Limpar tudo">⌫</button></div>
   </div>
+  <div class="draw-calculator" aria-label="Calculadora matemática">
+    <label for="draw-expression">Resolver uma expressão matemática</label>
+    <div class="draw-calculator-row">
+      <input id="draw-expression" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="Ex.: 2 + 2, √81, 3^2 × 4">
+      <button type="button" id="draw-calculate">Calcular</button>
+    </div>
+    <div class="draw-calculator-result" id="draw-calculator-result" role="status" aria-live="polite">Digite uma expressão e pressione Enter.</div>
+    <small>Use +, −, ×, ÷, ^, √ e parênteses. Você também pode usar * e /.</small>
+  </div>
   <div class="draw-canvas-wrap" id="draw-canvas-wrap">
     <canvas id="draw-canvas" aria-label="Área livre para desenhar com mouse, caneta ou toque">Seu navegador não oferece suporte ao Canvas.</canvas>
     <span class="draw-cursor" id="draw-cursor" aria-hidden="true"></span>
@@ -438,6 +458,35 @@ document.addEventListener('DOMContentLoaded',()=>{
   <div class="draw-footer"><span>Seus desenhos ficam nesta sessão enquanto a página estiver aberta.</span><span>Experimente combinar cores e espessuras.</span></div>
 </section></div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+ const input=document.getElementById('draw-expression'),button=document.getElementById('draw-calculate'),output=document.getElementById('draw-calculator-result');
+ if(!input||!button||!output)return;
+ function calculate(raw){
+  let source=raw.trim().replace(/=$/,'').replace(/,/g,'.').replace(/×/g,'*').replace(/[·⋅]/g,'*').replace(/[÷]/g,'/').replace(/[−–]/g,'-').replace(/√/g,'sqrt ').replace(/∛/g,'cbrt ');
+  const tokens=source.match(/(?:sqrt|cbrt)|(?:\d+(?:\.\d*)?|\.\d+)|[()+\-*/^]/gy);
+  if(!tokens||tokens.join('')!==source.replace(/\s+/g,''))throw new Error('Expressão inválida. Confira os números e operadores.');
+  let pos=0;
+  const peek=()=>tokens[pos],take=()=>tokens[pos++];
+  function primary(){
+   const t=take();
+   if(t==='('){const v=expression();if(take()!==')')throw new Error('Está faltando fechar um parêntese.');return v}
+   if(t==='sqrt'||t==='cbrt'){const v=unary();if(t==='sqrt'&&v<0)throw new Error('Não existe raiz quadrada real de número negativo.');return t==='sqrt'?Math.sqrt(v):Math.cbrt(v)}
+   if(t===undefined||!/^\d/.test(t)&&!/^\.\d/.test(t))throw new Error('Informe uma expressão matemática válida.');
+   return Number(t);
+  }
+  function power(){let a=primary();if(peek()==='^'){take();a=Math.pow(a,unary())}return a}
+  function unary(){if(peek()==='+'){take();return unary()}if(peek()==='-'){take();return -unary()}return power()}
+  function term(){let v=unary();while(peek()==='*'||peek()==='/'){const op=take(),b=unary();if(op==='/'&&b===0)throw new Error('Não é possível dividir por zero.');v=op==='*'?v*b:v/b}return v}
+  function expression(){let v=term();while(peek()==='+'||peek()==='-'){const op=take(),b=term();v=op==='+'?v+b:v-b}return v}
+  const result=expression();if(pos!==tokens.length)throw new Error('Não foi possível interpretar toda a expressão.');
+  if(!Number.isFinite(result))throw new Error('O resultado não é um número finito.');
+  return result;
+ }
+ function solve(){try{const raw=input.value.trim();if(!raw){output.textContent='Digite uma expressão matemática.';output.classList.add('is-error');return}const value=calculate(raw);const formatted=new Intl.NumberFormat('pt-BR',{maximumFractionDigits:12}).format(value);const expression=raw.replace(/=$/,'').trim();output.textContent=expression+' = '+formatted;output.classList.remove('is-error')}catch(error){output.textContent=error.message||'Não foi possível resolver essa expressão.';output.classList.add('is-error')}}
+ button.addEventListener('click',solve);input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();solve()}});
+});
+</script>
 <script>
 (()=>{
  const dock=document.getElementById('draw-dock'),toggle=document.getElementById('draw-dock-toggle'),panel=document.getElementById('draw-panel'),minimize=document.getElementById('draw-minimize');
