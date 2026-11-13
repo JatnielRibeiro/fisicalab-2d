@@ -463,7 +463,7 @@ document.addEventListener('DOMContentLoaded',()=>{
  const input=document.getElementById('draw-expression'),button=document.getElementById('draw-calculate'),output=document.getElementById('draw-calculator-result');
  if(!input||!button||!output)return;
  function calculate(raw){
-  let source=raw.trim().replace(/=$/,'').replace(/,/g,'.').replace(/×/g,'*').replace(/[·⋅]/g,'*').replace(/[÷]/g,'/').replace(/[−–]/g,'-').replace(/√/g,'sqrt ').replace(/∛/g,'cbrt ');
+  let source=raw.trim().replace(/=$/,'').replace(/,/g,'.').replace(/×/g,'*').replace(/[·⋅]/g,'*').replace(/[÷]/g,'/').replace(/[−–]/g,'-').replace(/√/g,'sqrt ').replace(/∛/g,'cbrt ').replace(/\s+/g,'');
   const tokens=source.match(/(?:sqrt|cbrt)|(?:\d+(?:\.\d*)?|\.\d+)|[()+\-*/^]/gy);
   if(!tokens||tokens.join('')!==source.replace(/\s+/g,''))throw new Error('Expressão inválida. Confira os números e operadores.');
   let pos=0;
