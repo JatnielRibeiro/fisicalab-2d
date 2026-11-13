@@ -36,16 +36,71 @@ nav a{color:#3f3f46}nav a:hover,nav a.active{background:#e4e4e7}nav .login{backg
 .foot{color:#71717a}
 
 
-/* Menu de laboratórios flutuante: hover no desktop e clique em qualquer dispositivo */
-nav{align-items:center}
-nav .lab-dropdown{position:relative;display:inline-flex;align-items:center;flex:0 0 auto}
-nav .lab-dropdown-toggle{display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border:0;border-radius:24px;background:transparent;color:#3f3f46;font:800 14px Nunito,Arial,sans-serif;white-space:nowrap;cursor:pointer}
-nav .lab-dropdown-toggle:hover,nav .lab-dropdown.open .lab-dropdown-toggle,nav .lab-dropdown:focus-within .lab-dropdown-toggle{background:#e4e4e7;color:#18181b}
-nav .lab-dropdown-menu{display:none!important;position:absolute!important;z-index:9999!important;top:calc(100% + 8px)!important;left:0!important;right:auto!important;width:270px!important;max-height:min(70vh,460px)!important;overflow-y:auto!important;overflow-x:hidden!important;padding:8px!important;margin:0!important;flex-direction:column!important;align-items:stretch!important;gap:2px!important;flex-wrap:nowrap!important;background:#fff!important;border:1px solid #d4d4d8!important;border-radius:14px!important;box-shadow:0 16px 38px rgba(24,24,27,.16)!important}
-nav .lab-dropdown:hover .lab-dropdown-menu,nav .lab-dropdown:focus-within .lab-dropdown-menu,nav .lab-dropdown.open .lab-dropdown-menu{display:grid!important}
-nav .lab-dropdown-menu a{display:flex!important;flex:0 0 auto!important;align-items:center!important;width:100%!important;padding:10px 11px!important;margin:0!important;border-radius:9px!important;color:#3f3f46!important;text-decoration:none!important;font:800 13px Nunito,Arial,sans-serif!important;white-space:normal!important;background:transparent}
-nav .lab-dropdown-menu a:hover,nav .lab-dropdown-menu a.active{background:#ccfbf1!important;color:#0f766e!important}
-@media(max-width:580px){nav .lab-dropdown-menu{left:auto!important;right:0!important;width:min(270px,calc(100vw - 30px))!important}nav .lab-dropdown-toggle{font-size:13px;padding:9px 12px}}
+/* Menu de laboratórios em grade: quatro assuntos por coluna */
+nav .lab-dropdown{position:relative}
+nav .lab-dropdown-menu,
+.top .bar>nav .lab-dropdown-menu{
+ display:none!important;
+ position:absolute!important;
+ z-index:9999!important;
+ top:calc(100% + 8px)!important;
+ left:0!important;
+ right:auto!important;
+ width:min(660px,calc(100vw - 24px))!important;
+ max-height:none!important;
+ overflow:visible!important;
+ padding:10px!important;
+ margin:0!important;
+ border:1px solid #d4d4d8!important;
+ border-radius:14px!important;
+ background:#fff!important;
+ box-shadow:0 16px 38px rgba(24,24,27,.16)!important;
+ grid-template-rows:repeat(4,min-content)!important;
+ grid-auto-flow:column!important;
+ grid-auto-columns:minmax(0,1fr)!important;
+ column-gap:8px!important;
+ row-gap:3px!important;
+ align-items:stretch!important;
+}
+nav .lab-dropdown:hover .lab-dropdown-menu,
+nav .lab-dropdown:focus-within .lab-dropdown-menu,
+nav .lab-dropdown.open .lab-dropdown-menu,
+.top .bar>nav .lab-dropdown:hover .lab-dropdown-menu,
+.top .bar>nav .lab-dropdown:focus-within .lab-dropdown-menu,
+.top .bar>nav .lab-dropdown.open .lab-dropdown-menu{display:grid!important}
+nav .lab-dropdown-menu a,
+.top .bar>nav .lab-dropdown-menu a{
+ display:flex!important;
+ align-items:center!important;
+ width:100%!important;
+ min-width:0!important;
+ padding:10px 8px!important;
+ margin:0!important;
+ border-radius:9px!important;
+ color:#3f3f46!important;
+ text-decoration:none!important;
+ font:800 13px Nunito,Arial,sans-serif!important;
+ white-space:normal!important;
+ line-height:1.25!important;
+}
+nav .lab-dropdown-menu a:hover,
+nav .lab-dropdown-menu a.active{background:#ccfbf1!important;color:#0f766e!important}
+@media(max-width:700px){
+ nav .lab-dropdown-menu,.top .bar>nav .lab-dropdown-menu{
+  width:min(94vw,560px)!important;
+  left:auto!important;right:0!important;
+  grid-template-rows:repeat(4,min-content)!important;
+  grid-auto-flow:column!important;
+  grid-auto-columns:minmax(0,1fr)!important;
+ }
+ nav .lab-dropdown-menu a,.top .bar>nav .lab-dropdown-menu a{
+  font-size:11px!important;padding:9px 5px!important;overflow-wrap:anywhere!important
+ }
+}
+@media(max-width:420px){
+ nav .lab-dropdown-menu,.top .bar>nav .lab-dropdown-menu{width:calc(100vw - 20px)!important}
+ nav .lab-dropdown-menu a,.top .bar>nav .lab-dropdown-menu a{font-size:10px!important;padding:8px 4px!important}
+}
 
 
 /* Cabeçalho principal: logo e seletor em uma única linha; opções só no dropdown */
