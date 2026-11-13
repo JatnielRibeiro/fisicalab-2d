@@ -337,7 +337,51 @@ img,svg,video,canvas{max-width:100%}
 @media(prefers-reduced-motion:reduce){.draw-panel{transition:none}}
 .draw-tool-actions{display:flex;align-items:center;gap:7px}.draw-actions .draw-tool-button{width:36px;height:36px;display:grid;place-items:center;padding:7px;border-radius:10px;border:1.5px solid #cbd5e1;background:#fff;color:#475569}.draw-actions .draw-tool-button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.draw-actions .draw-tool-button.is-active{background:#ccfbf1!important;border-color:#0f766e!important;color:#0f766e!important;box-shadow:0 0 0 2px rgba(13,148,136,.12)}.draw-panel .draw-actions .draw-tool-button{width:34px;height:34px;padding:6px}</style>
 <link rel="icon" type="image/svg+xml" href="assets/universolab-favicon.svg">
-</head>
+<style>
+/* PAPYRUS THEME — identidade visual compartilhada PapyrusNotes / UniversoLab */
+:root{
+ --bg:#f4f4f2;--page-bg:#f4f4f2;--panel:#ffffff;--panel2:#f8f8f6;
+ --primary:#315f91;--primary-dark:#28517e;--primary-soft:#eaf2f8;
+ --accent:#3a8ba6;--green:#6f927f;--text:#27313d;--ink:#27313d;
+ --muted:#77818b;--border:#e2e5e8;--paper:#fbf8ec;
+}
+*{box-sizing:border-box}
+body{background:#f4f4f2!important;color:#27313d!important;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important}
+h1,h2,h3,h4,.brand,.section-head h2,.hero h1{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;letter-spacing:-.035em}
+.site-header,header,.top{background:#315f91!important;color:#fff!important;border:0!important;box-shadow:0 1px 4px rgba(25,48,74,.12)}
+.site-header .brand,.site-header .brand span,.site-header .brand em,.brand,.brand span,.brand em{color:#fff!important}
+.site-header .brand-mark,.brand-mark{background:#eaf2f8!important;color:#315f91!important;box-shadow:none!important;border-radius:9px!important}
+.site-header nav a,.site-header .discipline-link,.site-header .lab-dropdown-toggle,header nav a,.top nav a{color:#f7fbff!important}
+.site-header nav a:hover,.site-header nav a.active,.site-header .discipline-link:hover,.site-header .lab-dropdown-toggle:hover{background:rgba(255,255,255,.15)!important;color:#fff!important}
+.site-header .lab-dropdown-menu{background:#fff!important;border:1px solid #e2e5e8!important;box-shadow:0 12px 28px rgba(26,44,64,.16)!important}
+.site-header .lab-dropdown-menu a{color:#3f5368!important}
+.site-header .lab-dropdown-menu a:hover,.site-header .lab-dropdown-menu a.active{background:#eaf2f8!important;color:#285b96!important}
+.hero,.hub-hero,.welcome{background:#fff!important;color:#27313d!important;border:1px solid #e2e5e8!important;border-radius:14px!important;box-shadow:none!important}
+.hero h1,.hub-hero h1,.welcome h1,.section-head h2{color:#27313d!important}
+.hero p,.hub-hero p,.welcome p,.section-head p{color:#77818b!important}
+.hero .eyebrow,.hub-hero .eyebrow,.module-kicker{color:#3a8ba6!important}
+.panel,aside,.card,.discipline-card,.metric,.results .metric,.scientist-card,.experiment-card{
+ background:#fff!important;color:#27313d!important;border:1px solid #e2e5e8!important;
+ border-radius:11px!important;box-shadow:0 2px 10px rgba(39,49,61,.035)!important
+}
+aside b,.field label,.metric span{color:#77818b!important}
+aside a{color:#536273!important;border-radius:8px!important}
+aside a:hover,aside a.active{background:#eaf2f8!important;color:#285b96!important}
+input,select,textarea{background:#fff!important;color:#27313d!important;border:1px solid #dce2e7!important;border-radius:8px!important}
+button,.button,.btn,.go,.filter.active,.discipline-card a{background:#315f91!important;color:#fff!important;border:1px solid #315f91!important;border-radius:8px!important;box-shadow:none!important}
+button:hover,.button:hover,.btn:hover,.go:hover{background:#28517e!important}
+button:disabled{background:#e8edf1!important;color:#98a3ad!important;border-color:#e2e5e8!important}
+.filter,.tag,.pill{background:#fff!important;color:#526273!important;border:1px solid #dce2e7!important;border-radius:20px!important}
+.filter.active{background:#315f91!important;color:#fff!important;border-color:#315f91!important}
+.art{background:linear-gradient(135deg,#eaf2f8,#dce8f1)!important}
+.art.orange,.art.green,.art.purple,.art.gold,.art.teal{background:linear-gradient(135deg,#fbf8ec,#eaf2f8)!important}
+.go{background:#315f91!important;color:#fff!important}
+.banner{background:#fff!important;color:#27313d!important;border:1px solid #e2e5e8!important;border-radius:12px!important;box-shadow:none!important}
+.banner p{color:#77818b!important}
+footer,.foot{color:#77818b!important}
+canvas,.chart-canvas,.advanced-canvas{border-radius:10px}
+@media(max-width:700px){.site-header,.top{background:#315f91!important}.panel{border-radius:10px!important}}
+</style></head>
 <body>
 <header class="top"><div class="wrap bar"><a class="brand" href="index.html"><span class="brand-mark">⚛</span><span>Universo<em>Lab</em></span></a><nav><div class="lab-dropdown"><button id="lab-menu-toggle" class="lab-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Laboratórios <span aria-hidden="true">▾</span></button><div id="lab-menu-main" class="lab-dropdown-menu"><a href="laboratorio.html">🚀 Lançamento Oblíquo</a><a href="vetores.html">🧭 Laboratório de Vetores</a><a href="estatica.html">⚖️ Estática</a><a href="movimento-retilineo.html">📐 Movimento Retilíneo</a><a href="queda-livre.html">⚡ Queda Livre</a><a href="gravitacao.html">🪐 Gravitação</a><a href="energia-mecanica.html">🔋 Energia Mecânica</a><a href="leis-newton.html">⚖️ Leis de Newton</a><a href="movimento-circular.html">🔄 Movimento Circular</a><a href="eletromagnetismo.html">🧲 Eletromagnetismo</a><a href="conteudos.html">📚 Conteúdos</a><a href="exercicios.html">📝 Exercícios</a></div></div><a class="discipline-link" href="matematica.html">Matemática</a><a class="discipline-link" href="fisica.html">Física</a><a class="discipline-link" href="ciencias.html">Ciências</a><a class="hide-mobile" href="#desafios">Desafios</a><a class="hide-mobile" href="#sobre">Sobre</a><a class="login" href="laboratorio.html">Explorar</a></nav></div></header>
 <main class="wrap">
