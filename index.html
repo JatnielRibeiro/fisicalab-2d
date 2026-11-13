@@ -181,11 +181,83 @@ img,svg,video,canvas{max-width:100%}
 .visual-feature-copy a{display:inline-flex;align-items:center;gap:10px;padding:10px 17px;border-radius:24px;background:#0d9488;border:2px solid #0f766e;color:#fff;text-decoration:none;font-weight:900}
 .visual-feature-copy a:hover{filter:brightness(1.06)}
 @media(max-width:600px){.visual-feature{grid-template-columns:1fr;padding:17px;gap:14px;margin:18px 0 24px}.visual-feature-art{min-height:112px}.visual-feature-art>span{font-size:60px}}
-.learning-features{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:22px 0 28px;align-items:stretch}.learning-features .visual-feature{grid-template-columns:minmax(105px,.72fr) minmax(0,2fr);gap:16px;margin:0;padding:18px 20px;min-width:0}.learning-features .visual-feature-art{min-height:145px}.learning-features .visual-feature-copy h2{font-size:clamp(20px,2vw,26px)}.learning-features .visual-feature-copy p{font-size:13px}.experiment-art{background:linear-gradient(145deg,#e0f2fe,#d1fae5)}.experiment-art>span{font-size:70px}@media(max-width:900px){.learning-features{grid-template-columns:1fr}.learning-features .visual-feature{grid-template-columns:minmax(130px,.6fr) minmax(0,2fr)}}@media(max-width:580px){.learning-features{gap:12px}.learning-features .visual-feature{grid-template-columns:1fr;padding:15px}.learning-features .visual-feature-art{min-height:100px}.learning-features .visual-feature-art>span{font-size:58px}.learning-features .visual-feature-copy h2{font-size:23px}}</style>
+.learning-features{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:22px 0 28px;align-items:stretch}.learning-features .visual-feature{grid-template-columns:minmax(105px,.72fr) minmax(0,2fr);gap:16px;margin:0;padding:18px 20px;min-width:0}.learning-features .visual-feature-art{min-height:145px}.learning-features .visual-feature-copy h2{font-size:clamp(20px,2vw,26px)}.learning-features .visual-feature-copy p{font-size:13px}.experiment-art{background:linear-gradient(145deg,#e0f2fe,#d1fae5)}.experiment-art>span{font-size:70px}@media(max-width:900px){.learning-features{grid-template-columns:1fr}.learning-features .visual-feature{grid-template-columns:minmax(130px,.6fr) minmax(0,2fr)}}@media(max-width:580px){.learning-features{gap:12px}.learning-features .visual-feature{grid-template-columns:1fr;padding:15px}.learning-features .visual-feature-art{min-height:100px}.learning-features .visual-feature-art>span{font-size:58px}.learning-features .visual-feature-copy h2{font-size:23px}}
+/* Ajuste definitivo do menu suspenso de Laboratórios */
+#lab-menu-toggle{
+ appearance:none!important;
+ display:inline-flex!important;
+ align-items:center!important;
+ justify-content:center!important;
+ gap:9px!important;
+ padding:11px 17px!important;
+ border:0!important;
+ border-radius:999px!important;
+ background:#e4e4e7!important;
+ color:#27272a!important;
+ font:900 14px Nunito,Arial,sans-serif!important;
+ line-height:1.2!important;
+ cursor:pointer!important;
+ box-shadow:none!important;
+ white-space:nowrap!important;
+}
+#lab-menu-toggle:hover,#lab-menu-toggle[aria-expanded="true"]{background:#d4d4d8!important;color:#18181b!important}
+#lab-menu-main{
+ display:none!important;
+ position:absolute!important;
+ z-index:10000!important;
+ top:calc(100% + 9px)!important;
+ left:0!important;
+ right:auto!important;
+ width:min(820px,calc(100vw - 32px))!important;
+ max-width:calc(100vw - 32px)!important;
+ max-height:none!important;
+ overflow:visible!important;
+ padding:14px!important;
+ margin:0!important;
+ border:1px solid #d4d4d8!important;
+ border-radius:16px!important;
+ background:#fff!important;
+ box-shadow:0 16px 38px rgba(24,24,27,.16)!important;
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ grid-template-rows:repeat(4,min-content)!important;
+ grid-auto-flow:column!important;
+ gap:5px 14px!important;
+ align-items:stretch!important;
+}
+.lab-dropdown.open #lab-menu-main,
+.lab-dropdown:hover #lab-menu-main,
+.lab-dropdown:focus-within #lab-menu-main{display:grid!important}
+#lab-menu-main a{
+ display:flex!important;
+ align-items:center!important;
+ width:100%!important;
+ min-width:0!important;
+ min-height:42px!important;
+ padding:9px 11px!important;
+ margin:0!important;
+ border-radius:10px!important;
+ color:#3f3f46!important;
+ background:transparent!important;
+ text-decoration:none!important;
+ font:800 13px Nunito,Arial,sans-serif!important;
+ line-height:1.25!important;
+ white-space:normal!important;
+}
+#lab-menu-main a:hover,#lab-menu-main a:focus{background:#ccfbf1!important;color:#0f766e!important}
+@media(max-width:700px){
+ #lab-menu-main{width:min(94vw,620px)!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:repeat(6,min-content)!important;gap:4px 8px!important;left:auto!important;right:0!important}
+ #lab-menu-main a{font-size:12px!important;padding:8px!important}
+}
+@media(max-width:420px){
+ #lab-menu-toggle{padding:9px 11px!important;font-size:12px!important}
+ #lab-menu-main{width:calc(100vw - 24px)!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:repeat(6,min-content)!important}
+ #lab-menu-main a{font-size:11px!important}
+}
+</style>
 <link rel="icon" type="image/svg+xml" href="assets/universolab-favicon.svg">
 </head>
 <body>
-<header class="top"><div class="wrap bar"><a class="brand" href="index.html"><span class="brand-mark">⚛</span><span>Universo<em>Lab</em></span></a><nav><div class="lab-dropdown"><button class="lab-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Laboratórios <span aria-hidden="true">▾</span></button><div class="lab-dropdown-menu"><a href="laboratorio.html">🚀 Lançamento Oblíquo</a><a href="vetores.html">🧭 Laboratório de Vetores</a><a href="estatica.html">⚖️ Estática</a><a href="movimento-retilineo.html">📐 Movimento Retilíneo</a><a href="queda-livre.html">⚡ Queda Livre</a><a href="gravitacao.html">🪐 Gravitação</a><a href="energia-mecanica.html">🔋 Energia Mecânica</a><a href="leis-newton.html">⚖️ Leis de Newton</a><a href="movimento-circular.html">🔄 Movimento Circular</a><a href="eletromagnetismo.html">🧲 Eletromagnetismo</a><a href="conteudos.html">📚 Conteúdos</a><a href="exercicios.html">📝 Exercícios</a></div></div><a class="discipline-link" href="matematica.html">Matemática</a><a class="discipline-link" href="fisica.html">Física</a><a class="discipline-link" href="ciencias.html">Ciências</a><a class="hide-mobile" href="#desafios">Desafios</a><a class="hide-mobile" href="#sobre">Sobre</a><a class="login" href="laboratorio.html">Explorar</a></nav></div></header>
+<header class="top"><div class="wrap bar"><a class="brand" href="index.html"><span class="brand-mark">⚛</span><span>Universo<em>Lab</em></span></a><nav><div class="lab-dropdown"><button id="lab-menu-toggle" class="lab-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Laboratórios <span aria-hidden="true">▾</span></button><div id="lab-menu-main" class="lab-dropdown-menu"><a href="laboratorio.html">🚀 Lançamento Oblíquo</a><a href="vetores.html">🧭 Laboratório de Vetores</a><a href="estatica.html">⚖️ Estática</a><a href="movimento-retilineo.html">📐 Movimento Retilíneo</a><a href="queda-livre.html">⚡ Queda Livre</a><a href="gravitacao.html">🪐 Gravitação</a><a href="energia-mecanica.html">🔋 Energia Mecânica</a><a href="leis-newton.html">⚖️ Leis de Newton</a><a href="movimento-circular.html">🔄 Movimento Circular</a><a href="eletromagnetismo.html">🧲 Eletromagnetismo</a><a href="conteudos.html">📚 Conteúdos</a><a href="exercicios.html">📝 Exercícios</a></div></div><a class="discipline-link" href="matematica.html">Matemática</a><a class="discipline-link" href="fisica.html">Física</a><a class="discipline-link" href="ciencias.html">Ciências</a><a class="hide-mobile" href="#desafios">Desafios</a><a class="hide-mobile" href="#sobre">Sobre</a><a class="login" href="laboratorio.html">Explorar</a></nav></div></header>
 <main class="wrap">
 <aside class="construction-note" aria-label="Aviso sobre o desenvolvimento do UniversoLab">
   <img class="construction-sticker" src="assets/construction-cone.svg" alt="Cone de sinalização ilustrado em estilo adesivo">
