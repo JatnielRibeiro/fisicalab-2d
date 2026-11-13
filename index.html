@@ -130,7 +130,7 @@ img,svg,video,canvas{max-width:100%}
 .visual-feature-copy a{display:inline-flex;align-items:center;gap:10px;padding:10px 17px;border-radius:24px;background:#0d9488;border:2px solid #0f766e;color:#fff;text-decoration:none;font-weight:900}
 .visual-feature-copy a:hover{filter:brightness(1.06)}
 @media(max-width:600px){.visual-feature{grid-template-columns:1fr;padding:17px;gap:14px;margin:18px 0 24px}.visual-feature-art{min-height:112px}.visual-feature-art>span{font-size:60px}}
-</style>
+.learning-features{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:22px 0 28px;align-items:stretch}.learning-features .visual-feature{grid-template-columns:minmax(105px,.72fr) minmax(0,2fr);gap:16px;margin:0;padding:18px 20px;min-width:0}.learning-features .visual-feature-art{min-height:145px}.learning-features .visual-feature-copy h2{font-size:clamp(20px,2vw,26px)}.learning-features .visual-feature-copy p{font-size:13px}.experiment-art{background:linear-gradient(145deg,#e0f2fe,#d1fae5)}.experiment-art>span{font-size:70px}@media(max-width:900px){.learning-features{grid-template-columns:1fr}.learning-features .visual-feature{grid-template-columns:minmax(130px,.6fr) minmax(0,2fr)}}@media(max-width:580px){.learning-features{gap:12px}.learning-features .visual-feature{grid-template-columns:1fr;padding:15px}.learning-features .visual-feature-art{min-height:100px}.learning-features .visual-feature-art>span{font-size:58px}.learning-features .visual-feature-copy h2{font-size:23px}}</style>
 <link rel="icon" type="image/svg+xml" href="assets/universolab-favicon.svg">
 </head>
 <body>
@@ -147,9 +147,15 @@ img,svg,video,canvas{max-width:100%}
 <section class="hero"><span class="pill">🔬 DIVULGAÇÃO CIENTÍFICA · EXPLORE E DESCUBRA</span><h1>Explore o universo <span>do conhecimento</span></h1><p>Explore fenômenos, investigue ideias e descubra como a Matemática, a Física e as Ciências ajudam a compreender o mundo ao nosso redor.</p>
 <div class="filters discipline-filters" aria-label="Filtrar por disciplina"><button class="filter active" data-subject="all">Todas</button><button class="filter" data-subject="matematica">Matemática</button><button class="filter" data-subject="fisica">Física</button><button class="filter" data-subject="ciencias">Ciências</button></div>
 <div class="filters topic-filters" aria-label="Filtrar experiências por tema"><button class="filter active" data-filter="all">Todas</button><button class="filter" data-filter="lab">Laboratórios</button><button class="filter" data-filter="cinematica">Cinemática</button><button class="filter" data-filter="dinamica">Dinâmica</button><button class="filter" data-filter="estatica">Estática</button><button class="filter" data-filter="energia">Energia</button><button class="filter" data-filter="vetores">Vetores</button></div></section>
+<section class="learning-features" aria-label="Recursos de aprendizagem">
 <section class="visual-feature" aria-label="Fichas Visuais e Interativas">
   <div class="visual-feature-art" aria-hidden="true"><span>🗂️</span><i>∑</i><i>⚛</i><i>🧪</i></div>
   <div class="visual-feature-copy"><span class="visual-feature-kicker">APRENDIZAGEM VISUAL</span><h2>Aprenda com as Fichas Visuais</h2><p>Explore conceitos de Matemática, Física e Ciências com explicações objetivas, fórmulas, exemplos e desafios interativos.</p><a href="fichas-visuais.html">Acessar fichas visuais <span aria-hidden="true">→</span></a></div>
+</section>
+<section class="visual-feature experiment-feature" aria-label="Experimentos de Laboratório de Física">
+  <div class="visual-feature-art experiment-art" aria-hidden="true"><span>🔬</span><i>⚙</i><i>📹</i><i>📈</i></div>
+  <div class="visual-feature-copy"><span class="visual-feature-kicker">INVESTIGAÇÃO EXPERIMENTAL</span><h2>Experimentos de Laboratório de Física</h2><p>Aprenda Física por meio de experimentos, vídeos demonstrativos, aulas explicativas, observações e análise dos fenômenos.</p><a href="experimentos.html">Explorar experimentos <span aria-hidden="true">→</span></a></div>
+</section>
 </section>
 <section class="discipline-hubs" aria-label="Áreas de conhecimento"><a class="discipline-card math" href="matematica.html"><span>∑</span><b>Matemática</b><small>Raciocínio, padrões e modelagem</small><em>Explorar área →</em></a><a class="discipline-card physics" href="fisica.html"><span>⚛</span><b>Física</b><small>Fenômenos, leis e experimentação</small><em>Explorar área →</em></a><a class="discipline-card science" href="ciencias.html"><span>🧪</span><b>Ciências</b><small>Investigar a natureza e o mundo</small><em>Explorar área →</em></a></section><section id="laboratorios"><div class="section-head"><h2>🔬 Laboratórios e simulações</h2><p>Escolha uma experiência, investigue e comprove.</p></div>
 <div class="grid" id="cards">
