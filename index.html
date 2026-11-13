@@ -59,11 +59,7 @@ nav .lab-dropdown-menu a:hover,nav .lab-dropdown-menu a.active{background:#ccfbf
 @media(max-width:580px){.top .bar{height:62px}.top .bar>nav .lab-dropdown-menu{left:auto!important;right:0!important;width:min(270px,calc(100vw - 28px))!important}}
 
 
-.discipline-filters{margin:20px 0 8px}
 .topic-filters{margin:8px 0 29px}
-.discipline-filters .filter{background:transparent;color:#3f3f46;border-color:#a1a1aa}
-.discipline-filters .filter:hover{border-color:#0d9488;color:#0f766e}
-.discipline-filters .filter.active{background:#0d9488;color:#fff;border-color:#0d9488}
 .topic-filters .filter{background:#fff;color:#3f3f46;border-color:#a1a1aa}
 .topic-filters .filter:hover{border-color:#0d9488}
 .topic-filters .filter.active{background:#0d9488;color:#fff;border-color:#0d9488}
@@ -145,7 +141,6 @@ img,svg,video,canvas{max-width:100%}
   </div>
 </aside>
 <section class="hero"><span class="pill">🔬 DIVULGAÇÃO CIENTÍFICA · EXPLORE E DESCUBRA</span><h1>Explore o universo <span>do conhecimento</span></h1><p>Explore fenômenos, investigue ideias e descubra como a Matemática, a Física e as Ciências ajudam a compreender o mundo ao nosso redor.</p>
-<div class="filters discipline-filters" aria-label="Filtrar por disciplina"><button class="filter active" data-subject="all">Todas</button><button class="filter" data-subject="matematica">Matemática</button><button class="filter" data-subject="fisica">Física</button><button class="filter" data-subject="ciencias">Ciências</button></div>
 </section>
 <section class="learning-features" aria-label="Recursos de aprendizagem">
 <section class="visual-feature" aria-label="Fichas Visuais e Interativas">
@@ -170,11 +165,10 @@ img,svg,video,canvas{max-width:100%}
 <footer class="foot" id="sobre"><span>UniversoLab · Divulgação científica para aprender, experimentar e descobrir.</span><span class="credit">Desenvolvido por <strong>Jatniel Ribeiro Ferreira dos Santos</strong>.</span></footer>
 </main>
 <script>
-const topicFilters=[...document.querySelectorAll('.topic-filters .filter')],subjectFilters=[...document.querySelectorAll('.discipline-filters .filter')],cards=[...document.querySelectorAll('.card')],empty=document.getElementById('empty');
-let selectedTopic='all',selectedSubject='all';
-function applyFilters(){let count=0;cards.forEach(card=>{const topics=card.dataset.category.split(' '),subjects=(card.dataset.subject||'fisica').split(' ');const show=(selectedTopic==='all'||topics.includes(selectedTopic))&&(selectedSubject==='all'||subjects.includes(selectedSubject));card.style.display=show?'flex':'none';if(show)count++});empty.style.display=count?'none':'block';if(!count)empty.textContent=selectedSubject!=='all'?'Estamos preparando experiências para esta disciplina.':'Nenhuma experiência encontrada nessa categoria.';}
+const topicFilters=[...document.querySelectorAll('.topic-filters .filter')],cards=[...document.querySelectorAll('.card')],empty=document.getElementById('empty');
+let selectedTopic='all';
+function applyFilters(){let count=0;cards.forEach(card=>{const topics=card.dataset.category.split(' ');const show=selectedTopic==='all'||topics.includes(selectedTopic);card.style.display=show?'flex':'none';if(show)count++});empty.style.display=count?'none':'block';if(!count)empty.textContent='Nenhuma experiência encontrada nessa categoria.';}
 topicFilters.forEach(btn=>btn.addEventListener('click',()=>{topicFilters.forEach(x=>x.classList.toggle('active',x===btn));selectedTopic=btn.dataset.filter;applyFilters()}));
-subjectFilters.forEach(btn=>btn.addEventListener('click',()=>{subjectFilters.forEach(x=>x.classList.toggle('active',x===btn));selectedSubject=btn.dataset.subject;applyFilters()}));
 </script>
 <script>
 document.addEventListener('click',event=>{
